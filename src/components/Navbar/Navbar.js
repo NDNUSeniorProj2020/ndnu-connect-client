@@ -22,9 +22,9 @@ class Navbar extends React.Component {
   render() {
     const avatarMenu = (
       <Menu>
-        <Menu.Item key="0" style={{padding:'8px 35px 8px 35px'}}><Icon type="setting" theme="filled" />Settings</Menu.Item>
+        <Menu.Item key="0" className="dropdown-spacing"><Icon type="setting" theme="filled" />Settings</Menu.Item>
         <Menu.Divider />
-        <Menu.Item key="1" style={{padding:'8px 35px 8px 35px'}}><Icon type="logout" />Logout</Menu.Item>
+        <Menu.Item key="1" className="dropdown-spacing"><Icon type="logout" />Logout</Menu.Item>
       </Menu>
     );
 
