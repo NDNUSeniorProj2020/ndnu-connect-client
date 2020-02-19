@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import { Form, Input, Col, Button } from 'antd';
+import { Form, Input, Col, Row, Button } from 'antd';
 
 const SignupForm = Form.create()(
   class extends Component {
@@ -62,6 +62,7 @@ const SignupForm = Form.create()(
         <div>
           <h1 style={{textAlign:"left"}}>Sign Up</h1>
           <Form style={{width:"500px"}} layout='vertical' onSubmit={this.handleSubmit}>
+            <Row>
             <Col span={12} key={1} style={{paddingRight:"10px"}}>
             <Form.Item label="First Name">
               {getFieldDecorator('fName', {
@@ -86,6 +87,7 @@ const SignupForm = Form.create()(
               })(<Input />)}
             </Form.Item>
             </Col>
+            </Row>
             <Form.Item label="E-mail">
               {getFieldDecorator('email', {
                 rules: [
