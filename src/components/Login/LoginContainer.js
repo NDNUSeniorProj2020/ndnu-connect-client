@@ -1,14 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Description from '../Description/Description'
 import { Avatar, Dropdown, Icon, Menu } from 'antd';
 import SignupForm from './SignupForm';
+import './LoginContainer.css';
 
 class LoginContainer extends React.Component {
 
   render() {
     return (
-      <div style={{margin:"10% 8% 0 55%"}}>
-        <SignupForm />
+      <div className="container">
+        <div className="description">
+          <Description />
+        </div>
+        <div className="form">
+          <SignupForm />
+        </div>
       </div>
     );
   }
