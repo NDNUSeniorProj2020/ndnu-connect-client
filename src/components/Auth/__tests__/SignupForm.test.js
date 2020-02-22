@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 
 import SignupForm from '../SignupForm';
 
-describe('Testing LoginForm component', () => {
+describe('Testing SignupForm component', () => {
 	describe('Snapshot tests', () => {
 		it('should render without crashing', () => {
 			const tree = renderer.create(<SignupForm />);
