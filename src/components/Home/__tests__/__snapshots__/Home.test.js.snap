@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Home component should render without crashing. 1`] = `
+<h1>
+  NDNU Connect Home
+</h1>
+`;
