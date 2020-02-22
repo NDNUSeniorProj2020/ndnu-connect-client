@@ -43,3 +43,9 @@ These tests ensure:
 * Components are rendering without crashing
 * States are being updated correctly when functions are called
 * Functions return the correct values given a certain input
+
+## Contributing
+Please read [CONTRIBUTING.md](https://github.com/NDNUSeniorProj2020/ndnu-connect-client/blob/add-markdown-files/CONTRIBUTING.md) for details on how to contribute to the project.
+
+## Contributors
+Please checkout our contributors [here](https://github.com/NDNUSeniorProj2020/ndnu-connect-client/blob/add-markdown-files/CONTRIBUTORS.md)
