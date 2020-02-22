@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Form, Input, Col, Row, Button } from 'antd';
 

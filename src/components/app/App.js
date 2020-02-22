@@ -1,24 +1,33 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar';
-import LoginContainer from '../Login/LoginContainer';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+import PreLoginApp from './PreLoginApp';
+import PostLoginApp from './PostLoginApp';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/login">
-            <LoginContainer />
-          </Route>
-          <Route path="/">
-            <Navbar />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
-  );
-}
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { loggedIn: !!localStorage.getItem('token'), user: {} };
+  }
 
-export default App;
+  handleLogin = (data = {}) => {
+    if (data) {
+      localStorage.setItem('token', data.token);
+      this.setState({ loggedIn: true, user: data.user });
+    } else {
+      alert('Cannot login.');
+    }
+  };
+
+  handleLogout = () => {
+    localStorage.removeItem('token');
+    this.setState({ loggedIn: false, user: {} });
+  };
+
+  render() {
+    const { handleLogin, handleLogout, state } = this;
+    const { loggedIn } = state;
+
+    return loggedIn ? <PostLoginApp handleLogout={handleLogout} /> : <PreLoginApp handleLogin={handleLogin} />;
+  }
+}
