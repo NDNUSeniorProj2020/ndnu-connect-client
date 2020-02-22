@@ -21,17 +21,16 @@ describe('Testing App component', () => {
 
 	describe('Integration tests', () => {
 		it('should change loggedIn and user state correctly when user logs in and logs out', () => {
-			const component = shallow(<App />);
-			const instance = component.instance();
+			const wrapper = shallow(<App />);
+			const instance = wrapper.instance();
 
 			instance.handleLogin({ token: 'token', user: { username: 'user' } });
-			expect(component.state('loggedIn')).toEqual(true);
-			expect(component.state('user')).toEqual({ username: 'user' });
+			expect(wrapper.state('loggedIn')).toEqual(true);
+			expect(wrapper.state('user')).toEqual({ username: 'user' });
 
 			instance.handleLogout();
-			expect(component.state('loggedIn')).toEqual(false);
-			expect(component.state('user')).toEqual({});
-
+			expect(wrapper.state('loggedIn')).toEqual(false);
+			expect(wrapper.state('user')).toEqual({});
 		});
 	});
 });

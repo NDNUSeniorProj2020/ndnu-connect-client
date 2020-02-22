@@ -11,7 +11,7 @@ const handleLogin = (data) => console.log(data);
 
 describe('Testing PreLoginApp component', () => {
 	it('should render without crashing.', () => {
-		const component = renderer.create(<PreLoginApp handleLogin={handleLogin} />);
-		expect(component).toMatchSnapshot();
+		const tree = renderer.create(<PreLoginApp handleLogin={handleLogin} />);
+		expect(tree).toMatchSnapshot();
 	});
 });
