@@ -1,8 +1,7 @@
-
 import React from 'react';
-import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { Avatar, Dropdown, Icon, Menu } from 'antd';
+
 import logo from '../../assets/ndnu-logo.jpg';
 import './Navbar.css';
 
@@ -24,7 +23,9 @@ class Navbar extends React.Component {
       <Menu>
         <Menu.Item key="0" className="dropdown-spacing"><Icon type="setting" theme="filled" />Settings</Menu.Item>
         <Menu.Divider />
-        <Menu.Item key="1" className="dropdown-spacing"><Icon type="logout" />Logout</Menu.Item>
+        <Menu.Item key="1" className="dropdown-spacing" onClick={this.props.handleLogout}>
+          <Icon type="logout" />Logout
+        </Menu.Item>
       </Menu>
     );
 
