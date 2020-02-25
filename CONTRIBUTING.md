@@ -32,4 +32,4 @@ $ git push -u origin <branch-name>
 ## Getting Stuck?
 Don't be afraid to ask for help! It's better to have two sets of eyes on the problem instead of having to drag
  yourself through the mud to fix an error. If you have questions, reach out to someone and have a discussion. We want
-  to ensure that everyone has a hand in the project and helping others can make the project taht much more successful.  
+  to ensure that everyone has a hand in the project and helping others can make the project that much more successful.  
