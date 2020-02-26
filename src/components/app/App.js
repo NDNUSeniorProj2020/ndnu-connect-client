@@ -28,6 +28,7 @@ export default class App extends React.Component {
     const { handleLogin, handleLogout, state } = this;
     const { loggedIn } = state;
 
-    return loggedIn ? <PostLoginApp handleLogout={handleLogout} /> : <PreLoginApp handleLogin={handleLogin} />;
+    return <PostLoginApp handleLogout={handleLogout} />;
+    //return loggedIn ? <PostLoginApp handleLogout={handleLogout} /> : <PreLoginApp handleLogin={handleLogin} />;
   }
 }
