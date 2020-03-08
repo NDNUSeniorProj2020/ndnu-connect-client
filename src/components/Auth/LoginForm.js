@@ -8,14 +8,9 @@ const LoginForm = Form.create()(
   class extends React.Component {
     handleSubmit = e => {
       e.preventDefault();
-      this.props.form.validateFields(async (err, values) => {
+      this.props.form.validateFields((err, values) => {
         if (!err) {
-          try {
-            const res = await api().post('/token-auth/', values);
-            this.props.handleLogin(res.data);
-          } catch (err) {
-            console.log(err);
-          }
+          this.props.handleLogin(values);
         }
       });
     };
