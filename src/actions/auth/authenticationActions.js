@@ -38,3 +38,32 @@ export function login(user) {
 			.catch(errors => dispatch(loginFailure(errors)));
 	}
 }
+
+// User registration actions
+export function registrationRequest() {
+	return { type: USER_REGISTRATION_REQUEST }
+}
+
+export function registrationSuccess(data) {
+	return {
+		type: USER_REGISTRATION_SUCCESS,
+		payload: { user: { ...data.user } }
+	};
+}
+
+export function registrationFailure(errors) {
+	return {
+		type: LOGIN_USER_FAILURE,
+		errors
+	};
+}
+
+export function register(user) {
+	return (dispatch) => {
+		dispatch(registrationRequest());
+		return api().post('/accounts/register/', { user })
+			.then(res => res.data)
+			.then(data => dispatch(registrationSuccess(data)))
+			.catch(errors => dispatch(registrationFailure(errors)));
+	}
+}
