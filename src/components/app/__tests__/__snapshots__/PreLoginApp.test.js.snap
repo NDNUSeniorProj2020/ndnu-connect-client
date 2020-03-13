@@ -364,7 +364,7 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                 >
                   <label
                     className="ant-form-item-required"
-                    htmlFor="fName"
+                    htmlFor="first_name"
                     onClick={[Function]}
                     title="First Name"
                   >
@@ -385,12 +385,12 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                         className="ant-input"
                         data-__field={
                           Object {
-                            "name": "fName",
+                            "name": "first_name",
                           }
                         }
                         data-__meta={
                           Object {
-                            "name": "fName",
+                            "name": "first_name",
                             "originalProps": Object {
                               "type": "text",
                             },
@@ -418,7 +418,7 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                             "valuePropName": "value",
                           }
                         }
-                        id="fName"
+                        id="first_name"
                         onChange={[Function]}
                         onKeyDown={[Function]}
                         type="text"
@@ -447,7 +447,7 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                 >
                   <label
                     className="ant-form-item-required"
-                    htmlFor="lName"
+                    htmlFor="last_name"
                     onClick={[Function]}
                     title="Last Name"
                   >
@@ -468,12 +468,12 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                         className="ant-input"
                         data-__field={
                           Object {
-                            "name": "lName",
+                            "name": "last_name",
                           }
                         }
                         data-__meta={
                           Object {
-                            "name": "lName",
+                            "name": "last_name",
                             "originalProps": Object {
                               "type": "text",
                             },
@@ -501,7 +501,7 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                             "valuePropName": "value",
                           }
                         }
-                        id="lName"
+                        id="last_name"
                         onChange={[Function]}
                         onKeyDown={[Function]}
                         type="text"
@@ -605,7 +605,7 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
             >
               <label
                 className=""
-                htmlFor="phone"
+                htmlFor="phone_number"
                 onClick={[Function]}
                 title="Phone Number"
               >
@@ -626,12 +626,12 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                     className="ant-input"
                     data-__field={
                       Object {
-                        "name": "phone",
+                        "name": "phone_number",
                       }
                     }
                     data-__meta={
                       Object {
-                        "name": "phone",
+                        "name": "phone_number",
                         "originalProps": Object {
                           "style": Object {
                             "width": "100%",
@@ -644,7 +644,7 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                         "valuePropName": "value",
                       }
                     }
-                    id="phone"
+                    id="phone_number"
                     onChange={[Function]}
                     onKeyDown={[Function]}
                     style={

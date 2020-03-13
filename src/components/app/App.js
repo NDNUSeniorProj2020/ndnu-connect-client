@@ -13,14 +13,34 @@ export class ConnectedApp extends Component {
 
   constructor(props) {
     super(props);
+    this.state = { loggedIn: false };
   }
 
-  handleLogin = async (credentials = {}) => {
-    try {
-      const res = await this.props.login(credentials);
-      const { user } = res.payload;
+  componentDidMount() {
+    if (localStorage.getItem('token'))
+      this.setState({ loggedIn: true });
+  }
 
-      localStorage.setItem('token', user.token);
+  setToken = res => localStorage.setItem('token', res.payload.user.token);
+
+  handleAuth = (res) => {
+    this.setToken(res);
+    this.setState({ loggedIn: true });
+  };
+
+  handleLogin = async (user = {}) => {
+    try {
+      const res = await this.props.login(user);
+      this.handleAuth(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  handleSignup = async (user = {}) => {
+    try {
+      const res = await this.props.register(user);
+      this.handleAuth(res);
     } catch (err) {
       console.log(err);
     }
@@ -29,13 +49,16 @@ export class ConnectedApp extends Component {
   handleLogout = () => {
     this.props.logout();
     localStorage.removeItem('token');
+    this.setState({ loggedIn: false });
   };
 
   render() {
-    const token = localStorage.getItem('token');
-    const { handleLogin, handleLogout } = this;
+    const { handleLogin, handleLogout, handleSignup, state } = this;
+    const { loggedIn } = state;
+    const postLoginApp = (<PostLoginApp handleLogout={handleLogout} />);
+    const preLoginApp = (<PreLoginApp handleLogin={handleLogin} handleSignup={handleSignup} />);
 
-    return token ? <PostLoginApp handleLogout={handleLogout} /> : <PreLoginApp handleLogin={handleLogin} />;
+    return loggedIn ? postLoginApp : preLoginApp;
   }
 }
 

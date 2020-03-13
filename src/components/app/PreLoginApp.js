@@ -4,7 +4,7 @@ import logo from '../../assets/ndnu-logo.jpg';
 import Description from '../Description/Description'
 import { LoginForm, SignupForm } from '../Auth/index';
 
-export default function PreLoginApp({ handleLogin }) {
+export default function PreLoginApp({ handleLogin, handleSignup }) {
 	return (
 		<div className={'App'}>
 			<div className="container">
@@ -16,7 +16,7 @@ export default function PreLoginApp({ handleLogin }) {
 					<Description />
 				</div>
 				<div className="form">
-					<SignupForm />
+					<SignupForm handleSignup={handleSignup} />
 				</div>
 			</div>
 		</div>
