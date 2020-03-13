@@ -45,9 +45,11 @@ export function registrationRequest() {
 }
 
 export function registrationSuccess(data) {
+	const { user } = data;
+	const { email, token } = user;
 	return {
 		type: USER_REGISTRATION_SUCCESS,
-		payload: { user: { ...data.user } }
+		payload: { user: { email, token } }
 	};
 }
 
@@ -61,7 +63,7 @@ export function registrationFailure(errors) {
 export function register(user) {
 	return (dispatch) => {
 		dispatch(registrationRequest());
-		return api().post('/accounts/register/', { user })
+		return api().post('/accounts/register/', user)
 			.then(res => res.data)
 			.then(data => dispatch(registrationSuccess(data)))
 			.catch(errors => dispatch(registrationFailure(errors)));

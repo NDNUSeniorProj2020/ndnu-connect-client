@@ -61,16 +61,13 @@ describe('testing authentication actions', () => {
 			};
 			const userRes = {
 				email: 'user@user.com',
-				first_name: 'User',
-				last_name: 'Name',
-				phone_number: '555-555-5555',
 				token: 'someRandomToken'
 			};
 
 			httpMock.onPost(`${url}/accounts/register/`, { user: { ...userReq } })
 				.reply(200, { user: { ...userRes } });
 
-			register(userReq)(store.dispatch);
+			register({ user: { ...userReq } })(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([

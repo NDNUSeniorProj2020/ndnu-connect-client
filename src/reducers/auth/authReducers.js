@@ -22,7 +22,7 @@ export default function authReducer(state = initialState, action) {
 		}
 		case USER_REGISTRATION_SUCCESS: {
 			return Object.assign({}, state, {
-				user: {...action.payload.user}
+				user: { ...action.payload.user }
 			});
 		}
 		case USER_REGISTRATION_FAILURE: {

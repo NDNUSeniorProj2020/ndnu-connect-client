@@ -15,12 +15,12 @@ export class ConnectedApp extends Component {
     super(props);
   }
 
-  handleLogin = async (user = {}) => {
+  handleLogin = async (credentials = {}) => {
     try {
-      const res = await this.props.login(user);
-      const authenticatedUser = res.payload.user;
+      const res = await this.props.login(credentials);
+      const { user } = res.payload;
 
-      localStorage.setItem('token', authenticatedUser.token);
+      localStorage.setItem('token', user.token);
     } catch (err) {
       console.log(err);
     }
