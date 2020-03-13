@@ -75,14 +75,14 @@ exports[`Testing LoginForm component Snapshot tests should render without crashi
                   className="ant-input"
                   data-__field={
                     Object {
-                      "name": "username",
+                      "name": "email",
                     }
                   }
                   data-__meta={
                     Object {
-                      "name": "username",
+                      "name": "email",
                       "originalProps": Object {
-                        "placeholder": "Username",
+                        "placeholder": "email",
                         "prefix": <Icon
                           style={
                             Object {
@@ -96,7 +96,7 @@ exports[`Testing LoginForm component Snapshot tests should render without crashi
                       "ref": null,
                       "rules": Array [
                         Object {
-                          "message": "Please input your username!",
+                          "message": "Please input your email!",
                           "required": true,
                         },
                       ],
@@ -105,7 +105,7 @@ exports[`Testing LoginForm component Snapshot tests should render without crashi
                         Object {
                           "rules": Array [
                             Object {
-                              "message": "Please input your username!",
+                              "message": "Please input your email!",
                               "required": true,
                             },
                           ],
@@ -117,10 +117,10 @@ exports[`Testing LoginForm component Snapshot tests should render without crashi
                       "valuePropName": "value",
                     }
                   }
-                  id="username"
+                  id="email"
                   onChange={[Function]}
                   onKeyDown={[Function]}
-                  placeholder="Username"
+                  placeholder="email"
                   style={null}
                   type="text"
                   value=""

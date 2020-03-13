@@ -89,14 +89,14 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                         className="ant-input"
                         data-__field={
                           Object {
-                            "name": "username",
+                            "name": "email",
                           }
                         }
                         data-__meta={
                           Object {
-                            "name": "username",
+                            "name": "email",
                             "originalProps": Object {
-                              "placeholder": "Username",
+                              "placeholder": "email",
                               "prefix": <Icon
                                 style={
                                   Object {
@@ -110,7 +110,7 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                             "ref": null,
                             "rules": Array [
                               Object {
-                                "message": "Please input your username!",
+                                "message": "Please input your email!",
                                 "required": true,
                               },
                             ],
@@ -119,7 +119,7 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                               Object {
                                 "rules": Array [
                                   Object {
-                                    "message": "Please input your username!",
+                                    "message": "Please input your email!",
                                     "required": true,
                                   },
                                 ],
@@ -131,10 +131,10 @@ exports[`Testing PreLoginApp component should render without crashing. 1`] = `
                             "valuePropName": "value",
                           }
                         }
-                        id="username"
+                        id="email"
                         onChange={[Function]}
                         onKeyDown={[Function]}
-                        placeholder="Username"
+                        placeholder="email"
                         style={null}
                         type="text"
                         value=""

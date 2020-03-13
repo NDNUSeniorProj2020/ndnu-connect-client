@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import api from "../../api";
 import {
 	LOGIN_USER_REQUEST,
@@ -7,7 +5,9 @@ import {
 	LOGIN_USER_FAILURE,
 	USER_REGISTRATION_REQUEST,
 	USER_REGISTRATION_SUCCESS,
-	USER_REGISTRATION_FAILURE
+	USER_REGISTRATION_FAILURE,
+	LOGOUT_USER_REQUEST,
+	LOGOUT_USER_SUCCESS
 } from "../../constants/auth/actionTypes";
 
 // Login actions
@@ -32,7 +32,7 @@ export function loginFailure(errors) {
 export function login(user) {
 	return (dispatch) => {
 		dispatch(loginRequest());
-		return api().post('/accounts/login/', { user })
+		return api().post('/accounts/login/', user)
 			.then(res => res.data)
 			.then(data => dispatch(loginSuccess(data)))
 			.catch(errors => dispatch(loginFailure(errors)));
@@ -53,7 +53,7 @@ export function registrationSuccess(data) {
 
 export function registrationFailure(errors) {
 	return {
-		type: LOGIN_USER_FAILURE,
+		type: USER_REGISTRATION_FAILURE,
 		errors
 	};
 }
@@ -65,5 +65,24 @@ export function register(user) {
 			.then(res => res.data)
 			.then(data => dispatch(registrationSuccess(data)))
 			.catch(errors => dispatch(registrationFailure(errors)));
+	}
+}
+
+// Logout actions
+export function logoutRequest() {
+	return { type: LOGOUT_USER_REQUEST };
+}
+
+export function logoutSuccess() {
+	return {
+		type: LOGOUT_USER_SUCCESS,
+		payload: { user: {} }
+	};
+}
+
+export function logout() {
+	return (dispatch) => {
+		dispatch(logoutRequest());
+		dispatch(logoutSuccess());
 	}
 }

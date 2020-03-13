@@ -4,11 +4,11 @@ import configureMockStore from "redux-mock-store";
 
 import {
 	LOGIN_USER_REQUEST,
-	LOGIN_USER_SUCCESS,
+	LOGIN_USER_SUCCESS, LOGOUT_USER_REQUEST, LOGOUT_USER_SUCCESS,
 	USER_REGISTRATION_REQUEST,
-	USER_REGISTRATION_SUCCESS
-}  from "../../constants/auth/actionTypes";
-import { login, register } from "./authenticationActions";
+	USER_REGISTRATION_SUCCESS,
+} from "../../constants/auth/actionTypes";
+import { login, register, logout } from "./authenticationActions";
 
 describe('testing authentication actions', () => {
 	const url = process.env.REACT_APP_API || 'http://localhost:8000';
@@ -39,7 +39,7 @@ describe('testing authentication actions', () => {
 			httpMock.onPost(`${url}/accounts/login/`, { user: { ...userReq } })
 				.reply(200, { user: { ...userRes } });
 
-			login(userReq)(store.dispatch);
+			login({ user: { ...userReq } })(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
@@ -79,4 +79,16 @@ describe('testing authentication actions', () => {
 			]);
 		});
 	});
+
+	describe('testing logout actions', () => {
+		it('should logout user', async () => {
+			logout()(store.dispatch)
+			await flushAllPromises();
+
+			expect(store.getActions()).toEqual([
+				{ type: LOGOUT_USER_REQUEST },
+				{ payload: { user: {} }, type: LOGOUT_USER_SUCCESS }
+			]);
+		});
+	})
 });
