@@ -2,20 +2,19 @@ import { LOGIN_USER_SUCCESS, USER_REGISTRATION_SUCCESS } from "../../constants/a
 
 export const initialState = { user: {} };
 
-export function loginReducer(state = initialState, action) {
+export default function authReducer(state = initialState, action) {
 	switch(action.type) {
 		case LOGIN_USER_SUCCESS: {
-			return { ...state, user: action.payload.user };
+			return Object.assign({}, state, {
+				user: { ...action.payload.user },
+				success: true
+			});
 		}
-		default:
-			return state;
-	}
-}
-
-export function registrationReducer(state = initialState, action) {
-	switch(action.type) {
 		case USER_REGISTRATION_SUCCESS: {
-			return { ...state, user: action.payload.user };
+			return Object.assign({}, state, {
+				user: {...action.payload.user},
+				success: true
+			});
 		}
 		default:
 			return state;

@@ -1,25 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test TwitterFeed component Snapshot tests should render without crashing. 1`] = `
-<section
-  className="twitter-container"
->
-  <div
-    className="twitter-embed"
-  >
-    <a
-      className="twitter-timeline"
-      data-dnt="true"
-      data-height="400"
-      data-width="400"
-      href="https://twitter.com/NotreDameCA?ref_src=twsrc%5Etfw"
-    >
-      Tweets by NotreDameCA
-    </a>
-  </div>
-</section>
-`;
-
 exports[`tests for TwitterFeed component snapshot tests should render without crashing. 1`] = `
 <section
   className="twitter-container"

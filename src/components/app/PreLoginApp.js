@@ -9,7 +9,7 @@ export default function PreLoginApp({ handleLogin }) {
 		<div className={'App'}>
 			<div className="container">
 				<div className="header">
-					<img  src={logo} className="ndnu-logo" alt="NDNU Logo" />
+					<img src={logo} className="ndnu-logo" alt="NDNU Logo" />
 					<LoginForm handleLogin={handleLogin} />
 				</div>
 				<div className="description">

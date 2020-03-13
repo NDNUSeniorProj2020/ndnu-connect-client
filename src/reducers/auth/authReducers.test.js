@@ -1,4 +1,4 @@
-import { loginReducer, registrationReducer } from "./authReducers";
+import authReducer from "./authReducers";
 import { LOGIN_USER_SUCCESS, USER_REGISTRATION_SUCCESS } from "../../constants/auth/actionTypes";
 
 const testUser1 = {
@@ -14,27 +14,25 @@ const testUser2 = {
 };
 
 describe('Authentication reducers tests', () => {
-	describe('loginReducer test', () => {
-		it('returns initial state', () => expect(loginReducer(undefined, {})).toEqual({ user: {} }));
+	it('returns initial state', () => expect(authReducer(undefined, {})).toEqual({ user: {} }));
 
+	describe('test login action', () => {
 		it('sets up logged in user', () => {
 			const beforeState = { user: {} };
 			const action = { type: LOGIN_USER_SUCCESS, payload: { user: { ...testUser1 } } };
-			const afterState = loginReducer(beforeState, action);
+			const afterState = authReducer(beforeState, action);
 
-			expect(afterState).toEqual({ user: { ...testUser1 } });
+			expect(afterState).toEqual({ user: { ...testUser1 }, success: true });
 		});
 	});
 
-	describe('registrationReducer test', () => {
-		it('returns initial state', () => expect(registrationReducer(undefined, {})).toEqual({ user: {} }));
-
+	describe('test register action', () => {
 		it('sets up newly registered user', () => {
 			const beforeState = { user: {} };
 			const action = { type: USER_REGISTRATION_SUCCESS, payload: { user: { ...testUser2 } } };
-			const afterState = registrationReducer(beforeState, action);
+			const afterState = authReducer(beforeState, action);
 
-			expect(afterState).toEqual({ user: { ...testUser2 } });
+			expect(afterState).toEqual({ user: { ...testUser2 }, success: true });
 		});
 	});
 });
