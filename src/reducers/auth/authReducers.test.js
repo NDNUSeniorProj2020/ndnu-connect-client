@@ -19,7 +19,7 @@ const testUser2 = {
 };
 
 describe('Authentication reducers tests', () => {
-	const beforeState = { user: {} };
+	const beforeState = { user: {}, loggedIn: false };
 	it('returns initial state', () => expect(authReducer(undefined, {})).toEqual({ user: {}, loggedIn: false }));
 
 	describe('test login action', () => {

@@ -1,5 +1,5 @@
 import {
-	FETCH_DEPARTMENTS_SUCCESS,
+	FETCH_DEPARTMENTS_SUCCESS
 } from '../../constants/department/actionTypes';
 import departmentReducers from './departmentReducers';
 
