@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Row, Col, Input, Button, Icon } from 'antd';
 
 import './Auth.css';
@@ -66,5 +67,8 @@ const LoginForm = Form.create()(
     }
   }
 );
+
+LoginForm.propTypes = { handleLogin: PropTypes.func };
+LoginForm.defaultProps = { handleLogin: f => f };
 
 export default LoginForm;
