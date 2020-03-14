@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import 'antd/dist/antd.css';
+import PropTypes from 'prop-types';
 import { Form, Input, Col, Row, Button } from 'antd';
+import 'antd/dist/antd.css';
 
 const SignupForm = Form.create()(
   class extends Component {
@@ -143,5 +144,8 @@ const SignupForm = Form.create()(
     }
   }
 );
+
+SignupForm.propTypes = { handleSignup: PropTypes.func };
+SignupForm.defaultProps = { handleSignup: f => f };
 
 export default SignupForm;
