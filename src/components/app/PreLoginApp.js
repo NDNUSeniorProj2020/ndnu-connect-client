@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import logo from '../../assets/ndnu-logo.jpg';
 import Description from '../Description/Description'
@@ -22,3 +23,6 @@ export default function PreLoginApp({ handleLogin, handleSignup }) {
 		</div>
 	);
 }
+
+PreLoginApp.propTypes = { handleLogin: PropTypes.func, handleSignup: PropTypes.func };
+PreLoginApp.defaultProps = { handleLogin: f => f, handleSignup: f => f };
