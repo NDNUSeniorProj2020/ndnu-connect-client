@@ -11,10 +11,6 @@ export class ConnectedApp extends Component {
   static propTypes = { user: PropTypes.object, login: PropTypes.func, register: PropTypes.func };
   static defaultProps = { user: {}, login: f => f, register: f => f };
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const token = localStorage.getItem('token');
 
