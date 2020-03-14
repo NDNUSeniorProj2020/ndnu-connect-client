@@ -7,7 +7,10 @@ import {
 	USER_REGISTRATION_SUCCESS,
 	USER_REGISTRATION_FAILURE,
 	LOGOUT_USER_REQUEST,
-	LOGOUT_USER_SUCCESS
+	LOGOUT_USER_SUCCESS,
+	HAS_TOKEN_REQUEST,
+	HAS_TOKEN_SUCCESS,
+	HAS_TOKEN_FAILURE
 } from "../../constants/auth/actionTypes";
 
 // Login actions
@@ -87,4 +90,37 @@ export function logout() {
 		dispatch(logoutRequest());
 		dispatch(logoutSuccess());
 	}
+}
+
+// Has token actions
+export function hasTokenRequest() {
+	return { type: HAS_TOKEN_REQUEST };
+}
+
+export function hasTokenSuccess(data) {
+	return {
+		type: HAS_TOKEN_SUCCESS,
+		payload: { user: { ...data.user } }
+	};
+}
+
+export function hasTokenFailure(err) {
+	return {
+		type: HAS_TOKEN_FAILURE,
+		err
+	}
+}
+
+export function hasToken(token) {
+	return (dispatch) => {
+		const headers = {
+			Authorization: `Token ${token}`
+		};
+
+		dispatch(hasTokenRequest());
+		return api().get('/accounts/user/', { headers })
+			.then(res => res.data)
+			.then(data => dispatch(hasTokenSuccess(data)))
+			.catch(err => dispatch(hasTokenFailure(err)));
+	};
 }

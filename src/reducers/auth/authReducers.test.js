@@ -1,5 +1,10 @@
 import authReducer from "./authReducers";
-import { LOGIN_USER_SUCCESS, USER_REGISTRATION_SUCCESS, LOGOUT_USER_SUCCESS } from "../../constants/auth/actionTypes";
+import {
+	LOGIN_USER_SUCCESS,
+	USER_REGISTRATION_SUCCESS,
+	LOGOUT_USER_SUCCESS,
+	HAS_TOKEN_SUCCESS
+} from "../../constants/auth/actionTypes";
 
 const testUser1 = {
 	email: 'user@user.com',
@@ -15,14 +20,14 @@ const testUser2 = {
 
 describe('Authentication reducers tests', () => {
 	const beforeState = { user: {} };
-	it('returns initial state', () => expect(authReducer(undefined, {})).toEqual({ user: {} }));
+	it('returns initial state', () => expect(authReducer(undefined, {})).toEqual({ user: {}, loggedIn: false }));
 
 	describe('test login action', () => {
 		it('sets up logged in user', () => {
 			const action = { type: LOGIN_USER_SUCCESS, payload: { user: { ...testUser1 } } };
 			const afterState = authReducer(beforeState, action);
 
-			expect(afterState).toEqual({ user: { ...testUser1 } });
+			expect(afterState).toEqual({ user: { ...testUser1 }, loggedIn: true });
 		});
 	});
 
@@ -31,7 +36,7 @@ describe('Authentication reducers tests', () => {
 			const action = { type: USER_REGISTRATION_SUCCESS, payload: { user: { ...testUser2 } } };
 			const afterState = authReducer(beforeState, action);
 
-			expect(afterState).toEqual({ user: { ...testUser2 } });
+			expect(afterState).toEqual({ user: { ...testUser2 }, loggedIn: true });
 		});
 	});
 
@@ -40,7 +45,15 @@ describe('Authentication reducers tests', () => {
 			const action = { type: LOGOUT_USER_SUCCESS, payload: { user: {} } };
 			const afterState = authReducer(beforeState, action);
 
-			expect(afterState).toEqual({ user: {} });
-		})
-	})
+			expect(afterState).toEqual({ user: {}, loggedIn: false });
+		});
+	});
+
+	describe('test has token action', () => {
+		const user = { email: 'user@user.com', token: 'someToken' };
+		const action = { type: HAS_TOKEN_SUCCESS, payload: { user: { ...user } } };
+		const afterState = authReducer(beforeState, action);
+
+		expect(afterState).toEqual({ user: { ...user }, loggedIn: true });
+	});
 });

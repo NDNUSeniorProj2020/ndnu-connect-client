@@ -5,10 +5,10 @@ import configureMockStore from "redux-mock-store";
 import {
 	LOGIN_USER_REQUEST,
 	LOGIN_USER_SUCCESS, LOGOUT_USER_REQUEST, LOGOUT_USER_SUCCESS,
-	USER_REGISTRATION_REQUEST,
-	USER_REGISTRATION_SUCCESS,
+	USER_REGISTRATION_REQUEST, USER_REGISTRATION_SUCCESS,
+	HAS_TOKEN_REQUEST, HAS_TOKEN_SUCCESS
 } from "../../constants/auth/actionTypes";
-import { login, register, logout } from "./authenticationActions";
+import { login, register, logout, hasToken } from "./authenticationActions";
 
 describe('testing authentication actions', () => {
 	const url = process.env.REACT_APP_API || 'http://localhost:8000';
@@ -79,12 +79,32 @@ describe('testing authentication actions', () => {
 
 	describe('testing logout actions', () => {
 		it('should logout user', async () => {
-			logout()(store.dispatch)
+			logout()(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
 				{ type: LOGOUT_USER_REQUEST },
 				{ payload: { user: {} }, type: LOGOUT_USER_SUCCESS }
+			]);
+		});
+	});
+
+	describe('testing token authentication actions', () => {
+		it('should return an authenticated user if a token is passed from localStorage', async () => {
+			const userRes = {
+				email: 'user@user.com',
+				token: 'someRandomToken'
+			};
+
+			httpMock.onGet(`${url}/accounts/user/`)
+				.reply(200, { user: { ...userRes } });
+
+			hasToken('someRandomToken')(store.dispatch);
+			await flushAllPromises();
+
+			expect(store.getActions()).toEqual([
+				{ type: HAS_TOKEN_REQUEST },
+				{ payload: { user: { ...userRes } }, type: HAS_TOKEN_SUCCESS }
 			]);
 		});
 	})
