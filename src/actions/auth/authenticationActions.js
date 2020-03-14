@@ -98,9 +98,11 @@ export function hasTokenRequest() {
 }
 
 export function hasTokenSuccess(data) {
+	const { user } = data;
+	const { email, token } = user;
 	return {
 		type: HAS_TOKEN_SUCCESS,
-		payload: { user: { ...data.user } }
+		payload: { user: { email, token } }
 	};
 }
 

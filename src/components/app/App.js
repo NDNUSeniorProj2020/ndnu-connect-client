@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import PreLoginApp from './PreLoginApp';
 import PostLoginApp from './PostLoginApp';
-import { login, register, logout } from '../../actions/auth/authenticationActions'
+import { login, register, logout, hasToken } from '../../actions/auth/authenticationActions'
 
 export class ConnectedApp extends Component {
   static propTypes = { user: PropTypes.object, login: PropTypes.func, register: PropTypes.func };
@@ -13,25 +13,21 @@ export class ConnectedApp extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { loggedIn: false };
   }
 
   componentDidMount() {
-    if (localStorage.getItem('token'))
-      this.setState({ loggedIn: true });
+    const token = localStorage.getItem('token');
+
+    if (token)
+      this.props.hasToken(token);
   }
 
   setToken = res => localStorage.setItem('token', res.payload.user.token);
 
-  handleAuth = (res) => {
-    this.setToken(res);
-    this.setState({ loggedIn: true });
-  };
-
   handleLogin = async (user = {}) => {
     try {
       const res = await this.props.login(user);
-      this.handleAuth(res);
+      this.setToken(res)
     } catch (err) {
       console.log(err);
     }
@@ -40,7 +36,7 @@ export class ConnectedApp extends Component {
   handleSignup = async (user = {}) => {
     try {
       const res = await this.props.register(user);
-      this.handleAuth(res);
+      this.setToken(res);
     } catch (err) {
       console.log(err);
     }
@@ -53,16 +49,15 @@ export class ConnectedApp extends Component {
   };
 
   render() {
-    const { handleLogin, handleLogout, handleSignup, state } = this;
-    const { loggedIn } = state;
+    const { handleLogin, handleLogout, handleSignup } = this;
     const postLoginApp = (<PostLoginApp handleLogout={handleLogout} />);
     const preLoginApp = (<PreLoginApp handleLogin={handleLogin} handleSignup={handleSignup} />);
 
-    return loggedIn ? postLoginApp : preLoginApp;
+    return this.props.loggedIn ? postLoginApp : preLoginApp;
   }
 }
 
-const mapStateToProps = ({ authReducer }) => ({ user: authReducer.user });
-const App = connect(mapStateToProps, { login, register, logout })(ConnectedApp);
+const mapStateToProps = ({ authReducer }) => ({ user: authReducer.user, loggedIn: authReducer.loggedIn });
+const App = connect(mapStateToProps, { login, register, logout, hasToken })(ConnectedApp);
 
 export default App;
