@@ -1,8 +1,9 @@
 import {
+	FETCH_JOBS_FAILURE,
 	FETCH_JOBS_REQUEST,
 	FETCH_JOBS_SUCCESS
 } from "../../constants/jobs/actionTypes";
-import { fetchJobsRequest, fetchJobsSuccess, fetchJobs } from "./jobsActions";
+import {fetchJobsRequest, fetchJobsSuccess, fetchJobs, fetchJobsFailure} from "./jobsActions";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import configureMockStore from "redux-mock-store";
@@ -36,13 +37,18 @@ describe('tests for job actions', () => {
 	});
 
 	describe('testing actions for fetching all jobs', () => {
-		it('calls fetchAllJobsRequest and returns an object with type FETCH_JOBS_REQUEST', () => {
+		it('calls fetchJobsRequest and returns an object with type FETCH_JOBS_REQUEST', () => {
 			expect(fetchJobsRequest()).toEqual({ type: FETCH_JOBS_REQUEST });
 		});
 
-		it('calls fetchAllJobsSuccess and returns an object with payload and type FETCH_JOBS_SUCCESS', () => {
+		it('calls fetchJobsSuccess and returns an object with payload and type FETCH_JOBS_SUCCESS', () => {
 			const data = { jobs };
 			expect(fetchJobsSuccess(data)).toEqual({ type: FETCH_JOBS_SUCCESS, payload: { jobs } });
+		});
+
+		it('calls fetchJobsFailure and returns and object with errors and type FETCH_JOBS_FAILURE', () => {
+			const errors = { error: ['Failed to fetch jobs.'] };
+			expect(fetchJobsFailure(errors)).toEqual({ type: FETCH_JOBS_FAILURE, payload: { errors } });
 		});
 
 		it('fetches all jobs', async () => {

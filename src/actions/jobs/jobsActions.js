@@ -20,7 +20,7 @@ export function fetchJobsSuccess(data) {
 export function fetchJobsFailure(errors) {
 	return {
 		type: FETCH_JOBS_FAILURE,
-		errors
+		payload: { errors }
 	};
 }
 
