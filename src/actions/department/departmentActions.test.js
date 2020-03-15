@@ -3,12 +3,18 @@ import MockAdapter from "axios-mock-adapter";
 import configureMockStore from "redux-mock-store";
 
 import {
+	FETCH_DEPARTMENTS_FAILURE,
 	FETCH_DEPARTMENTS_REQUEST,
 	FETCH_DEPARTMENTS_SUCCESS
 } from "../../constants/department/actionTypes";
-import { fetchDepartments } from "./departmentActions";
+import {
+	fetchDepartmentFailure,
+	fetchDepartments,
+	fetchDepartmentsRequest,
+	fetchDepartmentsSuccess
+} from "./departmentActions";
 
-const department = [
+const departments = [
 	{
 		"name": "BUS"
 	},
@@ -35,15 +41,33 @@ describe('testing department actions', () => {
 	});
 
 	describe('testing fetching all departments actions', () => {
+		it('should call fetchDepartmentsRequest and return an object with type FETCH_DEPARTMENTS_REQUEST', () => {
+			expect(fetchDepartmentsRequest()).toEqual({ type: FETCH_DEPARTMENTS_REQUEST });
+		});
+
+		it('should call fetchDepartmentsSuccess and return all departments with type FETCH_DEPARTMENTS_SUCCESS', () => {
+			const data = { departments };
+			expect(fetchDepartmentsSuccess(data)).toEqual({ type: FETCH_DEPARTMENTS_SUCCESS, payload: { departments } });
+		});
+
+		it('should call fetchDepartmentsFailure and return errors with type FETCH_DEPARTMENTS_FAILURE', () => {
+			const errors = {
+				errors: {
+					error: ['Failed to fetch all departments.']
+				}
+			};
+			expect(fetchDepartmentFailure(errors)).toEqual({ type: FETCH_DEPARTMENTS_FAILURE, payload: { errors } });
+		});
+
 		it('fetches all departments', async () => {
-			httpMock.onGet(`${url}/api/department/`).reply(200, { department });
+			httpMock.onGet(`${url}/api/department/`).reply(200, { departments });
 
 			fetchDepartments('someRandomToken')(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
 				{ type: FETCH_DEPARTMENTS_REQUEST },
-				{ type: FETCH_DEPARTMENTS_SUCCESS, payload: { department } }
+				{ type: FETCH_DEPARTMENTS_SUCCESS, payload: { departments } }
 			]);
 		});
 	});

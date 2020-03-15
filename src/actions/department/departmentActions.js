@@ -13,14 +13,14 @@ export function fetchDepartmentsRequest() {
 export function fetchDepartmentsSuccess(data) {
 	return {
 		type: FETCH_DEPARTMENTS_SUCCESS,
-		payload: { department: data.department }
+		payload: { departments: data.departments }
 	}
 }
 
 export function fetchDepartmentFailure(errors) {
 	return {
 		type: FETCH_DEPARTMENTS_FAILURE,
-		errors
+		payload: { errors }
 	};
 }
 
