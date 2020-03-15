@@ -96,8 +96,7 @@ describe('testing authentication actions', () => {
 				token: 'someRandomToken'
 			};
 
-			httpMock.onGet(`${url}/accounts/user/`)
-				.reply(200, { user: { ...userRes } });
+			httpMock.onGet(`${url}/accounts/user/`).reply(200, { user: { ...userRes } });
 
 			hasToken('someRandomToken')(store.dispatch);
 			await flushAllPromises();
