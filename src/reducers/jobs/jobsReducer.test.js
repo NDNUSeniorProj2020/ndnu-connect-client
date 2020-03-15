@@ -1,7 +1,7 @@
 import {
 	FETCH_JOBS_SUCCESS
 } from "../../constants/jobs/actionTypes";
-import jobsReducers from './jobsReducers';
+import jobsReducers from './jobsReducer';
 
 const jobs = [
 	{
