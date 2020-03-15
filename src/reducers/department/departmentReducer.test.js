@@ -1,7 +1,7 @@
 import {
 	FETCH_DEPARTMENTS_SUCCESS
 } from '../../constants/department/actionTypes';
-import departmentReducers from './departmentReducers';
+import departmentReducers from './departmentReducer';
 
 const department = [
 	{
