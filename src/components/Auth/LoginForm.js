@@ -28,12 +28,12 @@ const LoginForm = Form.create()(
           <Row gutter={24} style={{width:"400px", float:"right", marginRight:"45px", marginTop:"50px" }}>
             <Col span={10} key={1}>
               <Form.Item>
-                {getFieldDecorator("username", {
-                  rules: [{ required: true, message: "Please input your username!" }]
+                {getFieldDecorator("email", {
+                  rules: [{ required: true, message: "Please input your email!" }]
                 })(
                   <Input
                     prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-                    placeholder="Username"
+                    placeholder="email"
                   />
                 )}
               </Form.Item>
