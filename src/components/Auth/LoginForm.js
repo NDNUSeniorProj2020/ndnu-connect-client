@@ -1,21 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Row, Col, Input, Button, Icon } from 'antd';
 
-import api from '../../api';
 import './Auth.css';
 
 const LoginForm = Form.create()(
   class extends React.Component {
     handleSubmit = e => {
       e.preventDefault();
-      this.props.form.validateFields(async (err, values) => {
+      this.props.form.validateFields((err, values) => {
         if (!err) {
-          try {
-            const res = await api().post('/token-auth/', values);
-            this.props.handleLogin(res.data);
-          } catch (err) {
-            console.log(err);
-          }
+          const user = { user: { ...values } };
+          this.props.handleLogin(user);
         }
       });
     };
@@ -28,12 +24,12 @@ const LoginForm = Form.create()(
           <Row gutter={24} style={{width:"400px", float:"right", marginRight:"45px", marginTop:"50px" }}>
             <Col span={10} key={1}>
               <Form.Item>
-                {getFieldDecorator("username", {
-                  rules: [{ required: true, message: "Please input your username!" }]
+                {getFieldDecorator("email", {
+                  rules: [{ required: true, message: "Please input your email!" }]
                 })(
                   <Input
                     prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-                    placeholder="Username"
+                    placeholder="Email"
                   />
                 )}
               </Form.Item>
@@ -71,5 +67,8 @@ const LoginForm = Form.create()(
     }
   }
 );
+
+LoginForm.propTypes = { handleLogin: PropTypes.func };
+LoginForm.defaultProps = { handleLogin: f => f };
 
 export default LoginForm;

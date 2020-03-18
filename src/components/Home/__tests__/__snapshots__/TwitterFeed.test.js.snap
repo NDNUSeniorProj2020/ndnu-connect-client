@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test TwitterFeed component Snapshot tests should render without crashing. 1`] = `
+exports[`tests for TwitterFeed component snapshot tests should render without crashing. 1`] = `
 <section
   className="twitter-container"
 >

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import 'antd/dist/antd.css';
+import PropTypes from 'prop-types';
 import { Form, Input, Col, Row, Button } from 'antd';
+import 'antd/dist/antd.css';
 
 const SignupForm = Form.create()(
   class extends Component {
@@ -15,7 +16,8 @@ const SignupForm = Form.create()(
       e.preventDefault();
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
+          const user = { user: { ...values } };
+          this.props.handleSignup(user);
         }
       });
     };
@@ -64,7 +66,7 @@ const SignupForm = Form.create()(
             <Row>
             <Col span={12} key={1} style={{paddingRight:"10px"}}>
             <Form.Item label="First Name">
-              {getFieldDecorator('fName', {
+              {getFieldDecorator('first_name', {
                 rules: [
                   {
                     required: true,
@@ -76,7 +78,7 @@ const SignupForm = Form.create()(
             </Col>
             <Col span={12} key={2} style={{paddingRight:"10px"}}>
             <Form.Item label="Last Name">
-              {getFieldDecorator('lName', {
+              {getFieldDecorator('last_name', {
                 rules: [
                   {
                     required: true,
@@ -102,7 +104,7 @@ const SignupForm = Form.create()(
               })(<Input />)}
             </Form.Item>
             <Form.Item label="Phone Number">
-              {getFieldDecorator('phone')(<Input style={{ width: '100%' }} />)}
+              {getFieldDecorator('phone_number')(<Input style={{ width: '100%' }} />)}
             </Form.Item>
             <Form.Item label="Password" hasFeedback>
               {getFieldDecorator('password', {
@@ -142,5 +144,8 @@ const SignupForm = Form.create()(
     }
   }
 );
+
+SignupForm.propTypes = { handleSignup: PropTypes.func };
+SignupForm.defaultProps = { handleSignup: f => f };
 
 export default SignupForm;

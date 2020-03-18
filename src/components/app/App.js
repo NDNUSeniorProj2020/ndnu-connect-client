@@ -1,33 +1,59 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import './App.css';
 import PreLoginApp from './PreLoginApp';
 import PostLoginApp from './PostLoginApp';
-import './App.css';
+import { login, register, logout, hasToken } from '../../actions/auth/authenticationActions'
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { loggedIn: !!localStorage.getItem('token'), user: {} };
+export class ConnectedApp extends Component {
+  static propTypes = { user: PropTypes.object, login: PropTypes.func, register: PropTypes.func };
+  static defaultProps = { user: {}, login: f => f, register: f => f };
+
+  componentDidMount() {
+    const token = localStorage.getItem('token');
+
+    if (token)
+      this.props.hasToken(token);
   }
 
-  handleLogin = (data = {}) => {
-    if (data) {
-      localStorage.setItem('token', data.token);
-      this.setState({ loggedIn: true, user: data.user });
-    } else {
-      alert('Cannot login.');
+  setToken = res => localStorage.setItem('token', res.payload.user.token);
+
+  handleLogin = async (user = {}) => {
+    try {
+      const res = await this.props.login(user);
+      this.setToken(res)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  handleSignup = async (user = {}) => {
+    try {
+      const res = await this.props.register(user);
+      this.setToken(res);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   handleLogout = () => {
+    this.props.logout();
     localStorage.removeItem('token');
-    this.setState({ loggedIn: false, user: {} });
+    this.setState({ loggedIn: false });
   };
 
   render() {
-    const { handleLogin, handleLogout, state } = this;
-    const { loggedIn } = state;
+    const { handleLogin, handleLogout, handleSignup } = this;
+    const postLoginApp = (<PostLoginApp handleLogout={handleLogout} />);
+    const preLoginApp = (<PreLoginApp handleLogin={handleLogin} handleSignup={handleSignup} />);
 
-    return loggedIn ? <PostLoginApp handleLogout={handleLogout} /> : <PreLoginApp handleLogin={handleLogin} />;
+    return this.props.loggedIn ? postLoginApp : preLoginApp;
   }
 }
+
+const mapStateToProps = ({ authReducer }) => ({ user: authReducer.user, loggedIn: authReducer.loggedIn });
+const App = connect(mapStateToProps, { login, register, logout, hasToken })(ConnectedApp);
+
+export default App;
