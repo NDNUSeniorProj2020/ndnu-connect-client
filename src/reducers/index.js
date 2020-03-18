@@ -6,6 +6,7 @@ import jobsReducers from "./jobs/jobsReducer";
 import studentReducer from "./student/studentReducer";
 import tutorReducer from "./tutor/tutorReducer";
 import subjectReducer from "./subject/subjectReducer";
+import boardReducer from "./board/boardReducer";
 
 export default combineReducers({
 	authReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
 	jobsReducers,
 	studentReducer,
 	tutorReducer,
-	subjectReducer
+	subjectReducer,
+	boardReducer
 });
