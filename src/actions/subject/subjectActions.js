@@ -11,7 +11,7 @@ export function fetchSubjectsRequest() {
 }
 
 export function fetchSubjectsSuccess(data) {
-	return { type: FETCH_SUBJECTS_SUCCESS, payload: { subjects: [ ...data.subjects ] } };
+	return { type: FETCH_SUBJECTS_SUCCESS, payload: { subjects: [ ...data ] } };
 }
 
 export function fetchSubjectsFailure(errors) {

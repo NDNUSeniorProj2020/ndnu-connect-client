@@ -12,7 +12,7 @@ export function fetchStudentsRequest() {
 export function fetchStudentsSuccess(data) {
 	return {
 		type: FETCH_STUDENTS_SUCCESS,
-		payload: { students: data.students }
+		payload: { students: [...data] }
 	};
 }
 

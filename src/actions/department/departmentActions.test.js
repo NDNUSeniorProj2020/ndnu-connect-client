@@ -46,8 +46,11 @@ describe('testing department actions', () => {
 		});
 
 		it('should call fetchDepartmentsSuccess and return all departments with type FETCH_DEPARTMENTS_SUCCESS', () => {
-			const data = { departments };
-			expect(fetchDepartmentsSuccess(data)).toEqual({ type: FETCH_DEPARTMENTS_SUCCESS, payload: { departments } });
+			const data = departments;
+			expect(fetchDepartmentsSuccess(data)).toEqual({
+				type: FETCH_DEPARTMENTS_SUCCESS,
+				payload: { departments: [...data] }
+			});
 		});
 
 		it('should call fetchDepartmentsFailure and return errors with type FETCH_DEPARTMENTS_FAILURE', () => {
@@ -60,14 +63,14 @@ describe('testing department actions', () => {
 		});
 
 		it('fetches all departments', async () => {
-			httpMock.onGet(`${url}/api/department/`).reply(200, { departments });
+			httpMock.onGet(`${url}/api/department/`).reply(200, departments);
 
 			fetchDepartments('someRandomToken')(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
 				{ type: FETCH_DEPARTMENTS_REQUEST },
-				{ type: FETCH_DEPARTMENTS_SUCCESS, payload: { departments } }
+				{ type: FETCH_DEPARTMENTS_SUCCESS, payload: { departments: [...departments] } }
 			]);
 		});
 	});

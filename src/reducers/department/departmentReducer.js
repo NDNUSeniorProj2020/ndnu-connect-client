@@ -9,7 +9,7 @@ export default function departmentReducer(state = initialState, action) {
 	switch(action.type) {
 		case FETCH_DEPARTMENTS_SUCCESS: {
 			return Object.assign({}, state, {
-				departments: action.payload.departments,
+				departments: [...action.payload.departments],
 				success: true
 			});
 		}

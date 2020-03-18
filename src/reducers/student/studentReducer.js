@@ -9,7 +9,7 @@ export default function studentReducer(state = initialState, action) {
 	switch (action.type) {
 		case FETCH_STUDENTS_SUCCESS: {
 			return Object.assign({}, state, {
-				students: action.payload.students,
+				students: [...action.payload.students],
 				success: true
 			});
 		}

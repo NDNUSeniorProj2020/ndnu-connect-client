@@ -53,8 +53,8 @@ describe('tests for student actions', () => {
 			});
 
 			it('calls fetchStudentsSuccess and returns an object with students and type FETCH_STUDENTS_SUCCESS', () => {
-				const data = { students };
-				expect(fetchStudentsSuccess(data)).toEqual({ type: FETCH_STUDENTS_SUCCESS, payload: { students } });
+				const data = students;
+				expect(fetchStudentsSuccess(data)).toEqual({ type: FETCH_STUDENTS_SUCCESS, payload: { students: [...data] } });
 			});
 
 			it('calls fetchStudentsFailure and returns an object with errors and type FETCH_STUDENTS_FAILURE', () => {
@@ -62,14 +62,14 @@ describe('tests for student actions', () => {
 			});
 
 			it('fetches all students', async () => {
-				httpMock.onGet(`${url}/api/student/`).reply(200, { students });
+				httpMock.onGet(`${url}/api/student/`).reply(200, students);
 
 				fetchStudents('someRandomToken')(store.dispatch);
 				await flushAllPromises();
 
 				expect(store.getActions()).toEqual([
 					{ type: FETCH_STUDENTS_REQUEST },
-					{ type: FETCH_STUDENTS_SUCCESS, payload: { students } }
+					{ type: FETCH_STUDENTS_SUCCESS, payload: { students: [...students] } }
 				]);
 			});
 	});

@@ -48,8 +48,8 @@ describe('tests for subject actions', () => {
 		});
 
 		it('calls fetchSubjectsSuccess and returns all subjects', () => {
-			const data = { subjects };
-			expect(fetchSubjectsSuccess(data)).toEqual({ type: FETCH_SUBJECTS_SUCCESS, payload: { subjects } });
+			const data = subjects;
+			expect(fetchSubjectsSuccess(data)).toEqual({ type: FETCH_SUBJECTS_SUCCESS, payload: { subjects: [...data] } });
 		});
 
 		it('calls fetchSubjectsFailure and returns errors', () => {
@@ -57,7 +57,7 @@ describe('tests for subject actions', () => {
 		});
 
 		it('fetches subjects from api call', async () => {
-			httpMock.onGet(`${url}/api/subject/`).reply(200, { subjects });
+			httpMock.onGet(`${url}/api/subject/`).reply(200, subjects);
 
 			fetchSubjects('randomToken')(store.dispatch);
 			await flushAllPromises();
