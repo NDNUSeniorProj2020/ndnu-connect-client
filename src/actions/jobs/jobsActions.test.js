@@ -42,8 +42,8 @@ describe('tests for job actions', () => {
 		});
 
 		it('calls fetchJobsSuccess and returns an object with payload and type FETCH_JOBS_SUCCESS', () => {
-			const data = { jobs };
-			expect(fetchJobsSuccess(data)).toEqual({ type: FETCH_JOBS_SUCCESS, payload: { jobs } });
+			const data = jobs;
+			expect(fetchJobsSuccess(data)).toEqual({ type: FETCH_JOBS_SUCCESS, payload: { jobs: data } });
 		});
 
 		it('calls fetchJobsFailure and returns and object with errors and type FETCH_JOBS_FAILURE', () => {
@@ -52,14 +52,14 @@ describe('tests for job actions', () => {
 		});
 
 		it('fetches all jobs', async () => {
-			httpMock.onGet(`${url}/api/jobs/`).reply(200, { jobs });
+			httpMock.onGet(`${url}/api/job/`).reply(200, jobs);
 
 			fetchJobs('someRandomToken')(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
 				{ type: FETCH_JOBS_REQUEST },
-				{ type: FETCH_JOBS_SUCCESS, payload: { jobs } }
+				{ type: FETCH_JOBS_SUCCESS, payload: { jobs: [...jobs] } }
 			]);
 		});
 	});

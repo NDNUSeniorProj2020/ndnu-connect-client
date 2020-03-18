@@ -11,7 +11,7 @@ export function fetchBoardsRequest() {
 }
 
 export function fetchBoardsSuccess(data) {
-	return { type: FETCH_BOARDS_SUCCESS, payload: { boards: [ ...data.boards] } };
+	return { type: FETCH_BOARDS_SUCCESS, payload: { boards: data } };
 }
 
 export function fetchBoardsFailure(errors) {

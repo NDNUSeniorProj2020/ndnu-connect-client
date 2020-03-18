@@ -9,7 +9,7 @@ export default function jobsReducer(state = initialState, action) {
 	switch (action.type) {
 		case FETCH_JOBS_SUCCESS: {
 			return Object.assign({}, state, {
-				jobs: action.payload.jobs,
+				jobs: [ ...action.payload.jobs ],
 				success: true
 			});
 		}

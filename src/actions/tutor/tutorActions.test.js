@@ -44,8 +44,8 @@ describe('tests for tutor actions', () => {
 		});
 
 		it('calls fetchTutorsSuccess and returns all tutors with type FETCH_TUTORS_SUCCESS', () => {
-			const data = { tutors };
-			expect(fetchTutorsSuccess(data)).toEqual({ type: FETCH_TUTORS_SUCCESS, payload: { tutors } });
+			const data = tutors;
+			expect(fetchTutorsSuccess(data)).toEqual({ type: FETCH_TUTORS_SUCCESS, payload: { tutors: data } });
 		});
 
 		it('calls fetchTutorsFailure and returns errors with type FETCH_TUTORS_FAILURE', () => {
@@ -56,14 +56,14 @@ describe('tests for tutor actions', () => {
 		});
 
 		it('fetches all tutors', async () => {
-			httpMock.onGet(`${url}/api/tutor/`).reply(200, { tutors });
+			httpMock.onGet(`${url}/api/tutor/`).reply(200, tutors);
 
 			fetchTutors('someRandomToken')(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
 				{ type: FETCH_TUTORS_REQUEST },
-				{ type: FETCH_TUTORS_SUCCESS, payload: { tutors } }
+				{ type: FETCH_TUTORS_SUCCESS, payload: { tutors: [...tutors] } }
 			]);
 		});
 	});

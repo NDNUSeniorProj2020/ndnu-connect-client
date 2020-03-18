@@ -52,8 +52,8 @@ describe('tests for board actions', () => {
 		));
 
 		it('calls fetchBoardsSuccess and returns all boards', () => {
-			const data = { boards };
-			expect(fetchBoardsSuccess(data)).toEqual({ type: FETCH_BOARDS_SUCCESS, payload: { boards } });
+			const data = boards;
+			expect(fetchBoardsSuccess(data)).toEqual({ type: FETCH_BOARDS_SUCCESS, payload: { boards: data } });
 		});
 
 		it('calls fetchBoardsFailure and returns errors', () => {
@@ -61,14 +61,14 @@ describe('tests for board actions', () => {
 		});
 
 		it('fetches all boards', async () => {
-			httpMock.onGet(`${url}/api/board/`).reply(200, { boards });
+			httpMock.onGet(`${url}/api/board/`).reply(200, boards);
 
 			fetchBoards('someToken')(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
 				{ type: FETCH_BOARDS_REQUEST },
-				{ type: FETCH_BOARDS_SUCCESS, payload: { boards } }
+				{ type: FETCH_BOARDS_SUCCESS, payload: { boards: [...boards] } }
 			]);
 		})
 	});

@@ -13,7 +13,7 @@ export function fetchTutorsRequest() {
 export function fetchTutorsSuccess(data) {
 	return {
 		type: FETCH_TUTORS_SUCCESS,
-		payload: { tutors: [...data.tutors] }
+		payload: { tutors: data }
 	};
 }
 

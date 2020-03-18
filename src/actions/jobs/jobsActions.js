@@ -13,7 +13,7 @@ export function fetchJobsRequest() {
 export function fetchJobsSuccess(data) {
 	return {
 		type: FETCH_JOBS_SUCCESS,
-		payload: { jobs: data.jobs }
+		payload: { jobs: data }
 	};
 }
 
@@ -29,7 +29,7 @@ export function fetchJobs(token) {
 
 	return (dispatch) => {
 		dispatch(fetchJobsRequest());
-		return api().get('/api/jobs/', { headers })
+		return api().get('/api/job/', { headers })
 			.then(res => res.data)
 			.then(data => dispatch(fetchJobsSuccess(data)))
 			.catch(errors => dispatch(fetchJobsFailure(errors)));
