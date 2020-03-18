@@ -1,9 +1,12 @@
 import React from 'react';
 
+import TwitterFeed from './TwitterFeed';
+import './Home.css';
+
 export default function Home() {
 	return (
 		<React.Fragment>
-			<h1>NDNU Connect Home</h1>
+			<TwitterFeed />
 		</React.Fragment>
 	);
 }
