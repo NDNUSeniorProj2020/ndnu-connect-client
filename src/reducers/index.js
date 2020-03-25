@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import authReducer from "./auth/authReducers";
+import authReducer from "./auth/authReducer";
 import departmentReducers from "./department/departmentReducer";
 import jobsReducer from "./jobs/jobsReducer";
 import studentReducer from "./student/studentReducer";

@@ -1,7 +1,7 @@
 import {
-	FETCH_DEPARTMENTS_FAILURE,
-	FETCH_DEPARTMENTS_SUCCESS
-} from '../../constants/department/actionTypes';
+	FETCH_ALL_SUCCESS,
+	FETCH_ALL_FAILURE
+} from "../../constants/actionTypes";
 import departmentReducer from './departmentReducer';
 
 const departments = [
@@ -16,31 +16,28 @@ const departments = [
 	}
 ];
 
-describe('tests for departmentReducers', () => {
-	const beforeState = { departments: [], success: false };
+const initialState = { departments: [], success: false };
 
+const errors = {
+	errors: {
+		error: ['Failed to fetch departments']
+	}
+};
+
+describe('tests for departmentReducers', () => {
 	it('should return initial state', () => (
-		expect(departmentReducer(undefined, {})).toEqual({ departments: [], success: false })
+		expect(departmentReducer(undefined, {})).toEqual({ ...initialState })
 	));
 
 	describe('test fetch all departments reducers', () => {
 		it('sets up departments', () => {
-			const action = { type: FETCH_DEPARTMENTS_SUCCESS, payload: { departments } };
-			const afterState = departmentReducer(beforeState, action);
-
-			expect(afterState).toEqual({ departments, success: true });
+			const action = { type: FETCH_ALL_SUCCESS, payload: { departments } };
+			expect(departmentReducer(initialState, action)).toEqual({ ...initialState, departments, success: true });
 		});
 
 		it('should return errors if action type is FETCH_DEPARTMENTS_FAILURE', () => {
-			const errors = {
-				errors: {
-					error: ['Failed to fetch departments']
-				}
-			};
-			const action = { type: FETCH_DEPARTMENTS_FAILURE, payload: { errors } };
-			const afterState = departmentReducer(beforeState, action);
-
-			expect(afterState).toEqual({ departments: [], errors, success: false });
+			const action = { type: FETCH_ALL_FAILURE, payload: { errors } };
+			expect(departmentReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});
 });

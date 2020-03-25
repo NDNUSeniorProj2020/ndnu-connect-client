@@ -1,7 +1,4 @@
-import {
-	FETCH_STUDENTS_SUCCESS,
-	FETCH_STUDENTS_FAILURE
-} from '../../constants/student/actionTypes';
+import { FETCH_ALL_SUCCESS, FETCH_ALL_FAILURE } from "../../constants/actionTypes";
 import studentReducer from './studentReducer';
 
 const students = [
@@ -17,31 +14,26 @@ const students = [
 	}
 ];
 
-describe('tests for studentRecuders', () => {
-	const beforeState = { students: [], success: false };
+const initialState = { students: [], success: false };
 
-	it('should return initial state', () => (
-		expect(studentReducer(undefined, {})).toEqual({ students: [], success: false })
-	));
+const errors = {
+	errors: {
+		error: ['Failed to fetch students.']
+	}
+};
+
+describe('tests for studentRecuders', () => {
+	it('should return initial state', () => expect(studentReducer(undefined, {})).toEqual({ ...initialState }));
 
 	describe('tests for fetching all students reducers', () => {
-		it('should return an object with students if action type is FETCH_STUDENTS_SUCCESS', () => {
-			const action = { type: FETCH_STUDENTS_SUCCESS, payload: { students } };
-			const afterState = studentReducer(beforeState, action);
-
-			expect(afterState).toEqual({ students, success: true });
+		it('sets up all students', () => {
+			const action = { type: FETCH_ALL_SUCCESS, payload: { students } };
+			expect(studentReducer(initialState, action)).toEqual({ ...initialState, students, success: true });
 		});
 
 		it('should return an object with errors if action type is FETCH_STUDENTS_FAILURE', () => {
-			const errors = {
-				errors: {
-					error: ['Failed to fetch students.']
-				}
-			};
-			const action = { type: FETCH_STUDENTS_FAILURE, payload: { errors } };
-			const afterState = studentReducer(beforeState, action);
-
-			expect(afterState).toEqual({ students: [], success: false, errors });
+			const action = { type: FETCH_ALL_FAILURE, payload: { errors } };
+			expect(studentReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});
 });

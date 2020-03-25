@@ -1,42 +1,49 @@
 import {
-	LOGIN_USER_FAILURE,
-	LOGIN_USER_SUCCESS,
-	USER_REGISTRATION_FAILURE,
-	USER_REGISTRATION_SUCCESS,
-	LOGOUT_USER_SUCCESS,
-	HAS_TOKEN_SUCCESS, HAS_TOKEN_FAILURE
-} from "../../constants/auth/actionTypes";
+	LOGIN_SUCCESS,
+	LOGIN_FAILURE,
+	REGISTRATION_SUCCESS,
+	REGISTRATION_FAILURE,
+	LOGOUT_SUCCESS,
+	LOGOUT_FAILURE,
+	HAS_TOKEN_SUCCESS,
+	HAS_TOKEN_FAILURE
+} from "../../constants/actionTypes";
 
 export const initialState = { user: {}, loggedIn: false };
 
 export default function authReducer(state = initialState, action) {
 	switch(action.type) {
-		case LOGIN_USER_SUCCESS: {
+		case LOGIN_SUCCESS: {
 			return Object.assign({}, state, {
 				user: { ...action.payload.user },
 				loggedIn: true
 			});
 		}
-		case LOGIN_USER_FAILURE: {
+		case LOGIN_FAILURE: {
 			return Object.assign({}, state, {
 				errors: action.payload.errors
 			});
 		}
-		case USER_REGISTRATION_SUCCESS: {
+		case REGISTRATION_SUCCESS: {
 			return Object.assign({}, state, {
 				user: { ...action.payload.user },
 				loggedIn: true
 			});
 		}
-		case USER_REGISTRATION_FAILURE: {
+		case REGISTRATION_FAILURE: {
 			return Object.assign({}, state, {
 				errors: action.payload.errors
 			});
 		}
-		case LOGOUT_USER_SUCCESS: {
+		case LOGOUT_SUCCESS: {
 			return Object.assign({}, state, {
 				user: action.payload.user,
 				loggedIn: false
+			});
+		}
+		case LOGOUT_FAILURE: {
+			return Object.assign({}, state, {
+				errors: { ...action.payload.errors }
 			});
 		}
 		case HAS_TOKEN_SUCCESS: {
@@ -47,7 +54,7 @@ export default function authReducer(state = initialState, action) {
 		}
 		case HAS_TOKEN_FAILURE: {
 			return Object.assign({}, state, {
-				err: { ...action.payload.err },
+				errors: { ...action.payload.errors },
 				loggedIn: false
 			});
 		}

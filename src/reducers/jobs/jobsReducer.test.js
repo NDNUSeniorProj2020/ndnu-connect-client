@@ -1,7 +1,7 @@
 import {
-	FETCH_JOBS_SUCCESS,
-	FETCH_JOBS_FAILURE
-} from "../../constants/jobs/actionTypes";
+	FETCH_ALL_SUCCESS,
+	FETCH_ALL_FAILURE
+} from "../../constants/actionTypes";
 import jobsReducer from './jobsReducer';
 
 const jobs = [
@@ -18,27 +18,24 @@ const jobs = [
 	}
 ];
 
-describe('tests for jobsReducers', () => {
-	const beforeState = { jobs: [], success: false };
+const initialState = { jobs: [], success: false };
 
-	it('should return initial state', () => expect(jobsReducer(undefined, {})).toEqual({ jobs: [], success: false }));
+const errors = {
+	error: ['Failed to complete']
+};
+
+describe('tests for jobsReducers', () => {
+	it('should return initial state', () => expect(jobsReducer(undefined, {})).toEqual({ ...initialState }));
 
 	describe('tests for fetch all jobs reducers', () => {
 		it('sets up jobs', () => {
-			const action = { type: FETCH_JOBS_SUCCESS, payload: { jobs } };
-			const afterState = jobsReducer(beforeState, action);
-
-			expect(afterState).toEqual({ jobs, success: true });
+			const action = { type: FETCH_ALL_SUCCESS, payload: { jobs } };
+			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, jobs, success: true });
 		});
 
-		it('should throw errors when action type is FETCH_JOBS_FAILURE', () => {
-			const errors = {
-				error: ['Failed to fetch all students']
-			};
-			const action = { type: FETCH_JOBS_FAILURE, payload: { errors } };
-			const afterState = jobsReducer(beforeState, action);
-
-			expect(afterState).toEqual({ jobs: [], errors, success: false });
+		it('sets up errors if fetching jobs fails', () => {
+			const action = { type: FETCH_ALL_FAILURE, payload: { errors } };
+			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});
 });

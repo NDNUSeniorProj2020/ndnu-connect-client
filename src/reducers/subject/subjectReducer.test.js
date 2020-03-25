@@ -1,7 +1,4 @@
-import {
-	FETCH_SUBJECTS_SUCCESS,
-	FETCH_SUBJECTS_FAILURE
-} from "../../constants/subject/actionTypes";
+import { FETCH_ALL_SUCCESS, FETCH_ALL_FAILURE } from "../../constants/actionTypes";
 import subjectReducer from "./subjectReducer";
 
 const subjects = [
@@ -17,24 +14,21 @@ const subjects = [
 	}
 ];
 
+const beforeState = { subject: {}, subjects: [], success: false };
+const errors = { err: ['Failed to complete.'] };
+
 describe('tests for subjectReducer', () => {
-	const beforeState = { subject: {}, subjects: [], success: false };
 	it('should return initial state', () => expect(subjectReducer(undefined, {})).toEqual({ ...beforeState }));
 
 	describe('reducer tests for fetching all subjects', () => {
-		it('should return all subjects if action type is FETCH_SUBJECTS_SUCCESS', () => {
-			const action = { type: FETCH_SUBJECTS_SUCCESS, payload: { subjects } };
-			const afterState = subjectReducer(beforeState, action);
-
-			expect(afterState).toEqual({ ...beforeState, subjects, success: true });
+		it('sets up subjects', () => {
+			const action = { type: FETCH_ALL_SUCCESS, payload: { subjects } };
+			expect(subjectReducer(beforeState, action)).toEqual({ ...beforeState, subjects, success: true });
 		});
 
-		it('should return errors object if action type is FETCH_SUBJECTS_FAILURE', () => {
-			const errors = { err: ['Failed to fetch subjects.'] };
-			const action = { type: FETCH_SUBJECTS_FAILURE, payload: { errors } };
-			const afterState = subjectReducer(beforeState, action);
-
-			expect(afterState).toEqual({ ...beforeState, errors });
-		})
+		it('sets up errors if fetching subjects fails', () => {
+			const action = { type: FETCH_ALL_FAILURE, payload: { errors } };
+			expect(subjectReducer(beforeState, action)).toEqual({ ...beforeState, errors });
+		});
 	});
 });

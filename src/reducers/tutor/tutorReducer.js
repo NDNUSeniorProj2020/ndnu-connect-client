@@ -1,19 +1,16 @@
-import {
-	FETCH_TUTORS_SUCCESS,
-	FETCH_TUTORS_FAILURE
-} from "../../constants/tutor/actionTypes";
+import { FETCH_ALL_SUCCESS, FETCH_ALL_FAILURE } from "../../constants/actionTypes";
 
 const initialState = { tutor: {}, tutors: [], success: false };
 
 export default function tutorReducer(state = initialState, action) {
 	switch (action.type) {
-		case FETCH_TUTORS_SUCCESS: {
+		case FETCH_ALL_SUCCESS: {
 			return Object.assign({}, state, {
 				tutors: [ ...action.payload.tutors ],
 				success: true
 			});
 		}
-		case FETCH_TUTORS_FAILURE: {
+		case FETCH_ALL_FAILURE: {
 			return Object.assign({}, state, {
 				errors: { ...action.payload.errors }
 			});

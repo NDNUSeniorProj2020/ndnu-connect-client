@@ -1,4 +1,0 @@
-// Fetch all tutors constants
-export const FETCH_TUTORS_REQUEST = 'FETCH_TUTORS_REQUEST';
-export const FETCH_TUTORS_SUCCESS = 'FETCH_TUTORS_SUCCESS';
-export const FETCH_TUTORS_FAILURE = 'FETCH_TUTORS_FAILURE';
