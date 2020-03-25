@@ -3,11 +3,10 @@ import axios from "axios";
 import configureMockStore from "redux-mock-store";
 
 import {
-	FETCH_TUTORS_REQUEST,
-	FETCH_TUTORS_SUCCESS,
-	FETCH_TUTORS_FAILURE
-} from "../../constants/tutor/actionTypes";
-import { fetchTutorsRequest, fetchTutorsSuccess, fetchTutorsFailure, fetchTutors } from "./tutorActions";
+	FETCH_ALL_SUCCESS,
+	FETCH_ALL_FAILURE
+} from "../../constants/actionTypes";
+import { fetchTutorsSuccess, fetchTutorsFailure, fetchTutors } from "./tutorActions";
 
 const tutors = [
 	{
@@ -23,6 +22,9 @@ const tutors = [
 		"person": 2
 	}
 ];
+const errors = {
+	err: ['Failed to fetch tutors.']
+};
 
 describe('tests for tutor actions', () => {
 	const url = process.env.REACT_APP_API || 'http://localhost:8000';
@@ -39,20 +41,13 @@ describe('tests for tutor actions', () => {
 	});
 
 	describe('tests for fetching all tutors actions', () => {
-		it('calls fetchTutorsRequest and returns an object with type FETCH_TUTORS_REQUEST', () => {
-			expect(fetchTutorsRequest()).toEqual({ type: FETCH_TUTORS_REQUEST });
-		});
-
-		it('calls fetchTutorsSuccess and returns all tutors with type FETCH_TUTORS_SUCCESS', () => {
+		it('calls fetchTutorsSuccess and returns all tutors', () => {
 			const data = tutors;
-			expect(fetchTutorsSuccess(data)).toEqual({ type: FETCH_TUTORS_SUCCESS, payload: { tutors: data } });
+			expect(fetchTutorsSuccess(data)).toEqual({ type: FETCH_ALL_SUCCESS, payload: { tutors: [...data] } });
 		});
 
 		it('calls fetchTutorsFailure and returns errors with type FETCH_TUTORS_FAILURE', () => {
-			const errors = {
-				err: ['Failed to fetch tutors.']
-			};
-			expect(fetchTutorsFailure(errors)).toEqual({ type: FETCH_TUTORS_FAILURE, payload: { errors } });
+			expect(fetchTutorsFailure(errors)).toEqual({ type: FETCH_ALL_FAILURE, payload: { errors } });
 		});
 
 		it('fetches all tutors', async () => {
@@ -62,8 +57,7 @@ describe('tests for tutor actions', () => {
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ type: FETCH_TUTORS_REQUEST },
-				{ type: FETCH_TUTORS_SUCCESS, payload: { tutors: [...tutors] } }
+				{ type: FETCH_ALL_SUCCESS, payload: { tutors: [...tutors] } }
 			]);
 		});
 	});

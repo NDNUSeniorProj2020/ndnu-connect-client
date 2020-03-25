@@ -1,17 +1,16 @@
+import MockAdapter from "axios-mock-adapter";
+import axios from "axios";
+import configureMockStore from "redux-mock-store";
+
 import {
-	FETCH_SUBJECTS_REQUEST,
-	FETCH_SUBJECTS_SUCCESS,
-	FETCH_SUBJECTS_FAILURE
-} from "../../constants/subject/actionTypes";
+	FETCH_ALL_SUCCESS,
+	FETCH_ALL_FAILURE
+} from "../../constants/actionTypes";
 import {
-	fetchSubjectsRequest,
 	fetchSubjectsSuccess,
 	fetchSubjectsFailure,
 	fetchSubjects
 } from "./subjectActions";
-import MockAdapter from "axios-mock-adapter";
-import axios from "axios";
-import configureMockStore from "redux-mock-store";
 
 const subjects = [
 	{
@@ -43,17 +42,13 @@ describe('tests for subject actions', () => {
 	});
 
 	describe('tests for fetching all subjects actions', () => {
-		it('calls fetchSubjectsRequest and returns an object with type FETCH_SUBJECTS_REQUEST', () => {
-			expect(fetchSubjectsRequest()).toEqual({ type: FETCH_SUBJECTS_REQUEST });
-		});
-
 		it('calls fetchSubjectsSuccess and returns all subjects', () => {
 			const data = subjects;
-			expect(fetchSubjectsSuccess(data)).toEqual({ type: FETCH_SUBJECTS_SUCCESS, payload: { subjects: [...data] } });
+			expect(fetchSubjectsSuccess(data)).toEqual({ type: FETCH_ALL_SUCCESS, payload: { subjects: [...data] } });
 		});
 
 		it('calls fetchSubjectsFailure and returns errors', () => {
-			expect(fetchSubjectsFailure(errors)).toEqual({ type: FETCH_SUBJECTS_FAILURE, payload: { errors } });
+			expect(fetchSubjectsFailure(errors)).toEqual({ type: FETCH_ALL_FAILURE, payload: { errors } });
 		});
 
 		it('fetches subjects from api call', async () => {
@@ -63,8 +58,7 @@ describe('tests for subject actions', () => {
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ type: FETCH_SUBJECTS_REQUEST },
-				{ type: FETCH_SUBJECTS_SUCCESS, payload: { subjects } }
+				{ type: FETCH_ALL_SUCCESS, payload: { subjects } }
 			]);
 		});
 	});
