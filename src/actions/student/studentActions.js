@@ -1,24 +1,20 @@
 import {
-	FETCH_STUDENTS_REQUEST,
-	FETCH_STUDENTS_SUCCESS,
-	FETCH_STUDENTS_FAILURE
-} from "../../constants/student/actionTypes";
+	FETCH_ALL_SUCCESS,
+	FETCH_ALL_FAILURE
+} from "../../constants/actionTypes";
 import api from "../../api";
 
-export function fetchStudentsRequest() {
-	return { type: FETCH_STUDENTS_REQUEST }
-}
-
+// Fetch all students actions
 export function fetchStudentsSuccess(data) {
 	return {
-		type: FETCH_STUDENTS_SUCCESS,
+		type: FETCH_ALL_SUCCESS,
 		payload: { students: [...data] }
 	};
 }
 
 export function fetchStudentsFailure(errors) {
 	return {
-		type: FETCH_STUDENTS_FAILURE,
+		type: FETCH_ALL_FAILURE,
 		payload: { errors }
 	};
 }
@@ -27,7 +23,6 @@ export function fetchStudents(token) {
 	const headers = { Authorization: `Token ${token}` };
 
 	return (dispatch) => {
-		dispatch(fetchStudentsRequest());
 		return api().get('/api/student/', { headers })
 			.then(res => res.data)
 			.then(data => dispatch(fetchStudentsSuccess(data)))

@@ -3,11 +3,11 @@ import MockAdapter from "axios-mock-adapter";
 import configureMockStore from "redux-mock-store";
 
 import {
-	LOGIN_USER_REQUEST,
-	LOGIN_USER_SUCCESS, LOGOUT_USER_REQUEST, LOGOUT_USER_SUCCESS,
-	USER_REGISTRATION_REQUEST, USER_REGISTRATION_SUCCESS,
-	HAS_TOKEN_REQUEST, HAS_TOKEN_SUCCESS
-} from "../../constants/auth/actionTypes";
+	LOGIN_SUCCESS,
+	REGISTRATION_SUCCESS,
+	LOGOUT_SUCCESS,
+	HAS_TOKEN_SUCCESS,
+} from "../../constants/actionTypes";
 import { login, register, logout, hasToken } from "./authenticationActions";
 
 describe('testing authentication actions', () => {
@@ -43,8 +43,7 @@ describe('testing authentication actions', () => {
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ type: LOGIN_USER_REQUEST },
-				{ payload: { user: { ...userRes } }, type: LOGIN_USER_SUCCESS }
+				{ payload: { user: { ...userRes } }, type: LOGIN_SUCCESS }
 			]);
 		});
 	});
@@ -71,8 +70,7 @@ describe('testing authentication actions', () => {
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ type: USER_REGISTRATION_REQUEST },
-				{ payload: { user: { ...userRes } }, type: USER_REGISTRATION_SUCCESS }
+				{ payload: { user: { ...userRes } }, type: REGISTRATION_SUCCESS }
 			]);
 		});
 	});
@@ -83,8 +81,7 @@ describe('testing authentication actions', () => {
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ type: LOGOUT_USER_REQUEST },
-				{ payload: { user: {} }, type: LOGOUT_USER_SUCCESS }
+				{ payload: { user: {} }, type: LOGOUT_SUCCESS }
 			]);
 		});
 	});
@@ -102,7 +99,6 @@ describe('testing authentication actions', () => {
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ type: HAS_TOKEN_REQUEST },
 				{ payload: { user: { ...userRes } }, type: HAS_TOKEN_SUCCESS }
 			]);
 		});

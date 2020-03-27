@@ -1,25 +1,20 @@
 import api from "../../api";
 import {
-	FETCH_JOBS_REQUEST,
-	FETCH_JOBS_SUCCESS,
-	FETCH_JOBS_FAILURE
-} from "../../constants/jobs/actionTypes";
+	FETCH_ALL_SUCCESS,
+	FETCH_ALL_FAILURE
+} from "../../constants/actionTypes";
 
 // Fetch all jobs actions
-export function fetchJobsRequest() {
-	return { type: FETCH_JOBS_REQUEST };
-}
-
 export function fetchJobsSuccess(data) {
 	return {
-		type: FETCH_JOBS_SUCCESS,
-		payload: { jobs: data }
+		type: FETCH_ALL_SUCCESS,
+		payload: { jobs: [...data] }
 	};
 }
 
 export function fetchJobsFailure(errors) {
 	return {
-		type: FETCH_JOBS_FAILURE,
+		type: FETCH_ALL_FAILURE,
 		payload: { errors }
 	};
 }
@@ -28,7 +23,6 @@ export function fetchJobs(token) {
 	const headers = { Authorization: `Token ${token}`};
 
 	return (dispatch) => {
-		dispatch(fetchJobsRequest());
 		return api().get('/api/job/', { headers })
 			.then(res => res.data)
 			.then(data => dispatch(fetchJobsSuccess(data)))

@@ -1,19 +1,16 @@
-import {
-	FETCH_STUDENTS_SUCCESS,
-	FETCH_STUDENTS_FAILURE
-} from "../../constants/student/actionTypes";
+import { FETCH_ALL_SUCCESS, FETCH_ALL_FAILURE } from "../../constants/actionTypes";
 
 const initialState = { students: [], success: false };
 
 export default function studentReducer(state = initialState, action) {
 	switch (action.type) {
-		case FETCH_STUDENTS_SUCCESS: {
+		case FETCH_ALL_SUCCESS: {
 			return Object.assign({}, state, {
 				students: [...action.payload.students],
 				success: true
 			});
 		}
-		case FETCH_STUDENTS_FAILURE: {
+		case FETCH_ALL_FAILURE: {
 			return Object.assign({}, state, {
 				errors: action.payload.errors,
 				success: false

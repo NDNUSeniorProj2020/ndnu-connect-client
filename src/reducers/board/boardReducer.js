@@ -1,19 +1,19 @@
 import {
-	FETCH_BOARDS_SUCCESS,
-	FETCH_BOARDS_FAILURE,
-} from "../../constants/board/actionTypes";
+	FETCH_ALL_SUCCESS,
+	FETCH_ALL_FAILURE
+} from "../../constants/actionTypes";
 
 const initialState = { board: {}, boards: [], success: false };
 
 export default function boardReducer(state = initialState, action) {
 	switch (action.type) {
-		case FETCH_BOARDS_SUCCESS: {
+		case FETCH_ALL_SUCCESS: {
 			return Object.assign({}, state, {
 				boards: [ ...action.payload.boards ],
 				success: true
 			});
 		}
-		case FETCH_BOARDS_FAILURE: {
+		case FETCH_ALL_FAILURE: {
 			return Object.assign({}, state, {
 				errors: { ...action.payload.errors }
 			});

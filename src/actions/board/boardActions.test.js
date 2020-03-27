@@ -1,17 +1,16 @@
+import MockAdapter from "axios-mock-adapter";
+import axios from "axios";
+import configureMockStore from "redux-mock-store";
+
 import {
-	FETCH_BOARDS_REQUEST,
-	FETCH_BOARDS_SUCCESS,
-	FETCH_BOARDS_FAILURE
-} from "../../constants/board/actionTypes";
+	FETCH_ALL_SUCCESS,
+	FETCH_ALL_FAILURE
+} from "../../constants/actionTypes";
 import {
-	fetchBoardsRequest,
 	fetchBoardsSuccess,
 	fetchBoardsFailure,
 	fetchBoards
 } from "./boardActions";
-import MockAdapter from "axios-mock-adapter";
-import axios from "axios";
-import configureMockStore from "redux-mock-store";
 
 const boards = [
 	{
@@ -47,17 +46,13 @@ describe('tests for board actions', () => {
 	});
 
 	describe('test actions for fetching all boards', () => {
-		it('calls fetchBoardsRequest and returns object with type FETCH_BOARDS_REQUEST', () => (
-			expect(fetchBoardsRequest()).toEqual({ type: FETCH_BOARDS_REQUEST })
-		));
-
 		it('calls fetchBoardsSuccess and returns all boards', () => {
 			const data = boards;
-			expect(fetchBoardsSuccess(data)).toEqual({ type: FETCH_BOARDS_SUCCESS, payload: { boards: data } });
+			expect(fetchBoardsSuccess(data)).toEqual({ type: FETCH_ALL_SUCCESS, payload: { boards: data } });
 		});
 
 		it('calls fetchBoardsFailure and returns errors', () => {
-			expect(fetchBoardsFailure(errors)).toEqual({ type: FETCH_BOARDS_FAILURE, payload: { errors } });
+			expect(fetchBoardsFailure(errors)).toEqual({ type: FETCH_ALL_FAILURE, payload: { errors } });
 		});
 
 		it('fetches all boards', async () => {
@@ -67,8 +62,7 @@ describe('tests for board actions', () => {
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ type: FETCH_BOARDS_REQUEST },
-				{ type: FETCH_BOARDS_SUCCESS, payload: { boards: [...boards] } }
+				{ type: FETCH_ALL_SUCCESS, payload: { boards: [...boards] } }
 			]);
 		})
 	});
