@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import Jobs from '../Jobs';
 import './Home.css';
 import TwitterFeed from './TwitterFeed';
 import Tutors from './Tutors';
@@ -47,6 +47,7 @@ export class ConnectedHome extends Component {
 				<TwitterFeed />
 				<Tutors />
 			</div>
+
 		);
 	}
 }
