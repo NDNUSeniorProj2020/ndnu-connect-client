@@ -1,0 +1,21 @@
+
+.tutors-card-container {
+	width: 350px;
+	margin: 15px;
+}
+
+.tutors-card-title {
+	font-size: 14;
+    color: rgba(0, 0, 0, 0.85);
+    margin-bottom: 16;
+    font-weight: 500;
+}
+
+.stars-container {
+	padding-left: 40px;
+}
+
+.row-style {
+	text-align: left;
+	height: 45px;
+}
