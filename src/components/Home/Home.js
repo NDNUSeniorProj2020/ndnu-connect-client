@@ -18,7 +18,7 @@ export class ConnectedHome extends Component {
 		fetchJobs: PropTypes.func,
 		fetchBoards: PropTypes.func
 	};
-	/*
+	
 	static defaultProps = {
 		boards: [],
 		jobs: [],
@@ -27,7 +27,7 @@ export class ConnectedHome extends Component {
 		fetchJobs: f => f,
 		fetchBoards: f => f
 	};
-	*/
+	
 	componentDidMount() {
 		const token = localStorage.getItem('token');
 
@@ -51,14 +51,12 @@ export class ConnectedHome extends Component {
 	}
 }
 
-const mapStateToProps = ({ boardReducer, jobsReducer, tutorReducer }) => {
-	return {
-		boards: boardReducer.boards,
-		jobs: jobsReducer.jobs,
-		tutors: tutorReducer.tutors,
-		success: boardReducer.success && jobsReducer.success && tutorReducer.success
-	}
-}
+const mapStateToProps = ({ boardReducer, jobsReducer, tutorReducer }) => ({
+	boards: boardReducer.boards,
+	jobs: jobsReducer.jobs,
+	tutors: tutorReducer.tutors,
+	success: boardReducer.success && jobsReducer.success && tutorReducer.success
+});
 const Home = connect(mapStateToProps, { fetchBoards, fetchTutors, fetchJobs })(ConnectedHome);
 
 export default Home;
