@@ -56,7 +56,7 @@ class Tutors extends React.Component {
               </div>
             )
             return(
-              <a key={tutor.fullName} href="#">
+              <a key={tutor.fullName} href="google.com">
                 <Meta
                   avatar={
                     <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
