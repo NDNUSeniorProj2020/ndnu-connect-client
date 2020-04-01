@@ -1,20 +1,20 @@
 import api from "../../api";
 import {
-	FETCH_ALL_SUCCESS,
-	FETCH_ALL_FAILURE
-} from "../../constants/actionTypes";
+	FETCH_ALL_JOBS_SUCCESS,
+	FETCH_ALL_JOBS_FAILURE
+} from "../../constants/jobs/actionTypes";
 
 // Fetch all jobs actions
 export function fetchJobsSuccess(data) {
 	return {
-		type: FETCH_ALL_SUCCESS,
+		type: FETCH_ALL_JOBS_SUCCESS,
 		payload: { jobs: [...data] }
 	};
 }
 
 export function fetchJobsFailure(errors) {
 	return {
-		type: FETCH_ALL_FAILURE,
+		type: FETCH_ALL_JOBS_FAILURE,
 		payload: { errors }
 	};
 }

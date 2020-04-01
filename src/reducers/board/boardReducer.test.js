@@ -1,7 +1,7 @@
 import {
-	FETCH_ALL_SUCCESS,
-	FETCH_ALL_FAILURE
-} from "../../constants/actionTypes";
+	FETCH_ALL_BOARDS_SUCCESS,
+	FETCH_ALL_BOARDS_FAILURE
+} from "../../constants/board/actionTypes";
 import boardReducer from "./boardReducer";
 
 const initialState = { board: {}, boards: [], success: false };
@@ -31,12 +31,12 @@ describe('tests for boardReducer', () => {
 
 	describe('tests for fetching all boards', () => {
 		it('sets up all boards', () => {
-			const action = { type: FETCH_ALL_SUCCESS, payload: { boards } };
+			const action = { type: FETCH_ALL_BOARDS_SUCCESS, payload: { boards } };
 			expect(boardReducer(initialState, action)).toEqual({ ...initialState, boards, success: true });
 		});
 
 		it('sets up errors if fetching all boards fails', () => {
-			const action = { type: FETCH_ALL_FAILURE, payload: { errors } };
+			const action = { type: FETCH_ALL_BOARDS_FAILURE, payload: { errors } };
 			expect(boardReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});

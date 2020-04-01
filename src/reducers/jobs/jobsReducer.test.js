@@ -1,7 +1,7 @@
 import {
-	FETCH_ALL_SUCCESS,
-	FETCH_ALL_FAILURE
-} from "../../constants/actionTypes";
+	FETCH_ALL_JOBS_SUCCESS,
+	FETCH_ALL_JOBS_FAILURE
+} from "../../constants/jobs/actionTypes";
 import jobsReducer from './jobsReducer';
 
 const jobs = [
@@ -29,12 +29,12 @@ describe('tests for jobsReducers', () => {
 
 	describe('tests for fetch all jobs reducers', () => {
 		it('sets up jobs', () => {
-			const action = { type: FETCH_ALL_SUCCESS, payload: { jobs } };
+			const action = { type: FETCH_ALL_JOBS_SUCCESS, payload: { jobs } };
 			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, jobs, success: true });
 		});
 
 		it('sets up errors if fetching jobs fails', () => {
-			const action = { type: FETCH_ALL_FAILURE, payload: { errors } };
+			const action = { type: FETCH_ALL_JOBS_FAILURE, payload: { errors } };
 			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});

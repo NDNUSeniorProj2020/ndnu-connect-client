@@ -1,16 +1,16 @@
 import {
-	FETCH_ALL_SUCCESS,
-	FETCH_ALL_FAILURE
-} from "../../constants/actionTypes";
+	FETCH_ALL_BOARDS_SUCCESS,
+	FETCH_ALL_BOARDS_FAILURE
+} from "../../constants/board/actionTypes";
 import api from "../../api";
 
 // Fetch all boards actions
 export function fetchBoardsSuccess(data) {
-	return { type: FETCH_ALL_SUCCESS, payload: { boards: data } };
+	return { type: FETCH_ALL_BOARDS_SUCCESS, payload: { boards: data } };
 }
 
 export function fetchBoardsFailure(errors) {
-	return { type: FETCH_ALL_FAILURE, payload: { errors } };
+	return { type: FETCH_ALL_BOARDS_FAILURE, payload: { errors } };
 }
 
 export function fetchBoards(token) {

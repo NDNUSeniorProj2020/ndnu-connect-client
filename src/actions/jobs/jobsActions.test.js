@@ -3,9 +3,9 @@ import axios from "axios";
 import configureMockStore from "redux-mock-store";
 
 import {
-	FETCH_ALL_SUCCESS,
-	FETCH_ALL_FAILURE
-} from "../../constants/actionTypes";
+	FETCH_ALL_JOBS_SUCCESS,
+	FETCH_ALL_JOBS_FAILURE
+} from "../../constants/jobs/actionTypes";
 import { fetchJobsSuccess, fetchJobs, fetchJobsFailure } from "./jobsActions";
 
 const jobs = [
@@ -40,11 +40,11 @@ describe('tests for job actions', () => {
 	describe('testing actions for fetching all jobs', () => {
 		it('calls fetchJobsSuccess and returns all jobs', () => {
 			const data = jobs;
-			expect(fetchJobsSuccess(data)).toEqual({ type: FETCH_ALL_SUCCESS, payload: { jobs: [...data] } });
+			expect(fetchJobsSuccess(data)).toEqual({ type: FETCH_ALL_JOBS_SUCCESS, payload: { jobs: [...data] } });
 		});
 
 		it('calls fetchJobsFailure and returns and object with errors and type FETCH_JOBS_FAILURE', () => {
-			expect(fetchJobsFailure(errors)).toEqual({ type: FETCH_ALL_FAILURE, payload: { errors } });
+			expect(fetchJobsFailure(errors)).toEqual({ type: FETCH_ALL_JOBS_FAILURE, payload: { errors } });
 		});
 
 		it('fetches all jobs', async () => {
@@ -54,7 +54,7 @@ describe('tests for job actions', () => {
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ type: FETCH_ALL_SUCCESS, payload: { jobs: [...jobs] } }
+				{ type: FETCH_ALL_JOBS_SUCCESS, payload: { jobs: [...jobs] } }
 			]);
 		});
 	});

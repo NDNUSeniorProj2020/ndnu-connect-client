@@ -18,7 +18,7 @@ export class ConnectedHome extends Component {
 		fetchJobs: PropTypes.func,
 		fetchBoards: PropTypes.func
 	};
-	/*
+	
 	static defaultProps = {
 		boards: [],
 		jobs: [],
@@ -27,7 +27,7 @@ export class ConnectedHome extends Component {
 		fetchJobs: f => f,
 		fetchBoards: f => f
 	};
-	*/
+	
 	componentDidMount() {
 		const token = localStorage.getItem('token');
 
