@@ -1,7 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing Home component should render without crashing. 1`] = `
-<h1>
-  NDNU Connect Home
-</h1>
+exports[`Home component tests snapshot tests should render without crashing. 1`] = `
+<div>
+  <section
+    className="twitter-container"
+  >
+    <div
+      className="twitter-embed"
+    >
+      <a
+        className="twitter-timeline"
+        data-dnt="true"
+        data-height="400"
+        data-width="400"
+        href="https://twitter.com/NotreDameCA?ref_src=twsrc%5Etfw"
+      >
+        Tweets by NotreDameCA
+      </a>
+    </div>
+  </section>
+</div>
 `;

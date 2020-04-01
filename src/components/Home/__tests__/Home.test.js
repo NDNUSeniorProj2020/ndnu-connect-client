@@ -1,11 +1,20 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import React from "react";
+import renderer from "react-test-renderer";
+import { shallow } from "enzyme";
 
-import Home from '../Home';
+import { ConnectedHome } from "../Home";
+import TwitterFeed from "../TwitterFeed";
 
-describe('Testing Home component', () => {
-	it('should render without crashing.', () => {
-		const tree = renderer.create(<Home />);
-		expect(tree).toMatchSnapshot();
+describe('Home component tests', () => {
+	describe('snapshot tests', () => {
+		it('should render without crashing.', () => {
+			const tree = renderer.create(<ConnectedHome />);
+			expect(tree).toMatchSnapshot();
+		});
+	});
+
+	describe('unit tests', () => {
+		const wrapper = shallow(<ConnectedHome />);
+		expect(wrapper.contains(<TwitterFeed />)).toBe(true);
 	});
 });

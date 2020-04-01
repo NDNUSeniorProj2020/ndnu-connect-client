@@ -30,7 +30,7 @@ class Navbar extends React.Component {
     );
 
     return (
-      <div>
+      <div id={'navbar'}>
         <a href="https://www.ndnu.edu"><img  src={logo} className="ndnu-logo" alt="NDNU Logo" /></a>
 
         <Dropdown overlay={avatarMenu} trigger={['click']} className="avatar-dropdown-container">
