@@ -1,4 +1,4 @@
-import { FETCH_ALL_SUCCESS, FETCH_ALL_FAILURE } from "../../constants/actionTypes";
+import { FETCH_ALL_STUDENTS_SUCCESS, FETCH_ALL_STUDENTS_FAILURE } from "../../constants/student/actionTypes";
 import studentReducer from './studentReducer';
 
 const students = [
@@ -27,12 +27,12 @@ describe('tests for studentRecuders', () => {
 
 	describe('tests for fetching all students reducers', () => {
 		it('sets up all students', () => {
-			const action = { type: FETCH_ALL_SUCCESS, payload: { students } };
+			const action = { type: FETCH_ALL_STUDENTS_SUCCESS, payload: { students } };
 			expect(studentReducer(initialState, action)).toEqual({ ...initialState, students, success: true });
 		});
 
 		it('should return an object with errors if action type is FETCH_STUDENTS_FAILURE', () => {
-			const action = { type: FETCH_ALL_FAILURE, payload: { errors } };
+			const action = { type: FETCH_ALL_STUDENTS_FAILURE, payload: { errors } };
 			expect(studentReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});

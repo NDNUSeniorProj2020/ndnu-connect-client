@@ -3,9 +3,9 @@ import MockAdapter from "axios-mock-adapter";
 import configureMockStore from "redux-mock-store";
 
 import {
-	FETCH_ALL_SUCCESS,
-	FETCH_ALL_FAILURE
-} from "../../constants/actionTypes";
+	FETCH_ALL_DEPARTMENTS_SUCCESS,
+	FETCH_ALL_DEPARTMENTS_FAILURE
+} from "../../constants/department/actionTypes";
 import {
 	fetchDepartmentFailure,
 	fetchDepartments,
@@ -47,13 +47,13 @@ describe('testing department actions', () => {
 		it('should call fetchDepartmentsSuccess and return all departments', () => {
 			const data = departments;
 			expect(fetchDepartmentsSuccess(data)).toEqual({
-				type: FETCH_ALL_SUCCESS,
+				type: FETCH_ALL_DEPARTMENTS_SUCCESS,
 				payload: { departments: [...data] }
 			});
 		});
 
 		it('should call fetchDepartmentsFailure and return errors', () => {
-			expect(fetchDepartmentFailure(errors)).toEqual({ type: FETCH_ALL_FAILURE, payload: { errors } });
+			expect(fetchDepartmentFailure(errors)).toEqual({ type: FETCH_ALL_DEPARTMENTS_FAILURE, payload: { errors } });
 		});
 
 		it('fetches all departments', async () => {
@@ -63,7 +63,7 @@ describe('testing department actions', () => {
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ type: FETCH_ALL_SUCCESS, payload: { departments: [...departments] } }
+				{ type: FETCH_ALL_DEPARTMENTS_SUCCESS, payload: { departments: [...departments] } }
 			]);
 		});
 	});

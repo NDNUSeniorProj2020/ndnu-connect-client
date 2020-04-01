@@ -1,20 +1,20 @@
 import api from "../../api";
 import {
-	FETCH_ALL_SUCCESS,
-	FETCH_ALL_FAILURE
-} from "../../constants/actionTypes";
+	FETCH_ALL_DEPARTMENTS_SUCCESS,
+	FETCH_ALL_DEPARTMENTS_FAILURE
+} from "../../constants/department/actionTypes";
 
 // Fetch all departments actions
 export function fetchDepartmentsSuccess(data) {
 	return {
-		type: FETCH_ALL_SUCCESS,
+		type: FETCH_ALL_DEPARTMENTS_SUCCESS,
 		payload: { departments: [...data] }
 	}
 }
 
 export function fetchDepartmentFailure(errors) {
 	return {
-		type: FETCH_ALL_FAILURE,
+		type: FETCH_ALL_DEPARTMENTS_FAILURE,
 		payload: { errors }
 	};
 }

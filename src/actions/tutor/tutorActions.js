@@ -1,20 +1,20 @@
 import {
-	FETCH_ALL_SUCCESS,
-	FETCH_ALL_FAILURE
-} from "../../constants/actionTypes";
+	FETCH_ALL_TUTORS_SUCCESS,
+	FETCH_ALL_TUTORS_FAILURE
+} from "../../constants/tutor/actionTypes";
 import api from "../../api";
 
 // Fetch all tutors actions
 export function fetchTutorsSuccess(data) {
 	return {
-		type: FETCH_ALL_SUCCESS,
+		type: FETCH_ALL_TUTORS_SUCCESS,
 		payload: { tutors: data }
 	};
 }
 
 export function fetchTutorsFailure(errors) {
 	return {
-		type: FETCH_ALL_FAILURE,
+		type: FETCH_ALL_TUTORS_FAILURE,
 		payload: { errors }
 	};
 }

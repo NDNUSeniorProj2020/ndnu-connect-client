@@ -1,4 +1,4 @@
-import { FETCH_ALL_SUCCESS, FETCH_ALL_FAILURE } from "../../constants/actionTypes";
+import { FETCH_ALL_TUTORS_SUCCESS, FETCH_ALL_TUTORS_FAILURE } from "../../constants/tutor/actionTypes";
 import tutorReducer from "./tutorReducer";
 
 const tutors = [
@@ -25,12 +25,12 @@ describe('tests for tutor reducer', () => {
 
 	describe('tests for fetching all tutors reducers', () => {
 		it('sets up all tutors', () => {
-			const action = { type: FETCH_ALL_SUCCESS, payload: { tutors } };
+			const action = { type: FETCH_ALL_TUTORS_SUCCESS, payload: { tutors } };
 			expect(tutorReducer(initialState, action)).toEqual({ ...initialState, tutors, success: true });
 		});
 
 		it('sets up errors if fetching tutors fails', () => {
-			const action = { type: FETCH_ALL_FAILURE, payload: { errors } };
+			const action = { type: FETCH_ALL_TUTORS_FAILURE, payload: { errors } };
 			expect(tutorReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});

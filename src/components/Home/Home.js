@@ -51,12 +51,14 @@ export class ConnectedHome extends Component {
 	}
 }
 
-const mapStateToProps = ({ boardReducer, jobsReducer, tutorReducer }) => ({
-	boards: boardReducer.boards,
-	jobs: jobsReducer.jobs,
-	tutors: tutorReducer.tutors,
-	success: boardReducer.success && jobsReducer.success && tutorReducer.success
-});
+const mapStateToProps = ({ boardReducer, jobsReducer, tutorReducer }) => {
+	return {
+		boards: boardReducer.boards,
+		jobs: jobsReducer.jobs,
+		tutors: tutorReducer.tutors,
+		success: boardReducer.success && jobsReducer.success && tutorReducer.success
+	}
+}
 const Home = connect(mapStateToProps, { fetchBoards, fetchTutors, fetchJobs })(ConnectedHome);
 
 export default Home;

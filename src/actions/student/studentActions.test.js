@@ -3,9 +3,9 @@ import axios from "axios";
 import configureMockStore from "redux-mock-store";
 
 import {
-	FETCH_ALL_SUCCESS,
-	FETCH_ALL_FAILURE
-} from "../../constants/actionTypes";
+	FETCH_ALL_STUDENTS_SUCCESS,
+	FETCH_ALL_STUDENTS_FAILURE
+} from "../../constants/student/actionTypes";
 import {
 	fetchStudentsSuccess,
 	fetchStudentsFailure,
@@ -48,11 +48,11 @@ describe('tests for student actions', () => {
 	describe('tests for fetching all students actions', () => {
 			it('calls fetchStudentsSuccess and returns all students', () => {
 				const data = students;
-				expect(fetchStudentsSuccess(data)).toEqual({ type: FETCH_ALL_SUCCESS, payload: { students: [...data] } });
+				expect(fetchStudentsSuccess(data)).toEqual({ type: FETCH_ALL_STUDENTS_SUCCESS, payload: { students: [...data] } });
 			});
 
 			it('calls fetchStudentsFailure and returns errors', () => {
-				expect(fetchStudentsFailure(errors)).toEqual({ type: FETCH_ALL_FAILURE, payload: { errors } });
+				expect(fetchStudentsFailure(errors)).toEqual({ type: FETCH_ALL_STUDENTS_FAILURE, payload: { errors } });
 			});
 
 			it('fetches all students', async () => {
@@ -62,7 +62,7 @@ describe('tests for student actions', () => {
 				await flushAllPromises();
 
 				expect(store.getActions()).toEqual([
-					{ type: FETCH_ALL_SUCCESS, payload: { students: [...students] } }
+					{ type: FETCH_ALL_STUDENTS_SUCCESS, payload: { students: [...students] } }
 				]);
 			});
 	});
