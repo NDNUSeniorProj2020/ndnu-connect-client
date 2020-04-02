@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for JobsPage components tests for ConnectedJobsPage snapshot tests renders without crashing 1`] = `ShallowWrapper {}`;
+
+exports[`tests for JobsPage components tests for JobsPage component connected with Redux snapshot tests renders without crashing 1`] = `
+<div>
+  <p>
+    We have jobs.
+  </p>
+</div>
+`;

@@ -1,1 +1,3 @@
-export { default } from './Jobs.js';
+import JobsPage from './JobsPage';
+
+export { JobsPage };
