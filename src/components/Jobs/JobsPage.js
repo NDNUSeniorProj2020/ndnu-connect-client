@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import './Jobs.css';
 import { fetchJobs } from '../../actions/jobs/jobsActions';
 
+
 export class ConnectedJobsPage extends Component {
-  static propTypes = { jobs: PropTypes.array, fetchJobs: PropTypes.func }
-  static defaultProps = { jobs: [], fetchJobs: f => f };
+  static propTypes = { jobs: PropTypes.array, success: PropTypes.bool, fetchJobs: PropTypes.func }
+  static defaultProps = { jobs: [], success: false, fetchJobs: f => f };
 
   componentDidMount() {
     const token = localStorage.getItem('token');
@@ -23,7 +24,7 @@ export class ConnectedJobsPage extends Component {
         <div>
           <p>We have jobs.</p>
         </div>
-      )
+      );
 
     return <p>This is a test.</p>
   }
