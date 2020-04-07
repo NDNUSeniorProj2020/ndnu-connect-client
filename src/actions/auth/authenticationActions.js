@@ -86,8 +86,8 @@ export function hasTokenSuccess(data) {
 export function hasTokenFailure(err) {
 	return {
 		type: HAS_TOKEN_FAILURE,
-		err
-	}
+		payload: { err }
+	};
 }
 
 export function hasToken(token) {
