@@ -1,8 +1,9 @@
-import api from "../../api";
+import api from '../../api';
 import {
 	FETCH_ALL_JOBS_SUCCESS,
 	FETCH_ALL_JOBS_FAILURE
-} from "../../constants/jobs/actionTypes";
+} from '../../constants/jobs/actionTypes';
+import createAuthHeader from '../../assets/js/createAuthHeader';
 
 // Fetch all jobs actions
 export function fetchJobsSuccess(data) {
@@ -20,9 +21,9 @@ export function fetchJobsFailure(errors) {
 }
 
 export function fetchJobs(token) {
-	const headers = { Authorization: `Token ${token}`};
-
 	return (dispatch) => {
+		const headers = createAuthHeader(token);
+
 		return api().get('/api/job/', { headers })
 			.then(res => res.data)
 			.then(data => dispatch(fetchJobsSuccess(data)))
