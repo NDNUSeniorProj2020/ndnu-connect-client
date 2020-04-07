@@ -1,8 +1,6 @@
-import {
-	FETCH_ALL_BOARDS_SUCCESS,
-	FETCH_ALL_BOARDS_FAILURE
-} from "../../constants/board/actionTypes";
-import api from "../../api";
+import { FETCH_ALL_BOARDS_SUCCESS, FETCH_ALL_BOARDS_FAILURE } from '../../constants/board/actionTypes';
+import api from '../../api';
+import createAuthHeader from '../../assets/js/createAuthHeader';
 
 // Fetch all boards actions
 export function fetchBoardsSuccess(data) {
@@ -14,11 +12,12 @@ export function fetchBoardsFailure(errors) {
 }
 
 export function fetchBoards(token) {
-	const headers = { Authorization: `Token ${token}` };
 	return (dispatch) => {
+		const headers = createAuthHeader(token);
+
 		return api().get('/api/board/', { headers })
 			.then(res => res.data)
 			.then(data => dispatch(fetchBoardsSuccess(data)))
 			.catch(errors => dispatch(fetchBoardsFailure(errors)));
-	}
+	};
 }
