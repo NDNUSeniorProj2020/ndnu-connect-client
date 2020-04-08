@@ -9,7 +9,7 @@ export default function JobCard({ job }) {
 			<div>
 				<Card title={job.title} extra={<a href={job.link}>Apply</a>}>
 					<p>{job.description}</p>
-					<p>{moment(job.date).format('LLLL')}</p>
+					<p>{moment(job.date).format('LL')}</p>
 				</Card>
 			</div>
 		);
