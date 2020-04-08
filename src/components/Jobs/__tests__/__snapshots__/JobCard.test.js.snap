@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for JobCard snapshot tests renders without crashing 1`] = `"<div><div class=\\"ant-card ant-card-bordered\\"><div class=\\"ant-card-head\\"><div class=\\"ant-card-head-wrapper\\"><div class=\\"ant-card-extra\\"><a href=\\"\\">Apply</a></div></div></div><div class=\\"ant-card-body\\"><p></p><p>Invalid date</p></div></div></div>"`;
