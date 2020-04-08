@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import './Jobs.css';
+import ListJobs from './ListJobs';
 import { fetchJobs } from '../../actions/jobs/jobsActions';
-
 
 export class ConnectedJobsPage extends Component {
   static propTypes = { jobs: PropTypes.array, success: PropTypes.bool, fetchJobs: PropTypes.func }
@@ -18,15 +18,16 @@ export class ConnectedJobsPage extends Component {
   componentWillUnmount() {}
 
   render() {
-    console.log(this.props.jobs)
-    if (this.props.success)
+    const { jobs, success } = this.props;
+
+    if (success)
       return (
         <div>
-          <p>We have jobs.</p>
+          <ListJobs jobs={jobs} />
         </div>
       );
 
-    return <p>This is a test.</p>
+    return <p>Loading page...</p>
   }
 }
 
