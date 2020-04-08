@@ -7,11 +7,9 @@ export default function JobCard({ job }) {
 	return (
 		<div>
 			<Card title={job.title} extra={<a href={job.link}>Apply</a>}>
-			<p>{job.description}</p>
-			<p>{moment(job.date).format('LLLL')}</p>
-
+				<p>{job.description}</p>
+				<p>{moment(job.date).format('LLLL')}</p>
 			</Card>
-			
 		</div>
 	);
 }
