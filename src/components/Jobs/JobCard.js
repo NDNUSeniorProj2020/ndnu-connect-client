@@ -13,6 +13,8 @@ export default function JobCard({ job }) {
 			</Card>
 			
 		</div>
+
+
 	);
 }
 
