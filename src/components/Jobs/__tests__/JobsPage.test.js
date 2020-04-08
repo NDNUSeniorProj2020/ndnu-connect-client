@@ -65,7 +65,7 @@ describe('tests for JobsPage components', () => {
 
 		describe('snapshot tests', () => {
 			it('renders without crashing', () => {
-				expect(component.toJSON()).toMatchSnapshot();
+				expect(component).toMatchSnapshot();
 			});
 		});
 	});
