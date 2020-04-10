@@ -8,7 +8,7 @@ exports[`tests for JobsPage components tests for JobsPage component connected wi
     <div>
       <div>
         <div
-          className="ant-card ant-card-bordered"
+          className="ant-card ant-card-bordered ant-card-type-inner"
         >
           <div
             className="ant-card-head"
@@ -37,10 +37,14 @@ exports[`tests for JobsPage components tests for JobsPage component connected wi
             className="ant-card-body"
             style={Object {}}
           >
-            <p>
+            <p
+              id="job-description"
+            >
               description test
             </p>
-            <p>
+            <p
+              id="job-posted-date"
+            >
               March 26, 2020
             </p>
           </div>

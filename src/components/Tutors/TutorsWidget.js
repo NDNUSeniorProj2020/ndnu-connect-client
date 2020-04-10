@@ -1,11 +1,12 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { Avatar, Card, Divider, Icon, Tag } from 'antd';
-import "./Tutors.css"
+
+import './Tutors.css';
 
 const { Meta } = Card;
 
-class Tutors extends React.Component {
+class TutorsWidget extends React.Component {
   // constructor(props) {
   //   super(props);
   // }
@@ -78,5 +79,5 @@ class Tutors extends React.Component {
   }
 }
 
-export default Tutors;
+export default TutorsWidget;
           

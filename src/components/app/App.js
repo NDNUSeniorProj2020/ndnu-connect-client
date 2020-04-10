@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import 'antd/dist/antd.css';
 
 import './App.css';
 import PreLoginApp from './PreLoginApp';
