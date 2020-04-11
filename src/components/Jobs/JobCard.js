@@ -17,6 +17,6 @@ export default function JobCard({ job }) {
 
 	);
 }
-
+  
 JobCard.propTypes = { job: PropTypes.object };
 JobCard.defaultProps = { job: {} };
