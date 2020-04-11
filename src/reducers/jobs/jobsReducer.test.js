@@ -1,6 +1,7 @@
 import {
 	FETCH_ALL_JOBS_SUCCESS,
-	FETCH_ALL_JOBS_FAILURE
+	FETCH_ALL_JOBS_FAILURE,
+	FILTER_JOBS_BY_TYPE
 } from "../../constants/jobs/actionTypes";
 import jobsReducer from './jobsReducer';
 
@@ -37,5 +38,10 @@ describe('tests for jobsReducers', () => {
 			const action = { type: FETCH_ALL_JOBS_FAILURE, payload: { errors } };
 			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
+	});
+
+	describe('tests reducers for filtering jobs by type', () => {
+		const action = { type: FILTER_JOBS_BY_TYPE, payload: { jobs } };
+		expect(jobsReducer(initialState, action)).toEqual({ ...initialState, jobs, success: true });
 	});
 });

@@ -1,52 +1,31 @@
-import React, { Component } from 'react';
-import { Checkbox } from 'antd';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import './Jobs.css';
-import ListJobs from './ListJobs';
+import FilterJobsContainer from './FilterJobsContainer';
 import { fetchJobs } from '../../actions/jobs/jobsActions';
 
-export class ConnectedJobsPage extends Component {
-  static propTypes = { jobs: PropTypes.array, success: PropTypes.bool, fetchJobs: PropTypes.func }
-  static defaultProps = { jobs: [], success: false, fetchJobs: f => f };
+export function ConnectedJobsPage({ jobs, success, fetchJobs }) {
+  const [isLoading, setIsLoading] = useState(true);
 
-  
-
-  componentDidMount() {
+  useEffect(() => {
     const token = localStorage.getItem('token');
-    this.props.fetchJobs(token);
-  }
 
-  
-  
+    fetchJobs(token);
+    setIsLoading(false);
+  }, [isLoading, fetchJobs]);
 
-  componentWillUnmount() {}
+  if (success && !isLoading)
+    return <FilterJobsContainer jobs={jobs} />;
+  if (!success && !isLoading)
+    return <p style={{ color: 'red' }}>Cannot load jobs.</p>;
 
-
-  onChange = (e) => {
-    console.log(e.target.value);
-  };
-
-  render() {
-    
-    const { jobs, success } = this.props;
-
-    if (success)
-      return (
-        <div>
-          <Checkbox onChange={this.onChange} value="FULL" />Full-Time
-          <Checkbox onChange={this.onChange} value="PART" />Part-Time
-          <Checkbox onChange={this.onChange} value="INTERN" />Internship
-          <ListJobs jobs={jobs} />
-          
-        </div>
-      );
-
-    return <p>Loading page...</p>
-  }
-  
-  
+  return <p>Loading page...</p>;
 }
+
+ConnectedJobsPage.propTypes = { jobs: PropTypes.array, success: PropTypes.bool, fetchJobs: PropTypes.func };
+ConnectedJobsPage.defaultProps = { jobs: [], success: false, fetchJobs: f => f };
 
 const mapStateToProps = ({ jobsReducer }) => ({ jobs: jobsReducer.jobs, success: jobsReducer.success });
 const JobsPage = connect(mapStateToProps, { fetchJobs })(ConnectedJobsPage);

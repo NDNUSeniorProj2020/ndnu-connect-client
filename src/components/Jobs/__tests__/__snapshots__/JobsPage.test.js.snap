@@ -3,54 +3,7 @@
 exports[`tests for JobsPage components tests for ConnectedJobsPage snapshot tests renders without crashing 1`] = `ShallowWrapper {}`;
 
 exports[`tests for JobsPage components tests for JobsPage component connected with Redux snapshot tests renders without crashing 1`] = `
-<div>
-  <div>
-    <div>
-      <div>
-        <div
-          className="ant-card ant-card-bordered ant-card-type-inner"
-        >
-          <div
-            className="ant-card-head"
-            style={Object {}}
-          >
-            <div
-              className="ant-card-head-wrapper"
-            >
-              <div
-                className="ant-card-head-title"
-              >
-                test1
-              </div>
-              <div
-                className="ant-card-extra"
-              >
-                <a
-                  href="google.com"
-                >
-                  Apply
-                </a>
-              </div>
-            </div>
-          </div>
-          <div
-            className="ant-card-body"
-            style={Object {}}
-          >
-            <p
-              id="job-description"
-            >
-              description test
-            </p>
-            <p
-              id="job-posted-date"
-            >
-              March 26, 2020
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<p>
+  Loading page...
+</p>
 `;

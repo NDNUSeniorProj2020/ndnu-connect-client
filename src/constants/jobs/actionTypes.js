@@ -17,3 +17,7 @@ export const UPDATE_JOB_FAILURE = 'UPDATE_JOB_FAILURE';
 // Delete constants
 export const DELETE_JOB_SUCCESS = 'DELETE_JOB_SUCCESS';
 export const DELETE_JOB_FAILURE = 'DELETE_JOB_FAILURE';
+
+// Filter constants
+export const FILTER_JOBS_BY_TYPE = 'FILTER_JOBS_BY_TYPE';
+

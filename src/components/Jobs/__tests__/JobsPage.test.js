@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import JobsPage, { ConnectedJobsPage } from '../JobsPage';
 
@@ -39,6 +39,26 @@ describe('tests for JobsPage components', () => {
 				expect(ConnectedJobsPage.defaultProps.fetchJobs('f')).toEqual('f');
 			});
 		});
+
+		describe('integration tests', () => {
+			let props;
+			let useEffect;
+
+			beforeEach(() => {
+				useEffect = jest.spyOn(React, 'useEffect').mockImplementation(f => f());
+				props = { fetchJobs: jest.fn().mockResolvedValue(jobs) };
+			});
+
+			it('calls fetchAuthors prop', () => {
+				mount(<ConnectedJobsPage {...props} success={true} jobs={jobs} />);
+				expect(props.fetchJobs).toHaveBeenCalled();
+			});
+
+			it('renders with error message if jobs cannt be fetched.', () => {
+				const wrapper = mount(<ConnectedJobsPage {...props} />);
+				expect(wrapper.find('p').text()).toEqual('Cannot load jobs.');
+			});
+		});
 	});
 
 	describe('tests for JobsPage component connected with Redux', () => {
@@ -58,15 +78,13 @@ describe('tests for JobsPage components', () => {
 
 			component = renderer.create(
 				<Provider store={store}>
-						<JobsPage />
+					<JobsPage />
 				</Provider>
 			);
 		});
 
 		describe('snapshot tests', () => {
-			it('renders without crashing', () => {
-				expect(component).toMatchSnapshot();
-			});
+			it('renders without crashing', () => expect(component).toMatchSnapshot());
 		});
 	});
 });
