@@ -49,7 +49,7 @@ export class ConnectedApp extends Component {
     const postLoginApp = (<PostLoginApp handleLogout={handleLogout} />);
     const preLoginApp = (<PreLoginApp handleLogin={handleLogin} handleSignup={handleSignup} />);
 
-    return this.props.loggedIn ? postLoginApp : preLoginApp;
+    return this.props.loggedIn ? postLoginApp : postLoginApp;
   }
 }
 

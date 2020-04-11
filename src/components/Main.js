@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './Home/Home';
+import TutorsPage from './Tutors/TutorsPage';
 
 export default function Main() {
 	return (
@@ -9,7 +10,7 @@ export default function Main() {
 			<Router>
 				<Switch>
 					<Route path="/">
-						<Home />
+						<TutorsPage />
 					</Route>
 				</Switch>
 			</Router>
