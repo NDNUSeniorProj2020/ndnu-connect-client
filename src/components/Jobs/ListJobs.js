@@ -4,16 +4,19 @@ import PropTypes from 'prop-types';
 import JobCard from './JobCard';
 
 export default function ListJobs({ jobs }) {
-	return (
-		<div>
-			{jobs.map(job => (
-				<div key={job.id}>
-					<JobCard job={job} />
-				</div>
-			))}
-		</div>
-	);
+	if (jobs)
+		return (
+			<div>
+				{jobs.map(job => (
+					<div key={job.id}>
+						<JobCard job={job} />
+					</div>
+				))}
+			</div>
+		);
+	
+	return null;
 }
 
-JobCard.propTypes = { jobs: PropTypes.array };
-JobCard.defaultProps = { jobs: [] };
+ListJobs.propTypes = { jobs: PropTypes.array };
+ListJobs.defaultProps = { jobs: [] };

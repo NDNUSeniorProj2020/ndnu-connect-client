@@ -4,19 +4,14 @@ import { Card } from 'antd';
 import moment from 'moment';
 
 export default function JobCard({ job }) {
-	return (
+	return job ? (
 		<div>
-			<Card title={job.title} extra={<a href={job.link}>Apply</a>}>
-			<p>{job.description}</p>
-			<p>{moment(job.date).format('LLLL')}</p>
-
+			<Card type="inner" title={job.title} extra={<a href={job.link}>Apply</a>}>
+				<p id="job-description">{job.description}</p>
+				<p id="job-posted-date">{moment(job.date).format('LL')}</p>
 			</Card>
-			
 		</div>
-
-
-	);
+	) : null;
 }
   
 JobCard.propTypes = { job: PropTypes.object };
-JobCard.defaultProps = { job: {} };
