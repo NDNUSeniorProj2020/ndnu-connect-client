@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import './index.css';
-import { Input, Upload,Select,Form, DatePicker, Button } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+//import './index.css';
+import { Input, Upload,Select,Form, DatePicker, Button, Icon } from 'antd';
 
 const { RangePicker } = DatePicker;
 
@@ -46,15 +45,15 @@ const props = {
       console.log(info.file, info.fileList);
     }
     if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
+      console.log(`${info.file.name} file uploaded successfully`);
     } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
+      console.error(`${info.file.name} file upload failed.`);
     }
   },
 };
 
 
-const TimeRelatedForm = () => {
+const ScheduleTutorForm = () => {
   const onFinish = fieldsValue => {
     // Should format date value before submit.
     const rangeValue = fieldsValue['range-picker'];
@@ -109,9 +108,9 @@ const TimeRelatedForm = () => {
 
          <Upload {...props}>
     <Button>
-      <UploadOutlined /> Click to Upload
+      <Icon type="upload" /> Click to Upload
     </Button>
-  </Upload>,
+  </Upload>
         </Form.Item>
 
         <Form.Item label="Submission">
@@ -124,5 +123,4 @@ const TimeRelatedForm = () => {
   );
 };
 
-ReactDOM.render(
-<TimeRelatedForm />, document.getElementById('container'));
+export default ScheduleTutorForm;
