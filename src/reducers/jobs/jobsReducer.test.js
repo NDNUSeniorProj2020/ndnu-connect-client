@@ -1,21 +1,20 @@
 import {
 	FETCH_ALL_JOBS_SUCCESS,
 	FETCH_ALL_JOBS_FAILURE,
-	FILTER_JOBS_BY_TYPE
-} from "../../constants/jobs/actionTypes";
+} from '../../constants/jobs/actionTypes';
 import jobsReducer from './jobsReducer';
 
 const jobs = [
 	{
-		"id": 1,
-		"title": "test1",
-		"description": "description test",
-		"qualifications": "bs degree",
-		"pay": "1234",
-		"link": "google.com",
-		"date": "2020-03-13T11:55:20.710240-07:00",
-		"type": "FULL",
-		"person": 1
+		'id': 1,
+		'title': 'test1',
+		'description': 'description test',
+		'qualifications': 'bs degree',
+		'pay': '1234',
+		'link': 'google.com',
+		'date': '2020-03-13T11:55:20.710240-07:00',
+		'type': 'FULL',
+		'person': 1
 	}
 ];
 
@@ -38,10 +37,5 @@ describe('tests for jobsReducers', () => {
 			const action = { type: FETCH_ALL_JOBS_FAILURE, payload: { errors } };
 			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
-	});
-
-	describe('tests reducers for filtering jobs by type', () => {
-		const action = { type: FILTER_JOBS_BY_TYPE, payload: { jobs } };
-		expect(jobsReducer(initialState, action)).toEqual({ ...initialState, jobs, success: true });
 	});
 });

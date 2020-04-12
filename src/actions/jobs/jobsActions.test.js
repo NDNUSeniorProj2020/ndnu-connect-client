@@ -71,22 +71,4 @@ describe('tests for job actions', () => {
 			]);
 		});
 	});
-
-	// Filter jobs by type
-	describe('testing actions for filtering jobs by type', () => {
-		it('filters jobs based on type', () => {
-			expect(filterJobsByType(jobs, 'FULL')).toEqual({
-				type: FILTER_JOBS_BY_TYPE,
-				payload: { jobs }
-			});
-			expect(filterJobsByType(jobs, 'PART')).toEqual({
-				type: FILTER_JOBS_BY_TYPE,
-				payload: { jobs: [] }
-			});
-			expect(filterJobsByType(jobs, 'INTERN')).toEqual({
-				type: FILTER_JOBS_BY_TYPE,
-				payload: { jobs: [] }
-			});
-		});
-	});
 });

@@ -21,7 +21,7 @@ export default function authReducer(state = initialState, action) {
 		}
 		case LOGIN_FAILURE: {
 			return Object.assign({}, state, {
-				errors: action.payload.errors
+				errors: { ...action.payload.errors }
 			});
 		}
 		case REGISTRATION_SUCCESS: {
@@ -32,7 +32,7 @@ export default function authReducer(state = initialState, action) {
 		}
 		case REGISTRATION_FAILURE: {
 			return Object.assign({}, state, {
-				errors: action.payload.errors
+				errors: { ...action.payload.errors }
 			});
 		}
 		case LOGOUT_SUCCESS: {

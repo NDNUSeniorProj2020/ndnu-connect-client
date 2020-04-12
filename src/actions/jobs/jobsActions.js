@@ -2,7 +2,6 @@ import api from '../../api';
 import {
 	FETCH_ALL_JOBS_SUCCESS,
 	FETCH_ALL_JOBS_FAILURE,
-	FILTER_JOBS_BY_TYPE
 } from '../../constants/jobs/actionTypes';
 import createAuthHeader from '../../assets/js/createAuthHeader';
 
@@ -29,13 +28,5 @@ export function fetchJobs(token) {
 			.then(res => res.data)
 			.then(data => dispatch(fetchJobsSuccess(data)))
 			.catch(errors => dispatch(fetchJobsFailure(errors.response.data)));
-	};
-}
-
-// Filter jobs by type actions
-export function filterJobsByType(jobs, jobType) {
-	return {
-		type: FILTER_JOBS_BY_TYPE,
-		payload: { jobs: jobs.filter(job => job.type === jobType) }
 	};
 }
