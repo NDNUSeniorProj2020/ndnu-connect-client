@@ -8,16 +8,15 @@ import './Navbar.css';
 
 const { SubMenu } = Menu;
 
-class Navbar extends React.Component {
-  state = {
-    current: 'mail',
-  };
+export class ConnectedNavbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      current: 'mail',
+    };
+  }
 
-  handleClick = e => {
-    this.setState({
-      current: e.key,
-    });
-  };
+  handleClick = e => this.setState({ current: e.key });
 
   render() {
     const avatarMenu = (
@@ -66,5 +65,5 @@ class Navbar extends React.Component {
   }
 }
 
-export default withRouter(Navbar);
+export default withRouter(ConnectedNavbar);
           
