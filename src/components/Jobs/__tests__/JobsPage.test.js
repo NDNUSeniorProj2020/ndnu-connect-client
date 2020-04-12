@@ -49,6 +49,8 @@ describe('tests for JobsPage components', () => {
 				props = { fetchJobs: jest.fn().mockResolvedValue(jobs) };
 			});
 
+			afterEach(() => jest.clearAllMocks());
+
 			it('calls fetchAuthors prop', () => {
 				mount(<ConnectedJobsPage {...props} success={true} jobs={jobs} />);
 				expect(props.fetchJobs).toHaveBeenCalled();
