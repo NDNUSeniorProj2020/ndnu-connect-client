@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox } from 'antd';
-
+import { Row, Col, Card, Checkbox } from 'antd';
 import ListJobs from './ListJobs';
+
 
 export default function FilterJobsContainer(props) {
 	const [jobs, setJobs] = useState(props.jobs);
@@ -28,12 +28,20 @@ export default function FilterJobsContainer(props) {
 	};
 
 	return (
-		<div>
-			<Checkbox onChange={onChange} name="FULL" />Full-Time
-			<Checkbox onChange={onChange} name="PART" />Part-Time
-			<Checkbox onChange={onChange} name="INTERN" />Internship
-			<ListJobs jobs={jobs} />
-		</div>
+	<div>	
+		<Row gutter={16}>
+		<Col className="gutter-row" span={6}>
+		<ListJobs jobs={jobs} />
+		</Col>
+		<Col className="gutter-row" span={6}>
+		<Card size="small" title="Job Type" extra={<a href="#">More</a>} style={{ width: 300 }}>
+		 <Checkbox onChange={onChange} name="FULL" />Full-Time
+		 <Checkbox onChange={onChange} name="PART" />Part-Time
+		 <Checkbox onChange={onChange} name="INTERN" />Internship
+		</Card>
+		</Col>
+		</Row>
+  	</div>
 	);
 }
 
