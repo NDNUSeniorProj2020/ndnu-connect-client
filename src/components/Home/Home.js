@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import './Home.css';
 import TwitterFeed from './TwitterFeed';
 import Tutors from './Tutors';
+import Jobs from './Jobs';
+import ScheduleTutorForm from '../Auth/ScheduleTutorForm';
 import { fetchBoards } from '../../actions/board/boardActions';
 import { fetchJobs } from '../../actions/jobs/jobsActions';
 import { fetchTutors } from '../../actions/tutor/tutorActions';
@@ -46,6 +48,12 @@ export class ConnectedHome extends Component {
 			<div>
 				<TwitterFeed />
 				<Tutors />
+				<Jobs />
+
+				<br />
+				<br />
+
+				<ScheduleTutorForm />
 			</div>
 		);
 	}
