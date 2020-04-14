@@ -1,6 +1,8 @@
 import {
 	FETCH_ALL_JOBS_SUCCESS,
 	FETCH_ALL_JOBS_FAILURE,
+	SAVE_JOB_SUCCESS,
+	SAVE_JOB_FAILURE
 } from '../../constants/jobs/actionTypes';
 import jobsReducer from './jobsReducer';
 
@@ -17,6 +19,7 @@ const jobs = [
 		'person': 1
 	}
 ];
+const job = jobs[0];
 
 const initialState = { jobs: [], success: false };
 
@@ -24,7 +27,7 @@ const errors = {
 	error: ['Failed to complete']
 };
 
-describe('tests for jobsReducers', () => {
+describe('tests for jobsReducer', () => {
 	it('should return initial state', () => expect(jobsReducer(undefined, {})).toEqual({ ...initialState }));
 
 	describe('tests for fetch all jobs reducers', () => {
@@ -36,6 +39,11 @@ describe('tests for jobsReducers', () => {
 		it('sets up errors if fetching jobs fails', () => {
 			const action = { type: FETCH_ALL_JOBS_FAILURE, payload: { errors } };
 			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, errors });
+		});
+
+		it('sets up state if job was successfully saved', () => {
+			const action = { type: SAVE_JOB_SUCCESS, payload: { job } };
+			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, job, success: true });
 		});
 	});
 });
