@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Card, Checkbox } from 'antd';
+
+import JobSearchForm from './JobSearchForm';
 import ListJobs from './ListJobs';
 
 
@@ -27,19 +29,31 @@ export default function FilterJobsContainer(props) {
 		setJobTypes(typesStack);
 	};
 
+	const searchJobs = (title) => {
+		const filteredJobs = props.jobs.filter(job => job.title.includes(title));
+		return setJobs(filteredJobs);
+	};
+
+	const resetJobs = () => setJobs(props.jobs);
+
 	return (
 	<div>	
 		<Row gutter={16}>
-		<Col className="gutter-row" span={6}>
-		<ListJobs jobs={jobs} />
-		</Col>
-		<Col className="gutter-row" span={6}>
-		<Card size="small" title="Job Type" extra={<a href="#">More</a>} style={{ width: 300 }}>
-		 <Checkbox onChange={onChange} name="FULL" />Full-Time
-		 <Checkbox onChange={onChange} name="PART" />Part-Time
-		 <Checkbox onChange={onChange} name="INTERN" />Internship
-		</Card>
-		</Col>
+			<Col className="gutter-row" span={6}>
+				<JobSearchForm searchJobs={searchJobs} resetJobs={resetJobs} />
+			</Col>
+		</Row>
+		<Row gutter={16}>
+			<Col className="gutter-row" span={6}>
+				{jobs.length > 0 ? <ListJobs jobs={jobs} /> : <p>No jobs available.</p>}
+			</Col>
+			<Col className="gutter-row" span={6}>
+				<Card size="small" title="Job Type" style={{ width: 300 }}>
+					<Checkbox onChange={onChange} name="FULL" />Full-Time
+					<Checkbox onChange={onChange} name="PART" />Part-Time
+					<Checkbox onChange={onChange} name="INTERN" />Internship
+				</Card>
+			</Col>
 		</Row>
   	</div>
 	);
