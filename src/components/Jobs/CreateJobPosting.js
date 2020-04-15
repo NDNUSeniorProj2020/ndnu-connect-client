@@ -1,28 +1,23 @@
 import React from 'react';
-import { Input } from 'antd';
+import { Input, Form } from 'antd';
 
 export default function CreateJobPosting() {
 	const { TextArea } = Input;
-	<TextArea rows={4} />
+	
 	return (
 		<div>
-			<Form onSubmit={onSubmit}>
+			<Form>
 				<Form.Item label="Title" name="title">
-					<Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Job Posting" />
+					<Input placeholder="Job Title" />
 				</Form.Item>
-					<Input value={company} onChange={e => setTitle(e.target.value)} palceholder="Company Name" />
+					<Input palceholder="Company Name" />
 				<Form.Item>
-					<Input value={description} onChange={e => setTitle(e.target.value)} palceholder="Description" />
-					<Button type="primary" onClick={onSubmit}>Search</Button>
+					<Input palceholder="Description" />
 				</Form.Item>
 				<Form.Item>
-					<Button onClick={resetForm}>Reset</Button>
+					<TextArea rows={4} />
 				</Form.Item>
-				<Input value={link} placeholder="link" />
-				
 			</Form>
 		</div>
-
-
 	);
 }
