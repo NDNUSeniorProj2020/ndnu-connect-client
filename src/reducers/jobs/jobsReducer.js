@@ -2,9 +2,10 @@ import {
 	FETCH_ALL_JOBS_SUCCESS,
 	FETCH_ALL_JOBS_FAILURE,
 	SAVE_JOB_SUCCESS,
+	SAVE_JOB_FAILURE,
 } from '../../constants/jobs/actionTypes';
 
-const initialState = { jobs: [], success: false };
+const initialState = { job: {}, jobs: [], success: false };
 
 export default function jobsReducer(state = initialState, action) {
 	switch (action.type) {
@@ -24,6 +25,11 @@ export default function jobsReducer(state = initialState, action) {
 			return Object.assign({}, state, {
 				job: { ...action.payload.job },
 				success: true
+			});
+		}
+		case SAVE_JOB_FAILURE: {
+			return Object.assign({}, state, {
+				errors: { ...action.payload.errors }
 			});
 		}
 		default:
