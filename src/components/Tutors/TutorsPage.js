@@ -1,6 +1,8 @@
 import React from "react";
 import { Avatar, Button, Card, Divider, Icon, Input, Modal, Radio, Tag, Typography } from "antd";
 import AdvancedSearchModal from './AdvancedSearchModal';
+import ScheduleTutorForm from './ScheduleTutorForm';
+import TutorsList from './TutorsList';
 import './TutorsPage.css';
 
 const { Title } = Typography;
@@ -13,6 +15,7 @@ class TutorsPage extends React.Component {
     this.state = {
       tutorToggle: false,
       advancedSearchVisible: false,
+      listVisible: false,
     };
   };
 
@@ -26,7 +29,16 @@ class TutorsPage extends React.Component {
 
   handleToggleChange = () => {
     this.setState((prevState) => ({ tutorToggle: !prevState.tutorToggle }));
-  }
+  };
+
+  showSubjectList = e => {
+    console.log(e.target.data);
+    this.setState({ listVisible:true });
+  };
+
+  hideSubjectList = () => {
+    this.setState({ listVisible:false });
+  };
 
   render() {
     const data = [
@@ -102,7 +114,16 @@ class TutorsPage extends React.Component {
           <Button className="avanced-search-button" onClick={this.showAdvancedSearch}>Advanced Search</Button>
         </div>
 
-        {this.state.tutorToggle ? null :
+        {this.state.tutorToggle ? 
+          (<div>
+            <Title level={3} className="top-tutors-title">
+              Tutor Availability
+            </Title>
+            <div style={{width:"75%", paddingTop:"30px"}}>
+              <ScheduleTutorForm />
+            </div>
+          </div>)
+          :
           (<div>
             <div className="top-tutors-container">
             <Title level={3} className="top-tutors-title">
@@ -141,7 +162,7 @@ class TutorsPage extends React.Component {
 
           <div className="subject-grid-container">
             <Card title="Browse by subject" className="subject-grid-card">
-              {subjects.map(subject => <Card.Grid key={subject} className="subject-grid">{subject}</Card.Grid>)}
+              {subjects.map(subject => <Card.Grid key={subject} data={subject} onClick={this.showSubjectList} className="subject-grid">{subject}</Card.Grid>)}
             </Card>
           </div>
           <Modal
@@ -152,6 +173,7 @@ class TutorsPage extends React.Component {
           >
             <AdvancedSearchModal />
           </Modal>
+          <TutorsList subject={this.state.subject} visible={this.state.listVisible} hideSubjectList={this.hideSubjectList} />
         </div>)
       }
       </div>

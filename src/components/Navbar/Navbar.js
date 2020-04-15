@@ -1,5 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
+import { Link, withRouter } from 'react-router-dom';
 import { Avatar, Dropdown, Icon, Menu } from 'antd';
 
 import logo from '../../assets/ndnu-logo.jpg';
@@ -7,7 +8,7 @@ import './Navbar.css';
 
 const { SubMenu } = Menu;
 
-class Navbar extends React.Component {
+class RenderNavbar extends React.Component {
   state = {
     current: 'mail',
   };
@@ -31,7 +32,9 @@ class Navbar extends React.Component {
 
     return (
       <div id={'navbar'}>
-        <a href="https://www.ndnu.edu"><img  src={logo} className="ndnu-logo" alt="NDNU Logo" /></a>
+        <Link to="/">
+          <img  src={logo} className="ndnu-logo" alt="NDNU Logo" />
+        </Link>
 
         <Dropdown overlay={avatarMenu} trigger={['click']} className="avatar-dropdown-container">
           <Avatar size="large" className="avatar">J</Avatar>
@@ -47,9 +50,10 @@ class Navbar extends React.Component {
               </span>
             }
           >
-            <Menu.Item key="setting:1">Student</Menu.Item>
-            <Menu.Item key="setting:2">Tutor</Menu.Item>
+            <Menu.Item key="setting:1"><Link to="/tutors">Student</Link></Menu.Item>
+            <Menu.Item key="setting:2"><Link to="/tutors">Tutor</Link></Menu.Item>
           </SubMenu>
+
           <SubMenu
             title={
               <span className="submenu-title-wrapper">
@@ -78,6 +82,8 @@ class Navbar extends React.Component {
     );
   }
 }
+
+const Navbar = withRouter(props => <RenderNavbar {...props} />);
 
 export default Navbar;
           
