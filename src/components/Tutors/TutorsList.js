@@ -17,9 +17,11 @@ for (let i = 0; i < 10; i++) {
 }
 
 class TutorsList extends React.Component {
+  /*
   constructor(props) {
     super(props);
   };
+  */
 
   handleCancel = () => {
     this.props.hideSubjectList();

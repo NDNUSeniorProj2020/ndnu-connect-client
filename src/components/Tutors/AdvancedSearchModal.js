@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import { Button, Checkbox, Col, Form, Input, Row, TimePicker } from "antd";
 
 const AdvancedSearchModal = Form.create()(
