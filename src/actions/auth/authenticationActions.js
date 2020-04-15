@@ -1,4 +1,4 @@
-import api from "../../api";
+import api from '../../api';
 import {
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
@@ -7,7 +7,8 @@ import {
 	LOGOUT_SUCCESS,
 	HAS_TOKEN_SUCCESS,
 	HAS_TOKEN_FAILURE
-} from "../../constants/actionTypes";
+} from '../../constants/actionTypes';
+import createAuthHeader from '../../assets/js/createAuthHeader';
 
 // Login actions
 export function loginSuccess(data) {
@@ -86,13 +87,14 @@ export function hasTokenSuccess(data) {
 export function hasTokenFailure(err) {
 	return {
 		type: HAS_TOKEN_FAILURE,
-		err
-	}
+		payload: { err }
+	};
 }
 
 export function hasToken(token) {
 	return (dispatch) => {
-		const headers = { Authorization: `Token ${token}` };
+		const headers = createAuthHeader(token);
+		
 		return api().get('/accounts/user/', { headers })
 			.then(res => res.data)
 			.then(data => dispatch(hasTokenSuccess(data)))

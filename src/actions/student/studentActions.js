@@ -1,8 +1,9 @@
 import {
 	FETCH_ALL_STUDENTS_SUCCESS,
 	FETCH_ALL_STUDENTS_FAILURE
-} from "../../constants/student/actionTypes";
-import api from "../../api";
+} from '../../constants/student/actionTypes';
+import api from '../../api';
+import createAuthHeader from '../../assets/js/createAuthHeader';
 
 // Fetch all students actions
 export function fetchStudentsSuccess(data) {
@@ -20,9 +21,9 @@ export function fetchStudentsFailure(errors) {
 }
 
 export function fetchStudents(token) {
-	const headers = { Authorization: `Token ${token}` };
-
 	return (dispatch) => {
+		const headers = createAuthHeader(token);
+
 		return api().get('/api/student/', { headers })
 			.then(res => res.data)
 			.then(data => dispatch(fetchStudentsSuccess(data)))

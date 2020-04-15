@@ -25,41 +25,46 @@ const errors = {
 	err: { msg: 'Cannot complete. Sorry for the inconvenience.' }
 };
 
-const beforeState = { user: {}, loggedIn: false };
+const initialState = { user: {}, loggedIn: false };
 
 describe('Authentication reducers tests', () => {
-	it('returns initial state', () => expect(authReducer(undefined, {})).toEqual({ ...beforeState }));
+	it('returns initial state', () => expect(authReducer(undefined, {})).toEqual({ ...initialState }));
 
 	describe('test login action', () => {
 		it('sets up logged in user', () => {
 			const action = { type: LOGIN_SUCCESS, payload: { user: { ...testUser1 } } };
-			expect(authReducer(beforeState, action)).toEqual({ user: { ...testUser1 }, loggedIn: true });
+			expect(authReducer(initialState, action)).toEqual({ user: { ...testUser1 }, loggedIn: true });
 		});
 
 		it('sets up error if login fails', () => {
 			const action = { type: LOGIN_FAILURE, payload: { errors } };
-			expect(authReducer(beforeState, action)).toEqual({ ...beforeState, errors });
+			expect(authReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});
 
 	describe('test register action', () => {
 		it('sets up newly registered user', () => {
 			const action = { type: REGISTRATION_SUCCESS, payload: { user: { ...testUser2 } } };
-			const afterState = authReducer(beforeState, action);
+			const afterState = authReducer(initialState, action);
 
 			expect(afterState).toEqual({ user: { ...testUser2 }, loggedIn: true });
 		});
 
 		it('sets up errors if user registration fails', () => {
 			const action = { type: REGISTRATION_FAILURE, payload: { errors } };
-			expect(authReducer(beforeState, action)).toEqual({ ...beforeState, errors });
+			expect(authReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});
 
 	describe('test logout action', () => {
 		it('should have an empty user object when user logs out', () => {
 			const action = { type: LOGOUT_SUCCESS, payload: { user: {} } };
-			expect(authReducer(beforeState, action)).toEqual({ ...beforeState });
+			expect(authReducer(initialState, action)).toEqual({ ...initialState });
+		});
+
+		it('should thrown an error if user cannot logout', () => {
+			const action = { type: LOGOUT_FAILURE, payload: { errors } };
+			expect(authReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});
 
@@ -67,12 +72,12 @@ describe('Authentication reducers tests', () => {
 		it('sets up user if token is valid', () => {
 			const user = { email: 'user@user.com', token: 'someToken' };
 			const action = { type: HAS_TOKEN_SUCCESS, payload: { user: { ...user } } };
-			expect(authReducer(beforeState, action)).toEqual({ user: { ...user }, loggedIn: true });
+			expect(authReducer(initialState, action)).toEqual({ user: { ...user }, loggedIn: true });
 		});
 
 		it('sets up errors if there is no token or token is invalid', () => {
 			const action = { type: HAS_TOKEN_FAILURE, payload: { errors } };
-			expect(authReducer(beforeState, action)).toEqual({ ...beforeState, errors });
+			expect(authReducer(initialState, action)).toEqual({ ...initialState, errors });
 		});
 	});
 });

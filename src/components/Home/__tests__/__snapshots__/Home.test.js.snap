@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for ConnectedHome snapshot tests renders without crashing if no props are passed. 1`] = `ShallowWrapper {}`;
+
+exports[`tests for Home snapshot tests connects with Redux store and renders without crashing. 1`] = `
+<h1>
+  Dashboard
+</h1>
+`;
