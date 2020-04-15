@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Avatar, Dropdown, Icon, Menu } from 'antd';
 
 import logo from '../../assets/ndnu-logo.jpg';
@@ -50,8 +50,8 @@ class Navbar extends React.Component {
               </span>
             }
           >
-            <Menu.Item key="tutors"><Link to="/tutors">Student</Link></Menu.Item>
-            <Menu.Item key="student"><Link to="/tutors">Tutor</Link></Menu.Item>
+            <Menu.Item key="tutors" onClick={() => this.props.history.push('/tutors')}>Student</Menu.Item>
+            <Menu.Item key="student" onClick={() => this.props.history.push('/tutors')}>Tutor</Menu.Item>
           </SubMenu>
 
           <SubMenu

@@ -8,8 +8,8 @@ export default function Main() {
 	return (
 		<div>
 			<Switch>
-				<Route exact path="/tutors" component={<TutorsPage />} />
-				<Route exact path="/" component={<Home />} />
+				<Route exact path="/" component={Home} />
+				<Route exact path="/tutors" component={TutorsPage} />
 			</Switch>
 		</div>
 	);

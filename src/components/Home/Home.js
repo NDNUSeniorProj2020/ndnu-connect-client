@@ -43,7 +43,6 @@ export class ConnectedHome extends Component {
 	componentWillUnmount() {}
 
 	render() {
-		console.log(this.props)
 		return (
 			<div>
 				<TwitterFeed />
