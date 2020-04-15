@@ -55,9 +55,9 @@ export class ConnectedNavbar extends React.Component {
           <Menu.Item key="jobs" onClick={() => this.props.history.push('/jobs')}>
             Jobs | Internships
           </Menu.Item>
-          <Menu.Item key="alumni">
-            Alumni
-          </Menu.Item>
+            <Menu.Item key="alumni" onClick={() => this.props.history.push('/alumni')}>
+                Alumin
+            </Menu.Item>
           <Menu.Item key="forum">
             Open Forum
           </Menu.Item>
@@ -68,4 +68,3 @@ export class ConnectedNavbar extends React.Component {
 }
 
 export default withRouter(ConnectedNavbar);
-          

@@ -11,7 +11,7 @@ const data = [
         fname: 'John',
         lname: 'Brown',
         major: 'Computer  Science (BS)',
-        birthday: '1995-02-01',
+        job: 'Apple',
         city: 'San Mateo',
     },
     {
@@ -19,7 +19,7 @@ const data = [
         fname: 'Joe',
         lname: 'Black',
         major: 'Business Administration (BS)',
-        birthday: '1960-03-05',
+        job: 'Google',
         city: 'San Francisco',
     },
     {
@@ -27,7 +27,7 @@ const data = [
         fname: 'Jim',
         lname: 'Green',
         major: 'History (BA)',
-        birthday: '1976-11-21',
+        job: 'Computer History Museum',
         city: 'Belmont',
     },
     {
@@ -35,7 +35,7 @@ const data = [
         fname: 'Jim',
         lname: 'Red',
         major: 'Communication (BA)',
-        birthday: '1990-12-10',
+        job: 'Comcast',
         city: 'Belmont',
     },
 ];
@@ -135,11 +135,11 @@ class Alumni extends React.Component {
                 ...this.getColumnSearchProps('major'),
             },
             {
-                title: 'Birthday',
-                dataIndex: 'birthday',
-                key: 'birthday',
+                title: 'Current Company',
+                dataIndex: 'job',
+                key: 'job',
                 width: '20%',
-                ...this.getColumnSearchProps('birthday'),
+                ...this.getColumnSearchProps('job'),
             },
             {
                 title: 'City',
