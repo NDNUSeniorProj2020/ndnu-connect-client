@@ -1,5 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
+import { withRouter, Link } from 'react-router-dom';
 import { Avatar, Dropdown, Icon, Menu } from 'antd';
 
 import logo from '../../assets/ndnu-logo.jpg';
@@ -31,7 +32,9 @@ class Navbar extends React.Component {
 
     return (
       <div id={'navbar'}>
-        <a href="https://www.ndnu.edu"><img  src={logo} className="ndnu-logo" alt="NDNU Logo" /></a>
+        <Link to="/">
+          <img  src={logo} className="ndnu-logo" alt="NDNU Logo" />
+        </Link>
 
         <Dropdown overlay={avatarMenu} trigger={['click']} className="avatar-dropdown-container">
           <Avatar size="large" className="avatar">J</Avatar>
@@ -47,9 +50,10 @@ class Navbar extends React.Component {
               </span>
             }
           >
-            <Menu.Item key="setting:1">Student</Menu.Item>
-            <Menu.Item key="setting:2">Tutor</Menu.Item>
+            <Menu.Item key="tutors" onClick={() => this.props.history.push('/tutors')}>Student</Menu.Item>
+            <Menu.Item key="student" onClick={() => this.props.history.push('/tutors')}>Tutor</Menu.Item>
           </SubMenu>
+
           <SubMenu
             title={
               <span className="submenu-title-wrapper">
@@ -79,5 +83,5 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
           
