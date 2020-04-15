@@ -37,5 +37,5 @@ describe('Testing PreLoginApp component', () => {
 
 		expect(wrapper.props().handleLogin).toBeDefined();
 		expect(wrapper.props().handleSignup).toBeDefined();
-	})
+	});
 });

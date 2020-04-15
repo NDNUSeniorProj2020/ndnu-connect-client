@@ -4,9 +4,10 @@ import configureMockStore from "redux-mock-store";
 
 import {
 	FETCH_ALL_JOBS_SUCCESS,
-	FETCH_ALL_JOBS_FAILURE
+	FETCH_ALL_JOBS_FAILURE,
+	FILTER_JOBS_BY_TYPE
 } from "../../constants/jobs/actionTypes";
-import { fetchJobsSuccess, fetchJobs, fetchJobsFailure } from "./jobsActions";
+import { fetchJobsSuccess, fetchJobs, fetchJobsFailure, filterJobsByType } from "./jobsActions";
 
 const jobs = [
 	{
@@ -37,6 +38,7 @@ describe('tests for job actions', () => {
 		store = mockStore({});
 	});
 
+	// Fetching all jobs
 	describe('testing actions for fetching all jobs', () => {
 		it('calls fetchJobsSuccess and returns all jobs', () => {
 			const data = jobs;
@@ -55,6 +57,17 @@ describe('tests for job actions', () => {
 
 			expect(store.getActions()).toEqual([
 				{ type: FETCH_ALL_JOBS_SUCCESS, payload: { jobs: [...jobs] } }
+			]);
+		});
+
+		it('throws error if jobs cannot be fetched', async () => {
+			httpMock.onGet(`${url}/api/job/`).reply(500, errors);
+
+			fetchJobs('someRandomToken')(store.dispatch)
+			await flushAllPromises();
+
+			expect(store.getActions()).toEqual([
+				{ type: FETCH_ALL_JOBS_FAILURE, payload: { errors: { ...errors } } }
 			]);
 		});
 	});

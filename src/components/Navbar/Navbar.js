@@ -8,16 +8,15 @@ import './Navbar.css';
 
 const { SubMenu } = Menu;
 
-class Navbar extends React.Component {
-  state = {
-    current: 'mail',
-  };
+export class ConnectedNavbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      current: 'mail',
+    };
+  }
 
-  handleClick = e => {
-    this.setState({
-      current: e.key,
-    });
-  };
+  handleClick = e => this.setState({ current: e.key });
 
   render() {
     const avatarMenu = (
@@ -53,24 +52,9 @@ class Navbar extends React.Component {
             <Menu.Item key="tutors" onClick={() => this.props.history.push('/tutors')}>Student</Menu.Item>
             <Menu.Item key="student" onClick={() => this.props.history.push('/tutors')}>Tutor</Menu.Item>
           </SubMenu>
-
-          <SubMenu
-            title={
-              <span className="submenu-title-wrapper">
-                <Icon type="shopping" />
-                Jobs | Internships
-              </span>
-            }
-          >
-            <Menu.ItemGroup title="Item 1">
-              <Menu.Item key="setting:1">Option 1</Menu.Item>
-              <Menu.Item key="setting:2">Option 2</Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.ItemGroup title="Item 2">
-              <Menu.Item key="setting:3">Option 3</Menu.Item>
-              <Menu.Item key="setting:4">Option 4</Menu.Item>
-            </Menu.ItemGroup>
-          </SubMenu>
+          <Menu.Item key="jobs" onClick={() => this.props.history.push('/jobs')}>
+            Jobs | Internships
+          </Menu.Item>
           <Menu.Item key="alumni">
             Alumni
           </Menu.Item>
@@ -83,5 +67,5 @@ class Navbar extends React.Component {
   }
 }
 
-export default withRouter(Navbar);
+export default withRouter(ConnectedNavbar);
           
