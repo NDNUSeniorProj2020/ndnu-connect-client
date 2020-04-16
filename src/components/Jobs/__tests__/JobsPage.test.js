@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
@@ -52,7 +53,11 @@ describe('tests for JobsPage components', () => {
 			afterEach(() => jest.clearAllMocks());
 
 			it('calls fetchAuthors prop', () => {
-				mount(<ConnectedJobsPage {...props} success={true} jobs={jobs} />);
+				mount(
+          <BrowserRouter>
+            <ConnectedJobsPage {...props} success={true} jobs={jobs} />
+          </BrowserRouter>
+        );
 				expect(props.fetchJobs).toHaveBeenCalled();
 			});
 
@@ -75,9 +80,7 @@ describe('tests for JobsPage components', () => {
 					success: true
 				}
 			});
-
 			store.dispatch = jest.fn();
-
 			component = renderer.create(
 				<Provider store={store}>
 					<JobsPage />
