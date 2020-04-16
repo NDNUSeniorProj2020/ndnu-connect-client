@@ -1,26 +1,26 @@
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
-import configureMockStore from "redux-mock-store";
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import configureMockStore from 'redux-mock-store';
 
 import {
 	FETCH_ALL_DEPARTMENTS_SUCCESS,
 	FETCH_ALL_DEPARTMENTS_FAILURE
-} from "../../constants/department/actionTypes";
+} from '../../constants/department/actionTypes';
 import {
 	fetchDepartmentFailure,
 	fetchDepartments,
 	fetchDepartmentsSuccess
-} from "./departmentActions";
+} from './departmentActions';
 
 const departments = [
 	{
-		"name": "BUS"
+		'name': 'BUS'
 	},
 	{
-		"name": "MTH"
+		'name': 'MTH'
 	},
 	{
-		"name": "ENG"
+		'name': 'ENG'
 	}
 ];
 const errors = {
@@ -30,7 +30,7 @@ const errors = {
 };
 
 describe('testing department actions', () => {
-	const url = process.env.REACT_APP_API || 'http://localhost:8000';
+	const url = 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
 
 	let store;
 	let httpMock;

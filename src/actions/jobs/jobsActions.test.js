@@ -1,31 +1,30 @@
-import MockAdapter from "axios-mock-adapter";
-import axios from "axios";
-import configureMockStore from "redux-mock-store";
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
+import configureMockStore from 'redux-mock-store';
 
 import {
 	FETCH_ALL_JOBS_SUCCESS,
 	FETCH_ALL_JOBS_FAILURE,
-	FILTER_JOBS_BY_TYPE
-} from "../../constants/jobs/actionTypes";
-import { fetchJobsSuccess, fetchJobs, fetchJobsFailure, filterJobsByType } from "./jobsActions";
+} from '../../constants/jobs/actionTypes';
+import { fetchJobsSuccess, fetchJobs, fetchJobsFailure } from './jobsActions';
 
 const jobs = [
 	{
-		"id": 1,
-		"title": "test1",
-		"description": "description test",
-		"qualifications": "bs degree",
-		"pay": "1234",
-		"link": "google.com",
-		"date": "2020-03-13T11:55:20.710240-07:00",
-		"type": "FULL",
-		"person": 1
+		'id': 1,
+		'title': 'test1',
+		'description': 'description test',
+		'qualifications': 'bs degree',
+		'pay': '1234',
+		'link': 'google.com',
+		'date': '2020-03-13T11:55:20.710240-07:00',
+		'type': 'FULL',
+		'person': 1
 	}
 ];
 const errors = { error: ['Failed to fetch jobs.'] };
 
 describe('tests for job actions', () => {
-	const url = process.env.REACT_APP_API || 'http://localhost:8000';
+	const url = 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
 
 	let store;
 	let httpMock;

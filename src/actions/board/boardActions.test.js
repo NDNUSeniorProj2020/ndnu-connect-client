@@ -1,38 +1,38 @@
-import MockAdapter from "axios-mock-adapter";
-import axios from "axios";
-import configureMockStore from "redux-mock-store";
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
+import configureMockStore from 'redux-mock-store';
 
 import {
 	FETCH_ALL_BOARDS_SUCCESS,
 	FETCH_ALL_BOARDS_FAILURE
-} from "../../constants/board/actionTypes";
+} from '../../constants/board/actionTypes';
 import {
 	fetchBoardsSuccess,
 	fetchBoardsFailure,
 	fetchBoards
-} from "./boardActions";
+} from './boardActions';
 
 const boards = [
 	{
-		"id": 1,
-		"name": "Announcements",
-		"description": "Announce upcoming events at NDNU"
+		'id': 1,
+		'name': 'Announcements',
+		'description': 'Announce upcoming events at NDNU'
 	},
 	{
-		"id": 2,
-		"name": "Homework",
-		"description": "Get help for homework."
+		'id': 2,
+		'name': 'Homework',
+		'description': 'Get help for homework.'
 	},
 	{
-		"id": 3,
-		"name": "Random",
-		"description": "Random board"
+		'id': 3,
+		'name': 'Random',
+		'description': 'Random board'
 	}
 ];
 const errors = { err: ['Failed to fetch.'] };
 
 describe('tests for board actions', () => {
-	const url = process.env.REACT_APP_API || 'http://localhost:8000';
+	const url = 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
 
 	let store;
 	let httpMock;

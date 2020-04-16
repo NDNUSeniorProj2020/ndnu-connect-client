@@ -1,17 +1,17 @@
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
-import configureMockStore from "redux-mock-store";
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import configureMockStore from 'redux-mock-store';
 
 import {
 	LOGIN_SUCCESS,
 	REGISTRATION_SUCCESS,
 	LOGOUT_SUCCESS,
 	HAS_TOKEN_SUCCESS,
-} from "../../constants/actionTypes";
-import { login, register, logout, hasToken } from "./authenticationActions";
+} from '../../constants/actionTypes';
+import { login, register, logout, hasToken } from './authenticationActions';
 
 describe('testing authentication actions', () => {
-	const url = process.env.REACT_APP_API || 'http://localhost:8000';
+	const url = 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
 
 	let store;
 	let httpMock;

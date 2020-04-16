@@ -28,7 +28,7 @@ const errors = { err: ['Failed to complete action.'] };
 
 describe('tests for subject actions', () => {
 	// Test steup
-	const url = process.env.REACT_APP_API || 'http://localhost:8000';
+	const url = 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
 
 	let store;
 	let httpMock;
