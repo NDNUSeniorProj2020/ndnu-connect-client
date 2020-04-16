@@ -21,6 +21,15 @@ const jobs = [
 		'person': 1
 	}
 ];
+const newJob = {
+  'title': 'test1',
+  'description': 'description test',
+  'qualifications': 'bs degree',
+  'pay': '1234',
+  'link': 'google.com',
+  'date': '2020-03-13T11:55:20.710240-07:00',
+  'type': 'FULL',
+};
 const errors = { error: ['Failed to fetch jobs.'] };
 
 describe('tests for job actions', () => {
@@ -39,15 +48,6 @@ describe('tests for job actions', () => {
 
 	// Fetching all jobs
 	describe('testing actions for fetching all jobs', () => {
-		it('calls fetchJobsSuccess and returns all jobs', () => {
-			const data = jobs;
-			expect(fetchJobsSuccess(data)).toEqual({ type: FETCH_ALL_JOBS_SUCCESS, payload: { jobs: [...data] } });
-		});
-
-		it('calls fetchJobsFailure and returns and object with errors and type FETCH_JOBS_FAILURE', () => {
-			expect(fetchJobsFailure(errors)).toEqual({ type: FETCH_ALL_JOBS_FAILURE, payload: { errors } });
-		});
-
 		it('fetches all jobs', async () => {
 			httpMock.onGet(`${url}/api/job/`).reply(200, jobs);
 
@@ -69,5 +69,11 @@ describe('tests for job actions', () => {
 				{ type: FETCH_ALL_JOBS_FAILURE, payload: { errors: { ...errors } } }
 			]);
 		});
-	});
+  });
+
+  /*
+  describe('testing actions for saving job postings', () => {
+    httpMock.onPost(`${url}/api/job/`, { job: { ...newJob } }).reply(200, )
+  });
+  */
 });
