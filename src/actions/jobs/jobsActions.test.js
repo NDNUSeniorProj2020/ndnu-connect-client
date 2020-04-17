@@ -4,9 +4,11 @@ import configureMockStore from 'redux-mock-store';
 
 import {
 	FETCH_ALL_JOBS_SUCCESS,
-	FETCH_ALL_JOBS_FAILURE,
+  FETCH_ALL_JOBS_FAILURE,
+  SAVE_JOB_SUCCESS,
+  SAVE_JOB_FAILURE
 } from '../../constants/jobs/actionTypes';
-import { fetchJobsSuccess, fetchJobs, fetchJobsFailure } from './jobsActions';
+import { fetchJobs, createJob } from './jobsActions';
 
 const jobs = [
 	{
@@ -28,7 +30,7 @@ const newJob = {
   'pay': '1234',
   'link': 'google.com',
   'date': '2020-03-13T11:55:20.710240-07:00',
-  'type': 'FULL',
+  'type': 'FULL'
 };
 const errors = { error: ['Failed to fetch jobs.'] };
 
@@ -44,7 +46,7 @@ describe('tests for job actions', () => {
 		httpMock = new MockAdapter(axios);
 		const mockStore = configureMockStore();
 		store = mockStore({});
-	});
+  });
 
 	// Fetching all jobs
 	describe('testing actions for fetching all jobs', () => {
@@ -71,9 +73,27 @@ describe('tests for job actions', () => {
 		});
   });
 
-  /*
   describe('testing actions for saving job postings', () => {
-    httpMock.onPost(`${url}/api/job/`, { job: { ...newJob } }).reply(200, )
+    it('creates job posting successfully', async () => {
+      httpMock.onPost(`${url}/api/job/`).reply(200, { success: true });
+
+      createJob('somerandomtoken', newJob, 1)(store.dispatch);
+      await flushAllPromises();
+
+      expect(store.getActions()).toEqual([
+        { type: SAVE_JOB_SUCCESS }
+      ]);
+    });
+
+    it('throws errors if a job posting cannot be created', async () => {
+      httpMock.onPost(`${url}/api/job/`).reply(500, errors);
+
+      createJob('somerandomtoken', newJob, 1)(store.dispatch);
+      await flushAllPromises();
+
+      expect(store.getActions()).toEqual([
+        { type: SAVE_JOB_FAILURE, payload: { errors: { ...errors } } }
+      ]);
+    });
   });
-  */
 });

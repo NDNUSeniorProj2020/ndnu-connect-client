@@ -1,7 +1,9 @@
 import api from '../../api';
 import {
 	FETCH_ALL_JOBS_SUCCESS,
-	FETCH_ALL_JOBS_FAILURE,
+  FETCH_ALL_JOBS_FAILURE,
+  SAVE_JOB_SUCCESS,
+  SAVE_JOB_FAILURE
 } from '../../constants/jobs/actionTypes';
 import createAuthHeader from '../../assets/js/createAuthHeader';
 
@@ -29,4 +31,26 @@ export function fetchJobs(token) {
 			.then(data => dispatch(fetchJobsSuccess(data)))
 			.catch(errors => dispatch(fetchJobsFailure(errors.response.data)));
 	};
+}
+
+// Create job listing actions
+export function createJobSuccess() {
+  return { type: SAVE_JOB_SUCCESS };
+}
+
+export function createJobFailure(errors) {
+  return {
+    type: SAVE_JOB_FAILURE,
+    payload: { errors }
+  };
+}
+
+export function createJob(token, job, userId) {
+  return (dispatch) => {
+    const headers = createAuthHeader(token);
+
+    return api().post('/api/job/', { headers, job: { ...job, user: userId } })
+      .then(() => dispatch(createJobSuccess()))
+      .catch(errors => dispatch(createJobFailure(errors.response.data)));
+  };
 }
