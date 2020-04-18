@@ -7,6 +7,8 @@ import MarkdownIt from 'markdown-it';
 import MarkdownEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
+import { createJob } from '../../actions/jobs/jobsActions';
+
 const styles = { width: '50%' };
 const mdParser = new MarkdownIt();
 
@@ -19,7 +21,8 @@ export function ConnectedCreateJobListing({ history, success, createJob }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createJob(localStorage.getItem('token'));
+    const job = { title, company, location, description, type };
+    //createJob(localStorage.getItem('token'), job, );
   };
 
 	return (
@@ -82,6 +85,7 @@ export function ConnectedCreateJobListing({ history, success, createJob }) {
 ConnectedCreateJobListing.propTypes = { success: PropTypes.bool, createJob: PropTypes.func };
 ConnectedCreateJobListing.defaultProps = { success: false, createJob: f => f };
 
-const CreateJobListing = connect(null)(ConnectedCreateJobListing);
+const mapStateToProps = ({ jobsReducer }) => ({ success: jobsReducer.success });
+const CreateJobListing = connect(mapStateToProps, { createJob })(ConnectedCreateJobListing);
 
 export default withRouter(CreateJobListing);

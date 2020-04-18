@@ -49,7 +49,7 @@ export function createJob(token, job, userId) {
   return (dispatch) => {
     const headers = createAuthHeader(token);
 
-    return api().post('/api/job/', { headers, job: { ...job, user: userId } })
+    return api().post('/api/job/', { headers, ...job, user: userId })
       .then(() => dispatch(createJobSuccess()))
       .catch(errors => dispatch(createJobFailure(errors.response.data)));
   };
