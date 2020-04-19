@@ -6,6 +6,7 @@ import {
   SAVE_JOB_FAILURE
 } from '../../constants/jobs/actionTypes';
 import createAuthHeader from '../../assets/js/createAuthHeader';
+import axios from 'axios';
 
 // Fetch all jobs actions
 export function fetchJobsSuccess(data) {
@@ -49,7 +50,7 @@ export function createJob(token, job, userId) {
   return (dispatch) => {
     const headers = createAuthHeader(token);
 
-    return api().post('/api/job/', { headers, ...job, user: userId })
+    return axios.post('http://localhost:8000/api/job/', { headers, ...job, user: userId })
       .then(() => dispatch(createJobSuccess()))
       .catch(errors => dispatch(createJobFailure(errors.response.data)));
   };
