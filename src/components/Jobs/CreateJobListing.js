@@ -8,6 +8,8 @@ import MarkdownEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
 import { createJob } from '../../actions/jobs/jobsActions';
+import api from '../../api';
+import createAuthHeader from '../../assets/js/createAuthHeader';
 
 const styles = { width: '50%' };
 const mdParser = new MarkdownIt();
@@ -19,9 +21,17 @@ export function ConnectedCreateJobListing({ history, success, createJob }) {
 	const [description, setDescription] = useState('');
   const [type, setType] = useState('');
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const job = { title, company, location, description, type };
+    const headers = createAuthHeader(localStorage.getItem('token'));
+
+    try {
+      const res = await api().get('/accounts/current_user/', { headers });
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
     //createJob(localStorage.getItem('token'), job, );
   };
 
