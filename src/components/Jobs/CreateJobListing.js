@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -14,11 +14,11 @@ export function ConnectedCreateJobListing({ history, success, createJob }) {
 
     try {
       const res = await api().get('/accounts/current_user/', { headers });
-      console.log(res);
+      const { id } = res.data;
+      createJob(localStorage.getItem('token'), job, id);
     } catch (err) {
       console.error(err);
     }
-    //createJob(localStorage.getItem('token'), job, );
   };
 
 	return (
