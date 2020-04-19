@@ -9,9 +9,10 @@ import {
 	HAS_TOKEN_SUCCESS,
 } from '../../constants/actionTypes';
 import { login, register, logout, hasToken } from './authenticationActions';
+import api from '../../api';
 
 describe('testing authentication actions', () => {
-	const url = 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
+	const url = process.env.REACT_APP_API || 'http://localhost:8000';
 
 	let store;
 	let httpMock;

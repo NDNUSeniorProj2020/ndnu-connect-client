@@ -32,7 +32,7 @@ const errors = {
 
 describe('tests for student actions', () => {
 	// Test steup
-	const url = 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
+	const url = process.env.REACT_APP_API || 'http://localhost:8000';
 
 	let store;
 	let httpMock;

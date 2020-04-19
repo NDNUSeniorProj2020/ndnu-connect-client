@@ -6,7 +6,6 @@ import {
   SAVE_JOB_FAILURE
 } from '../../constants/jobs/actionTypes';
 import createAuthHeader from '../../assets/js/createAuthHeader';
-import axios from 'axios';
 
 // Fetch all jobs actions
 export function fetchJobsSuccess(data) {
