@@ -74,7 +74,7 @@ export default function JobListingForm({ job, submitJob }) {
 }
 
 JobListingForm.propTypes = { job: PropTypes.object, submitJob: PropTypes.func };
-JobListingForm.preventDefault = {
+JobListingForm.defaultProps = {
   job: {
     title: '',
     company: '',
