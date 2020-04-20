@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { message } from 'antd';
 
 import { createJob } from '../../actions/jobs/jobsActions';
 import api from '../../api';
@@ -18,6 +19,7 @@ export function ConnectedCreateJobListing({ history, success, createJob }) {
       createJob(localStorage.getItem('token'), job, id);
     } catch (err) {
       console.error(err);
+      message.error('Cannot create job listing. Sorry for the inconvenience. Please try again.', 60);
     }
   };
 

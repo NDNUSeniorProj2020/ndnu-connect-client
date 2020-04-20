@@ -23,7 +23,6 @@ export default function jobsReducer(state = initialState, action) {
 		}
 		case SAVE_JOB_SUCCESS: {
 			return Object.assign({}, state, {
-				job: { ...action.payload.job },
 				success: true
 			});
 		}

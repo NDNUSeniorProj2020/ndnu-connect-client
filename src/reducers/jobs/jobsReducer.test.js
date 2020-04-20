@@ -40,8 +40,8 @@ describe('tests for jobsReducer', () => {
 		});
 
 		it('sets up state if job was successfully saved', () => {
-			const action = { type: SAVE_JOB_SUCCESS, payload: { job } };
-			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, job, success: true });
+			const action = { type: SAVE_JOB_SUCCESS };
+			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, success: true });
 		});
 
 		it('sets up errors if job was not saved', () => {
