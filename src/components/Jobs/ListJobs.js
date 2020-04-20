@@ -7,7 +7,7 @@ export default function ListJobs({ jobs }) {
 	return (
     <div>
       {jobs.map(job => (
-        <div key={job.id}>
+        <div className="job-card-container" key={job.id}>
           <JobCard job={job} />
         </div>
       ))}

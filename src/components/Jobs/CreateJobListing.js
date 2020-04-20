@@ -16,7 +16,8 @@ export function ConnectedCreateJobListing({ history, success, createJob }) {
     try {
       const res = await api().get('/accounts/current_user/', { headers });
       const { id } = res.data;
-      createJob(localStorage.getItem('token'), job, id);
+      await createJob(localStorage.getItem('token'), job, id);
+      history.push('/jobs');
     } catch (err) {
       console.error(err);
       message.error('Cannot create job listing. Sorry for the inconvenience. Please try again.', 60);
