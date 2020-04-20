@@ -8,7 +8,7 @@ import { createJob } from '../../actions/jobs/jobsActions';
 import { hasToken } from '../../actions/auth/authenticationActions';
 import JobListingForm from './JobListingForm';
 
-export function ConnectedCreateJobListing({ history, user, success, createJob, hasToken }) {
+export function ConnectedCreateJobListing({ user, success, createJob, hasToken }) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     hasToken(token);
