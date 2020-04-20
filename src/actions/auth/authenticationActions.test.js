@@ -7,9 +7,23 @@ import {
 	REGISTRATION_SUCCESS,
 	LOGOUT_SUCCESS,
 	HAS_TOKEN_SUCCESS,
+  LOGIN_FAILURE,
+  REGISTRATION_FAILURE,
+  HAS_TOKEN_FAILURE,
 } from '../../constants/actionTypes';
 import { login, register, logout, hasToken } from './authenticationActions';
-import api from '../../api';
+
+const userRes = {
+  id: 1,
+  email: 'user@user.com',
+  first_name: 'User',
+  last_name: 'Name',
+  phone_number: '555-555-5555',
+  token: 'someRandomToken'
+};
+const errors = {
+  error: ['Cannot complete.']
+};
 
 describe('testing authentication actions', () => {
 	const url = process.env.REACT_APP_API || 'http://localhost:8000';
@@ -27,18 +41,13 @@ describe('testing authentication actions', () => {
 
 	// Login action tests
 	describe('testing login action', () => {
-		it('logs in user', async () => {
-			const userReq = {
-				email: 'user@user.com',
-				password: 'somepassword'
-			};
-			const userRes = {
-				email: 'user@user.com',
-				token: 'someRandomToken'
-			};
+    const userReq = {
+      email: 'user@user.com',
+      password: 'somepassword'
+    };
 
-			httpMock.onPost(`${url}/accounts/login/`, { user: { ...userReq } })
-				.reply(200, { user: { ...userRes } });
+		it('logs in user', async () => {
+			httpMock.onPost(`${url}/accounts/login/`, { user: { ...userReq } }).reply(200, { user: { ...userRes } });
 
 			login({ user: { ...userReq } })(store.dispatch);
 			await flushAllPromises();
@@ -46,26 +55,32 @@ describe('testing authentication actions', () => {
 			expect(store.getActions()).toEqual([
 				{ payload: { user: { ...userRes } }, type: LOGIN_SUCCESS }
 			]);
-		});
+    });
+
+    it('sends errors if user login fails', async () => {
+      httpMock.onPost(`${url}/accounts/login/`, { user: { ...userReq } }).reply(500, errors);
+
+      login({ user: { ...userReq } })(store.dispatch);
+      await flushAllPromises();
+
+      expect(store.getActions()).toEqual([
+        { payload: { errors: { ...errors} }, type: LOGIN_FAILURE }
+      ]);
+    });
 	});
 
 	// User registration action tests
 	describe('testing registration actions', () => {
-		it('registers user', async () => {
-			const userReq = {
-				email: 'user@user.com',
-				first_name: 'User',
-				last_name: 'Name',
-				phone_number: '555-555-5555',
-				password: 'somepassword'
-			};
-			const userRes = {
-				email: 'user@user.com',
-				token: 'someRandomToken'
-			};
+    const userReq = {
+      email: 'user@user.com',
+      first_name: 'User',
+      last_name: 'Name',
+      phone_number: '555-555-5555',
+      password: 'somepassword'
+    };
 
-			httpMock.onPost(`${url}/accounts/register/`, { user: { ...userReq } })
-				.reply(200, { user: { ...userRes } });
+		it('registers user', async () => {
+			httpMock.onPost(`${url}/accounts/register/`, { user: { ...userReq } }).reply(200, { user: { ...userRes } });
 
 			register({ user: { ...userReq } })(store.dispatch);
 			await flushAllPromises();
@@ -73,7 +88,18 @@ describe('testing authentication actions', () => {
 			expect(store.getActions()).toEqual([
 				{ payload: { user: { ...userRes } }, type: REGISTRATION_SUCCESS }
 			]);
-		});
+    });
+
+    it('sends errors if user registration fails', async () => {
+      httpMock.onPost(`${url}/accounts/register/`, { user: { ...userReq } }).reply(500, errors);
+
+      register({ user: { ...userReq } })(store.dispatch);
+      await flushAllPromises();
+
+      expect(store.getActions()).toEqual([
+				{ payload: { errors: { ...errors } }, type: REGISTRATION_FAILURE }
+			]);
+    });
 	});
 
 	describe('testing logout actions', () => {
@@ -89,12 +115,7 @@ describe('testing authentication actions', () => {
 
 	describe('testing token authentication actions', () => {
 		it('should return an authenticated user if a token is passed from localStorage', async () => {
-			const userRes = {
-				email: 'user@user.com',
-				token: 'someRandomToken'
-			};
-
-			httpMock.onGet(`${url}/accounts/user/`).reply(200, { user: { ...userRes } });
+			httpMock.onGet(`${url}/accounts/current_user/`).reply(200, { user: { ...userRes } });
 
 			hasToken('someRandomToken')(store.dispatch);
 			await flushAllPromises();
@@ -102,6 +123,17 @@ describe('testing authentication actions', () => {
 			expect(store.getActions()).toEqual([
 				{ payload: { user: { ...userRes } }, type: HAS_TOKEN_SUCCESS }
 			]);
-		});
-	})
+    });
+
+    it('throws errors if user cannot be fetched', async () => {
+      httpMock.onGet(`${url}/accounts/current_user/`).reply(500, errors);
+
+      hasToken('someRandomToken')(store.dispatch);
+			await flushAllPromises();
+
+			expect(store.getActions()).toEqual([
+				{ payload: { errors: { ...errors } }, type: HAS_TOKEN_FAILURE }
+			]);
+    });
+	});
 });

@@ -24,6 +24,9 @@ export function ConnectedCreateJobListing({ history, success, createJob }) {
     }
   };
 
+  if (success)
+    message.success('Successfully created job posting!');
+
 	return (
 		<div>
       <header>
