@@ -38,7 +38,7 @@ export default function FilterJobsContainer(props) {
 
 	return (
 	<div>
-		<Row gutter={16}>
+		<Row style={{ marginBottom: '1rem' }} gutter={16}>
 			<Col className="gutter-row" span={6}>
 				<JobSearchForm searchJobs={searchJobs} resetJobs={resetJobs} />
 			</Col>
@@ -51,10 +51,10 @@ export default function FilterJobsContainer(props) {
         <Link to="/jobs/create-posting">
           <Button style={{ marginBottom: '1rem' }} type="primary">Create Posting</Button>
         </Link>
-				<Card size="small" title="Job Type" style={{ width: 300 }}>
-					<Checkbox id="full-time-checkbox" onChange={onChange} name="FULL" />Full-Time
-					<Checkbox id="part-time-checkbox" onChange={onChange} name="PART" />Part-Time
-					<Checkbox id="internship-checkbox" onChange={onChange} name="INTR" />Internship
+				<Card size="small" title="Job Type" style={{ width: 350 }}>
+					<Checkbox id="full-time-checkbox" onChange={onChange} name="FULL">Full-Time</Checkbox>
+					<Checkbox id="part-time-checkbox" onChange={onChange} name="PART">Part-Time</Checkbox>
+					<Checkbox id="internship-checkbox" onChange={onChange} name="INTR">Internship</Checkbox>
 				</Card>
 			</Col>
 		</Row>
