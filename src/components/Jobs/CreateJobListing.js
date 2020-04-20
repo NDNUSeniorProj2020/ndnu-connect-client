@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { message } from 'antd';
 
 import { createJob } from '../../actions/jobs/jobsActions';
-import api from '../../api';
-import createAuthHeader from '../../assets/js/createAuthHeader';
+import { hasToken } from '../../actions/auth/authenticationActions';
 import JobListingForm from './JobListingForm';
 
-export function ConnectedCreateJobListing({ history, success, createJob }) {
-  const addJob = async (job) => {
-    const headers = createAuthHeader(localStorage.getItem('token'));
+export function ConnectedCreateJobListing({ history, user, success, createJob, hasToken }) {
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    hasToken(token);
+  }, [hasToken]);
 
+  const addJob = async (job) => {
     try {
-      const res = await api().get('/accounts/current_user/', { headers });
-      const { id } = res.data;
-      await createJob(localStorage.getItem('token'), job, id);
-      history.push('/jobs');
+      await createJob(localStorage.getItem('token'), job, user.id);
     } catch (err) {
       console.error(err);
       message.error('Cannot create job listing. Sorry for the inconvenience. Please try again.', 60);
@@ -25,7 +24,7 @@ export function ConnectedCreateJobListing({ history, success, createJob }) {
   };
 
   if (success)
-    message.success('Successfully created job posting!');
+    return <Redirect to={'/jobs'} />;
 
 	return (
 		<div>
@@ -37,10 +36,23 @@ export function ConnectedCreateJobListing({ history, success, createJob }) {
 	);
 }
 
-ConnectedCreateJobListing.propTypes = { success: PropTypes.bool, createJob: PropTypes.func };
-ConnectedCreateJobListing.defaultProps = { success: false, createJob: f => f };
+ConnectedCreateJobListing.propTypes = {
+  success: PropTypes.bool,
+  createJob: PropTypes.func,
+  hasToken: PropTypes.func,
+  user: PropTypes.object,
+};
+ConnectedCreateJobListing.defaultProps = {
+  success: false,
+  createJob: f => f,
+  hasToken: f => f,
+  user: {}
+};
 
-const mapStateToProps = ({ jobsReducer }) => ({ success: jobsReducer.success });
-const CreateJobListing = connect(mapStateToProps, { createJob })(ConnectedCreateJobListing);
+const mapStateToProps = ({ jobsReducer, authReducer }) => ({
+  user: authReducer.user,
+  success: jobsReducer.success
+});
+const CreateJobListing = connect(mapStateToProps, { createJob, hasToken })(ConnectedCreateJobListing);
 
 export default withRouter(CreateJobListing);

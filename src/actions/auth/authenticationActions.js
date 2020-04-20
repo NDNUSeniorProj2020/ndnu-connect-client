@@ -76,7 +76,7 @@ export function logout() {
 export function hasTokenSuccess(data) {
 	return {
 		type: HAS_TOKEN_SUCCESS,
-		payload: { user: data.user }
+		payload: { user: { ...data } }
 	};
 }
 

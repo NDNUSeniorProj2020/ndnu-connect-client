@@ -18,7 +18,7 @@ export function ConnectedHome({ jobs, tutors, success, fetchTutors, fetchJobs })
 		fetchTutors(token);
 		fetchJobs(token);
 		setIsLoading(false);
-	}, [isLoading, fetchJobs, fetchTutors]);
+	}, [isLoading, fetchTutors, fetchJobs]);
 
 	if (success && !isLoading)
 		return (
@@ -28,7 +28,7 @@ export function ConnectedHome({ jobs, tutors, success, fetchTutors, fetchJobs })
 				<JobsWidget jobs={jobs} />
 			</div>
 		);
-	
+
 	return <h1>Dashboard</h1>;
 }
 
@@ -37,14 +37,14 @@ ConnectedHome.propTypes = {
 	jobs: PropTypes.array,
 	tutors: PropTypes.array,
 	fetchTutors: PropTypes.func,
-	fetchJobs: PropTypes.func,
+  fetchJobs: PropTypes.func,
 };
 
 ConnectedHome.defaultProps = {
 	jobs: [],
 	tutors: [],
 	fetchTutors: f => f,
-	fetchJobs: f => f,
+  fetchJobs: f => f,
 };
 
 const mapStateToProps = ({ jobsReducer, tutorReducer }) => ({

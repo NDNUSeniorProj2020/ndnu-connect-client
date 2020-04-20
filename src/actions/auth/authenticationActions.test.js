@@ -115,7 +115,7 @@ describe('testing authentication actions', () => {
 
 	describe('testing token authentication actions', () => {
 		it('should return an authenticated user if a token is passed from localStorage', async () => {
-			httpMock.onGet(`${url}/accounts/current_user/`).reply(200, { user: { ...userRes } });
+			httpMock.onGet(`${url}/accounts/current_user/`).reply(200, { ...userRes });
 
 			hasToken('someRandomToken')(store.dispatch);
 			await flushAllPromises();
