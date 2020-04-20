@@ -20,6 +20,7 @@ export default function JobSearchForm({ searchJobs, resetJobs }) {
 			<Form id="job-search-form" onSubmit={onSubmit} layout="inline">
 				<Form.Item label="Title" name="title">
           <Input
+            style={{ width: 350 }}
             id="title-search-input"
             value={title}
             onChange={e => setTitle(e.target.value)}

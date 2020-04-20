@@ -39,7 +39,7 @@ export default function FilterJobsContainer(props) {
 	return (
 	<div>
 		<Row style={{ marginBottom: '1rem' }} gutter={16}>
-			<Col className="gutter-row" span={6}>
+			<Col className="gutter-row" span={12}>
 				<JobSearchForm searchJobs={searchJobs} resetJobs={resetJobs} />
 			</Col>
 		</Row>
