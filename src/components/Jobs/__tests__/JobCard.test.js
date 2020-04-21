@@ -1,8 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import moment from 'moment';
+import { BrowserRouter } from 'react-router-dom';
 
-import JobCard from '../JobCard';
+import { ConnectedJobCard } from '../JobCard';
 
 const job = {
 	"id": 1,
@@ -15,26 +16,36 @@ const job = {
 	"type": "FULL",
 	"user": 1
 };
+const user = {
+  id: 1,
+  email: 'user@user.com',
+  first_name: 'User',
+  last_name: 'Name',
+  phone_number: '555-555-5555',
+  token: 'someRandomToken'
+}
 
 describe('tests for JobCard', () => {
+  let wrapper;
+  let props;
+
+  beforeEach(() => {
+    props = { job, user };
+    wrapper = mount(
+      <BrowserRouter>
+        <ConnectedJobCard {...props} />
+      </BrowserRouter>
+    );
+  });
+
 	describe('snapshot tests', () => {
-		it('renders without crashing', () => {
-			const tree = shallow(<JobCard />);
-			expect(tree.html()).toMatchSnapshot();
-		});
+		it('renders without crashing', () => expect(wrapper).toMatchSnapshot());
 	});
 
 	describe('unit tests', () => {
 		it('contains job description and job posting date if job is passed as prop', () => {
-			const wrapper = shallow(<JobCard job={job} />);
-
 			expect(wrapper.find('#job-description').text()).toEqual(job.description);
 			expect(wrapper.find('#job-posted-date').text()).toEqual(moment(job.date).format('LL'));
-		});
-
-		it('renders as null if a job is not passed as prop', () => {
-			const wrapper = shallow(<JobCard />);
-			expect(wrapper.html()).toBe(null);
-		});
+    });
 	});
 });
