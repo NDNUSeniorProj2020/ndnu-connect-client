@@ -9,7 +9,7 @@ import {
   UPDATE_JOB_FAILURE
 } from '../../constants/jobs/actionTypes';
 
-const initialState = { job: {}, jobs: [], success: false };
+const initialState = { job: {}, jobs: [], success: false, updated: false };
 
 export default function jobsReducer(state = initialState, action) {
 	switch (action.type) {
@@ -47,7 +47,7 @@ export default function jobsReducer(state = initialState, action) {
     }
     case UPDATE_JOB_SUCCESS: {
       return Object.assign({}, state, {
-        success: true
+        updated: true
       });
     }
     case UPDATE_JOB_FAILURE: {

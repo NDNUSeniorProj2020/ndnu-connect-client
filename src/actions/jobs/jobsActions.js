@@ -91,6 +91,7 @@ export function updateJobSuccess() {
 }
 
 export function updateJobFailure(errors) {
+  console.error(errors);
   return {
     type: UPDATE_JOB_FAILURE,
     payload: { errors }
@@ -98,6 +99,7 @@ export function updateJobFailure(errors) {
 }
 
 export function updateJob(token, job) {
+  console.log(job)
   return (dispatch) => {
     const headers = createAuthHeader(token);
 

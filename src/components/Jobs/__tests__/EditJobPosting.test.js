@@ -2,41 +2,35 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { BrowserRouter, Redirect } from 'react-router-dom';
 
-import { ConnectedCreateJobListing } from '../CreateJobListing';
+import { ConnectedEditJobListing } from '../EditJobPosting';
 import JobListingForm from '../JobListingForm';
 
 const job = {
+  'id': 1,
   'title': 'test1',
   'description': 'description test',
   'qualifications': 'bs degree',
   'pay': '1234',
   'link': 'google.com',
   'date': '2020-03-13T11:55:20.710240-07:00',
-  'type': 'FULL'
-};
-const user = {
-  id: 1,
-  email: 'user@user.com',
-  first_name: 'User',
-  last_name: 'Name',
-  phone_number: '555-555-5555',
-  token: 'someRandomToken'
+  'type': 'FULL',
+  'user': 1
 };
 
-describe('tests for CreateJobListing components', () => {
-  describe('tests for ConnectedCreateJobListing', () => {
+describe('tests for EditJobListing components', () => {
+  describe('tests for ConnectedEditJobListing', () => {
     let wrapper;
     let props;
 
     beforeEach(() => {
       props = {
-        user,
-        createJob: jest.fn(),
-        hasToken: jest.fn().mockResolvedValue(user)
+        job,
+        success: true,
+        updateJob: jest.fn()
       };
       wrapper = mount(
         <BrowserRouter>
-          <ConnectedCreateJobListing {...props} />
+          <ConnectedEditJobListing {...props} />
         </BrowserRouter>
       );
     });
@@ -47,11 +41,20 @@ describe('tests for CreateJobListing components', () => {
 
     describe('unit tests', () => {
       it('has default props', () => {
-        const { success, createJob, hasToken, user } = ConnectedCreateJobListing.defaultProps;
+        const { success, updateJob, fetchJob, updated } = ConnectedEditJobListing.defaultProps;
         expect(success).toBe(false);
-        expect(createJob('f')).toEqual('f');
-        expect(hasToken('f')).toEqual('f');
-        expect(user).toEqual({});
+        expect(updated).toBe(false);
+        expect(fetchJob('f')).toEqual('f');
+        expect(updateJob('f')).toEqual('f');
+      });
+
+      it('renders Loading page if the page has not loaded', () => {
+        wrapper = mount(
+          <BrowserRouter>
+            <ConnectedEditJobListing />
+          </BrowserRouter>
+        );
+        expect(wrapper.find('p').text()).toEqual('Loading page...');
       });
     });
 
@@ -60,14 +63,10 @@ describe('tests for CreateJobListing components', () => {
         wrapper.find(JobListingForm).props().submitJob(job);
       });
 
-      it('fetches user on render', () => {
-        expect(props.hasToken).toHaveBeenCalled();
-      });
-
-      it('redirects if saving a job posting was successful', () => {
+      it('redirects if updating a job posting was successful', () => {
         wrapper = mount(
           <BrowserRouter>
-            <ConnectedCreateJobListing {...props} success={true} />
+            <ConnectedEditJobListing {...props} updated={true} />
           </BrowserRouter>
         );
         expect(wrapper.find(Redirect)).toBeDefined();

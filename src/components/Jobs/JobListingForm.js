@@ -12,12 +12,13 @@ export default function JobListingForm({ job, submitJob }) {
   const [title, setTitle] = useState(job.title);
   const [company, setCompany] = useState(job.company);
   const [location, setLocation] = useState(job.location);
+  const [link, setLink] = useState(job.link);
   const [description, setDescription] = useState(job.description);
   const [type, setType] = useState(job.type);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const newJob = { title, company, location, description, type };
+    const newJob = { title, company, location, link, description, type };
     submitJob(newJob);
   };
 
@@ -50,6 +51,15 @@ export default function JobListingForm({ job, submitJob }) {
           placeholder="Enter location."
         />
       </Form.Item>
+      <Form.Item label="Link" name="link">
+        <Input
+          id="link-input"
+          style={styles}
+          value={link}
+          onChange={e => setLink(e.target.value)}
+          placeholder="Enter link to apply."
+        />
+      </Form.Item>
       <Form.Item label="Description" name="description">
         <MarkdownEditor
           id="description-input"
@@ -79,6 +89,7 @@ JobListingForm.defaultProps = {
     title: '',
     company: '',
     location: '',
+    link: '',
     description: '',
     type: 'FULL'
   },

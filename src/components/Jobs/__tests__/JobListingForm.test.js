@@ -22,6 +22,7 @@ describe('tests for JobListingForm', () => {
         title: '',
         company: '',
         location: '',
+        link: '',
         description: '',
         type: 'FULL'
       });
@@ -34,6 +35,7 @@ describe('tests for JobListingForm', () => {
       wrapper.find('#title-input').props().onChange({ target: { value: 'Job Title' } });
       wrapper.find('#company-input').props().onChange({ target: { value: 'Company Name' } });
       wrapper.find('#location-input').props().onChange({ target: { value: '94002' } });
+      wrapper.find('#link-input').props().onChange({ target: { value: 'google.com' } });
       wrapper.find('#description-input').props().onChange({ text: 'Job description' });
       wrapper.find('#type-input').props().onChange({ target: { value: 'PART' } });
     });
