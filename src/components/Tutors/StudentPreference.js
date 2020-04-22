@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { AutoComplete, Button, Checkbox, Col, DatePicker, Form, Row, Tag, TimePicker } from 'antd';
 import './TutorsPage.css';
 
