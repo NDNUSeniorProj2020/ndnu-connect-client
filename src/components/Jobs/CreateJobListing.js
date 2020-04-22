@@ -8,7 +8,7 @@ import { createJob } from '../../actions/jobs/jobsActions';
 import { hasToken } from '../../actions/auth/authenticationActions';
 import JobListingForm from './JobListingForm';
 
-export function ConnectedCreateJobListing({ user, success, createJob, hasToken }) {
+export function ConnectedCreateJobListing({ user, saved, createJob, hasToken }) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     hasToken(token);
@@ -23,7 +23,7 @@ export function ConnectedCreateJobListing({ user, success, createJob, hasToken }
     }
   };
 
-  if (success)
+  if (saved)
     return <Redirect to={'/jobs'} />;
 
 	return (
@@ -37,13 +37,13 @@ export function ConnectedCreateJobListing({ user, success, createJob, hasToken }
 }
 
 ConnectedCreateJobListing.propTypes = {
-  success: PropTypes.bool,
+  saved: PropTypes.bool,
   createJob: PropTypes.func,
   hasToken: PropTypes.func,
   user: PropTypes.object,
 };
 ConnectedCreateJobListing.defaultProps = {
-  success: false,
+  saved: false,
   createJob: f => f,
   hasToken: f => f,
   user: {}
@@ -51,7 +51,7 @@ ConnectedCreateJobListing.defaultProps = {
 
 const mapStateToProps = ({ jobsReducer, authReducer }) => ({
   user: authReducer.user,
-  success: jobsReducer.success
+  saved: jobsReducer.saved
 });
 const CreateJobListing = connect(mapStateToProps, { createJob, hasToken })(ConnectedCreateJobListing);
 
