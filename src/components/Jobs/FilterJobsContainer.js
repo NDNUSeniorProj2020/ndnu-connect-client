@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Card, Checkbox } from 'antd';
+import { Link } from 'react-router-dom';
+import { Row, Col, Card, Checkbox, Button } from 'antd';
 
 import JobSearchForm from './JobSearchForm';
 import ListJobs from './ListJobs';
-
 
 export default function FilterJobsContainer(props) {
 	const [jobs, setJobs] = useState(props.jobs);
 	const [jobTypes, setJobTypes] = useState([]);
 
-	const onChange = (e) => {		
+	const onChange = (e) => {
 		// typesStack is an array to check job types against
 		let typesStack = jobTypes;
 
@@ -18,7 +18,7 @@ export default function FilterJobsContainer(props) {
 		// If it is unchecked, remove the job type from the stack0
 		if (e.target.checked) {
 			if (!(e.target.name in typesStack))
-				typesStack.push(e.target.name);				
+				typesStack.push(e.target.name);
 		} else {
 			typesStack = typesStack.filter(type => type !== e.target.name);
 		}
@@ -37,9 +37,9 @@ export default function FilterJobsContainer(props) {
 	const resetJobs = () => setJobs(props.jobs);
 
 	return (
-	<div>	
-		<Row gutter={16}>
-			<Col className="gutter-row" span={6}>
+	<div>
+		<Row style={{ marginBottom: '1rem' }} gutter={16}>
+			<Col className="gutter-row" span={12}>
 				<JobSearchForm searchJobs={searchJobs} resetJobs={resetJobs} />
 			</Col>
 		</Row>
@@ -48,10 +48,13 @@ export default function FilterJobsContainer(props) {
 				{jobs.length > 0 ? <ListJobs jobs={jobs} /> : <p>No jobs available.</p>}
 			</Col>
 			<Col className="gutter-row" span={6}>
-				<Card size="small" title="Job Type" style={{ width: 300 }}>
-					<Checkbox onChange={onChange} name="FULL" />Full-Time
-					<Checkbox onChange={onChange} name="PART" />Part-Time
-					<Checkbox onChange={onChange} name="INTERN" />Internship
+        <Link to="/jobs/create-posting">
+          <Button style={{ marginBottom: '1rem' }} type="primary">Create Posting</Button>
+        </Link>
+				<Card size="small" title="Job Type" style={{ width: 350 }}>
+					<Checkbox id="full-time-checkbox" onChange={onChange} name="FULL">Full-Time</Checkbox>
+					<Checkbox id="part-time-checkbox" onChange={onChange} name="PART">Part-Time</Checkbox>
+					<Checkbox id="internship-checkbox" onChange={onChange} name="INTR">Internship</Checkbox>
 				</Card>
 			</Col>
 		</Row>

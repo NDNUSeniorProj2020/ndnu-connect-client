@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
@@ -23,6 +24,14 @@ const jobs = [
 		"user": 3
 	}
 ];
+const user = {
+  id: 1,
+  email: 'user@user.com',
+  first_name: 'User',
+  last_name: 'Name',
+  phone_number: '555-555-5555',
+  token: 'someRandomToken'
+};
 
 describe('tests for JobsPage components', () => {
 	describe('tests for ConnectedJobsPage', () => {
@@ -35,24 +44,41 @@ describe('tests for JobsPage components', () => {
 
 		describe('unit tests', () => {
 			it('has defaultProps', () => {
-				expect(ConnectedJobsPage.defaultProps.jobs).toEqual([]);
-				expect(ConnectedJobsPage.defaultProps.fetchJobs('f')).toEqual('f');
+        const { jobs, fetchJobs, success, user } = ConnectedJobsPage.defaultProps;
+				expect(jobs).toEqual([]);
+        expect(fetchJobs('f')).toEqual('f');
+        expect(success).toEqual(false);
+        expect(user).toEqual({});
 			});
 		});
 
 		describe('integration tests', () => {
 			let props;
-			let useEffect;
+      let useEffect;
+      let store;
 
 			beforeEach(() => {
 				useEffect = jest.spyOn(React, 'useEffect').mockImplementation(f => f());
-				props = { fetchJobs: jest.fn().mockResolvedValue(jobs) };
+        props = { fetchJobs: jest.fn().mockResolvedValue(jobs) };
+        store = mockStore({
+          jobsReducer: {
+            jobs: [ ...jobs ],
+            success: true
+          },
+          authReducer: { user }
+        });
 			});
 
 			afterEach(() => jest.clearAllMocks());
 
-			it('calls fetchAuthors prop', () => {
-				mount(<ConnectedJobsPage {...props} success={true} jobs={jobs} />);
+			it('calls fetchJobs prop', () => {
+				mount(
+          <BrowserRouter>
+            <Provider store={store}>
+              <ConnectedJobsPage {...props} success={true} jobs={jobs} />
+            </Provider>
+          </BrowserRouter>
+        );
 				expect(props.fetchJobs).toHaveBeenCalled();
 			});
 
@@ -73,11 +99,10 @@ describe('tests for JobsPage components', () => {
 				jobsReducer: {
 					jobs: [ ...jobs ],
 					success: true
-				}
+        },
+        authReducer: { user }
 			});
-
 			store.dispatch = jest.fn();
-
 			component = renderer.create(
 				<Provider store={store}>
 					<JobsPage />

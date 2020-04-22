@@ -30,17 +30,15 @@ export function login(user) {
 		return api().post('/accounts/login/', user)
 			.then(res => res.data)
 			.then(data => dispatch(loginSuccess(data)))
-			.catch(errors => dispatch(loginFailure(errors)));
+			.catch(errors => dispatch(loginFailure(errors.response.data)));
 	}
 }
 
 // User registration actions
 export function registrationSuccess(data) {
-	const { user } = data;
-	const { email, token } = user;
 	return {
 		type: REGISTRATION_SUCCESS,
-		payload: { user: { email, token } }
+		payload: { user: data.user }
 	};
 }
 
@@ -56,7 +54,7 @@ export function register(user) {
 		return api().post('/accounts/register/', user)
 			.then(res => res.data)
 			.then(data => dispatch(registrationSuccess(data)))
-			.catch(errors => dispatch(registrationFailure(errors)));
+			.catch(errors => dispatch(registrationFailure(errors.response.data)));
 	}
 }
 
@@ -76,28 +74,26 @@ export function logout() {
 
 // Has token actions
 export function hasTokenSuccess(data) {
-	const { user } = data;
-	const { email, token } = user;
 	return {
 		type: HAS_TOKEN_SUCCESS,
-		payload: { user: { email, token } }
+		payload: { user: { ...data } }
 	};
 }
 
-export function hasTokenFailure(err) {
+export function hasTokenFailure(errors) {
 	return {
 		type: HAS_TOKEN_FAILURE,
-		payload: { err }
+		payload: { errors }
 	};
 }
 
 export function hasToken(token) {
 	return (dispatch) => {
 		const headers = createAuthHeader(token);
-		
-		return api().get('/accounts/user/', { headers })
+
+		return api().get('/accounts/current_user/', { headers })
 			.then(res => res.data)
 			.then(data => dispatch(hasTokenSuccess(data)))
-			.catch(err => dispatch(hasTokenFailure(err)));
+			.catch(errors => dispatch(hasTokenFailure(errors.response.data)));
 	};
 }

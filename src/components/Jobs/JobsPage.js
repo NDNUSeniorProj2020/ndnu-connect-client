@@ -5,13 +5,15 @@ import { connect } from 'react-redux';
 import './Jobs.css';
 import FilterJobsContainer from './FilterJobsContainer';
 import { fetchJobs } from '../../actions/jobs/jobsActions';
+import { hasToken } from '../../actions/auth/authenticationActions';
 
-export function ConnectedJobsPage({ jobs, success, fetchJobs }) {
+export function ConnectedJobsPage({ user, jobs, success, fetchJobs }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
 
+    hasToken(token);
     fetchJobs(token);
     setIsLoading(false);
   }, [isLoading, fetchJobs]);
@@ -24,10 +26,19 @@ export function ConnectedJobsPage({ jobs, success, fetchJobs }) {
   return <p>Loading page...</p>;
 }
 
-ConnectedJobsPage.propTypes = { jobs: PropTypes.array, success: PropTypes.bool, fetchJobs: PropTypes.func };
-ConnectedJobsPage.defaultProps = { jobs: [], success: false, fetchJobs: f => f };
+ConnectedJobsPage.propTypes = {
+  jobs: PropTypes.array,
+  success: PropTypes.bool,
+  fetchJobs: PropTypes.func,
+  user: PropTypes.object
+};
+ConnectedJobsPage.defaultProps = { jobs: [], success: false, fetchJobs: f => f, user: {} };
 
-const mapStateToProps = ({ jobsReducer }) => ({ jobs: jobsReducer.jobs, success: jobsReducer.success });
-const JobsPage = connect(mapStateToProps, { fetchJobs })(ConnectedJobsPage);
+const mapStateToProps = ({ jobsReducer, authReducer }) => ({
+  jobs: jobsReducer.jobs,
+  success: jobsReducer.success,
+  user: authReducer.user
+});
+const JobsPage = connect(mapStateToProps, { fetchJobs, hasToken })(ConnectedJobsPage);
 
 export default JobsPage;
