@@ -15,7 +15,7 @@ export function ConnectedJobCard({ user, job }) {
 
 	return (
 		<div>
-      <Card type="inner" title={job.title} extra={extraLink} >
+      <Card type="inner" title={job.title + ' | ' + job.company + ' | ' + job.location} extra={extraLink} >
 				<p id="job-description">{job.description}</p>
 				<p id="job-posted-date">{moment(job.date).format('LL')}</p>
 			</Card>
