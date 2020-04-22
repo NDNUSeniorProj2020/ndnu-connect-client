@@ -3,6 +3,7 @@ import { Avatar, Button, Card, Divider, Icon, Input, Modal, Radio, Tag, Typograp
 import AdvancedSearchModal from './AdvancedSearchModal';
 import ScheduleTutorForm from './ScheduleTutorForm';
 import TutorsList from './TutorsList';
+import StudentPreference from './StudentPreference';
 import './TutorsPage.css';
 
 const { Title } = Typography;
@@ -125,6 +126,20 @@ class TutorsPage extends React.Component {
           </div>)
           :
           (<div>
+
+            <div className="student-preference-container">
+              <Title level={3} className="top-tutors-title">
+                Let tutors know how they can help you
+              </Title>
+              <StudentPreference />
+            </div>
+
+            <div className="subject-grid-container">
+              <Card title="Browse by subject" className="subject-grid-card">
+                {subjects.map(subject => <Card.Grid key={subject} data={subject} onClick={this.showSubjectList} className="subject-grid">{subject}</Card.Grid>)}
+              </Card>
+            </div>
+
             <div className="top-tutors-container">
             <Title level={3} className="top-tutors-title">
               Top tutors
@@ -160,11 +175,6 @@ class TutorsPage extends React.Component {
             </Card>
           </div>
 
-          <div className="subject-grid-container">
-            <Card title="Browse by subject" className="subject-grid-card">
-              {subjects.map(subject => <Card.Grid key={subject} data={subject} onClick={this.showSubjectList} className="subject-grid">{subject}</Card.Grid>)}
-            </Card>
-          </div>
           <Modal
             title="Advanced Search"
             visible={this.state.advancedSearchVisible}
