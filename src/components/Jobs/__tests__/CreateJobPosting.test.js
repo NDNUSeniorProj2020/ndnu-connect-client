@@ -47,8 +47,8 @@ describe('tests for CreateJobListing components', () => {
 
     describe('unit tests', () => {
       it('has default props', () => {
-        const { success, createJob, hasToken, user } = ConnectedCreateJobListing.defaultProps;
-        expect(success).toBe(false);
+        const { saved, createJob, hasToken, user } = ConnectedCreateJobListing.defaultProps;
+        expect(saved).toBe(false);
         expect(createJob('f')).toEqual('f');
         expect(hasToken('f')).toEqual('f');
         expect(user).toEqual({});
@@ -67,7 +67,7 @@ describe('tests for CreateJobListing components', () => {
       it('redirects if saving a job posting was successful', () => {
         wrapper = mount(
           <BrowserRouter>
-            <ConnectedCreateJobListing {...props} success={true} />
+            <ConnectedCreateJobListing {...props} saved={true} />
           </BrowserRouter>
         );
         expect(wrapper.find(Redirect)).toBeDefined();
