@@ -67,12 +67,6 @@ const StudentPreference = Form.create()(
           sm: { span: 16 },
         },
       };
-      const config = {
-        rules: [{ type: 'object', required: true, message: 'Please select time!' }],
-      };
-      const rangeConfig = {
-        rules: [{ type: 'array', required: true, message: 'Please select time!' }],
-      };
       
       return (
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
