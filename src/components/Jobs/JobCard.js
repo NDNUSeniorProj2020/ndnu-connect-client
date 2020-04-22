@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Card } from 'antd';
 import moment from 'moment';
+import Markdown from 'react-markdown';
 
 export function ConnectedJobCard({ user, job }) {
   const applyLink = (<a href={job.link}>Apply</a>)
@@ -16,7 +17,7 @@ export function ConnectedJobCard({ user, job }) {
 	return (
 		<div>
       <Card type="inner" title={job.title + ' | ' + job.company + ' | ' + job.location} extra={extraLink} >
-				<p id="job-description">{job.description}</p>
+				<Markdown source={job.description} />
 				<p id="job-posted-date">{moment(job.date).format('LL')}</p>
 			</Card>
 		</div>
