@@ -32,7 +32,7 @@ const boards = [
 const errors = { err: ['Failed to fetch.'] };
 
 describe('tests for board actions', () => {
-	const url = process.env.REACT_APP_API || 'http://localhost:8000';
+	const url = process.env.REACT_APP_API || 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
 
 	let store;
 	let httpMock;
