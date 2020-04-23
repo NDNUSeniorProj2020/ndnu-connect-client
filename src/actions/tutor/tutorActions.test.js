@@ -7,6 +7,7 @@ import {
 	FETCH_ALL_TUTORS_FAILURE
 } from "../../constants/tutor/actionTypes";
 import { fetchTutorsSuccess, fetchTutorsFailure, fetchTutors } from "./tutorActions";
+import { url } from '../../api';
 
 const tutors = [
 	{
@@ -27,8 +28,6 @@ const errors = {
 };
 
 describe('tests for tutor actions', () => {
-	const url = process.env.REACT_APP_API || 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
-
 	let store;
 	let httpMock;
 

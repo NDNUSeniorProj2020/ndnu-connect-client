@@ -13,6 +13,7 @@ import {
   UPDATE_JOB_FAILURE
 } from '../../constants/jobs/actionTypes';
 import { fetchJobs, fetchJob, createJob, updateJob } from './jobsActions';
+import { url } from '../../api';
 
 const jobs = [
 	{
@@ -40,8 +41,6 @@ const newJob = {
 const errors = { error: ['Failed to fetch jobs.'] };
 
 describe('tests for job actions', () => {
-	const url = process.env.REACT_APP_API || 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
-
 	let store;
 	let httpMock;
 
