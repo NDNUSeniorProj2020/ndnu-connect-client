@@ -99,7 +99,6 @@ export function updateJobFailure(errors) {
 }
 
 export function updateJob(token, job) {
-  console.log(job)
   return (dispatch) => {
     const headers = createAuthHeader(token);
 
