@@ -1,52 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Table } from 'antd';
 import 'antd/dist/antd.css';
 
-const data = [
-  {
-    key: '1',
-    fname: 'John',
-    lname: 'Brown',
-    major: 'Computer  Science (BS)',
-    job: 'Apple',
-    city: 'San Mateo',
-  },
-  {
-    key: '2',
-    fname: 'Joe',
-    lname: 'Black',
-    major: 'Business Administration (BS)',
-    job: 'Google',
-    city: 'San Francisco',
-  },
-  {
-    key: '3',
-    fname: 'Jim',
-    lname: 'Green',
-    major: 'History (BA)',
-    job: 'Computer History Museum',
-    city: 'Belmont',
-  },
-  {
-    key: '4',
-    fname: 'Jim',
-    lname: 'Red',
-    major: 'Communication (BA)',
-    job: 'Comcast',
-    city: 'Belmont',
-  },
-];
 const columns = [
   {
     title: 'First Name',
-    dataIndex: 'fname',
-    key: 'fname',
+    dataIndex: 'first_name',
+    key: 'first_name',
     width: '20%',
   },
   {
     title: 'Last Name',
-    dataIndex: 'lname',
-    key: 'lname',
+    dataIndex: 'last_name',
+    key: 'last_name',
     width: '20%',
   },
   {
@@ -62,12 +30,35 @@ const columns = [
     width: '20%',
   },
   {
-    title: 'City',
-    dataIndex: 'city',
-    key: 'city',
+    title: 'Job title',
+    dataIndex: 'job_title',
+    key: 'job_title',
+    width: '20%',
   },
+  {
+    title: 'Year Graduated',
+    dataIndex: 'year_graduated',
+    key: 'year_graduated',
+    width: '20%'
+  }
 ];
 
-export default function Alumni() {
-  return <Table columns={columns} dataSource={data} />;
+export function ConnectedAlumniPage({ alumni, success, fetchAlumni }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAlumni(localStorage.getItem('token'))
+    setIsLoading(false);
+  }, [fetchAlumni, setIsLoading]);
+
+  if (success && !isLoading && alumni.length > 0)
+    return <Table columns={columns} dataSource={alumni} />;
+
+  if ((!success && !isLoading) || alumni.length === 0)
+    return <p>No alumni found.</p>
+
+  return <p>Loading alumni...</p>;
 }
+
+ConnectedAlumniPage.propTypes = { alumni: PropTypes.array, success: PropTypes.bool, fetchAlumni: PropTypes.func };
+ConnectedAlumniPage.defaultProps = { alumni: [], success: false, fetchAlumni: f => f };
