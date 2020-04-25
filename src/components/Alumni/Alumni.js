@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 
 import { fetchAlumni } from '../../actions/alumni/alumniActions';
 
-const width = '18%';
+const width = '17%';
 const columns = [
   {
     title: 'First Name',
