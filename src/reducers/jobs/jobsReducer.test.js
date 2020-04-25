@@ -24,7 +24,7 @@ const jobs = [
 	}
 ];
 const job = jobs[0];
-const initialState = { job: {}, jobs: [], success: false, updated: false };
+const initialState = { job: {}, jobs: [], success: false, updated: false, saved: false };
 const errors = {
 	error: ['Failed to complete']
 };
@@ -55,7 +55,7 @@ describe('tests for jobsReducer', () => {
 
 		it('sets up state if job was successfully saved', () => {
 			const action = { type: SAVE_JOB_SUCCESS };
-			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, success: true });
+			expect(jobsReducer(initialState, action)).toEqual({ ...initialState, saved: true });
 		});
 
 		it('sets up errors if job was not saved', () => {

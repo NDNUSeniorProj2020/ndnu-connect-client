@@ -44,7 +44,6 @@ describe('tests for JobCard', () => {
 
 	describe('unit tests', () => {
 		it('contains job description and job posting date if job is passed as prop', () => {
-			expect(wrapper.find('#job-description').text()).toEqual(job.description);
 			expect(wrapper.find('#job-posted-date').text()).toEqual(moment(job.date).format('LL'));
     });
 	});
