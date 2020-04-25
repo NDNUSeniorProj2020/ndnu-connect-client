@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './Home/Home';
 import TutorsPage from './Tutors/TutorsPage';
 import { JobsPage, CreateJobListing, EditJobListing } from './Jobs/index';
-import Alumni from './Alumni/Alumni'
+import { Alumni } from './Alumni/index';
 
 export default function Main() {
 	return (

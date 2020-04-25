@@ -4,42 +4,44 @@ import { connect } from 'react-redux';
 import { Table } from 'antd';
 import 'antd/dist/antd.css';
 
+import { fetchAlumni } from '../../actions/alumni/alumniActions';
+
+const width = '18%';
 const columns = [
   {
     title: 'First Name',
     dataIndex: 'first_name',
     key: 'first_name',
-    width: '20%',
+    width
   },
   {
     title: 'Last Name',
     dataIndex: 'last_name',
     key: 'last_name',
-    width: '20%',
+    width
   },
   {
     title: 'Major',
     dataIndex: 'major',
     key: 'major',
-    width: '20%',
+    width
   },
   {
     title: 'Current Company',
-    dataIndex: 'job',
-    key: 'job',
-    width: '20%',
+    dataIndex: 'company',
+    key: 'company',
+    width
   },
   {
     title: 'Job title',
     dataIndex: 'job_title',
     key: 'job_title',
-    width: '20%',
+    width
   },
   {
     title: 'Year Graduated',
     dataIndex: 'year_graduated',
-    key: 'year_graduated',
-    width: '20%'
+    key: 'year_graduated'
   }
 ];
 
@@ -62,3 +64,8 @@ export function ConnectedAlumniPage({ alumni, success, fetchAlumni }) {
 
 ConnectedAlumniPage.propTypes = { alumni: PropTypes.array, success: PropTypes.bool, fetchAlumni: PropTypes.func };
 ConnectedAlumniPage.defaultProps = { alumni: [], success: false, fetchAlumni: f => f };
+
+const mapStateToProps = ({ alumniReducer }) => ({ alumni: alumniReducer.alumni, success: alumniReducer.success });
+const Alumni = connect(mapStateToProps, { fetchAlumni })(ConnectedAlumniPage);
+
+export default Alumni;
