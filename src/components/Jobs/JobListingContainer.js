@@ -17,7 +17,7 @@ export default function JobListingContainer({ job, closeListing }) {
   );
 
   return (
-    <Card title={title} extra={<Button onClick={() => closeListing()} icon="close" />}>
+    <Card title={title} extra={<Icon onClick={() => closeListing()} type="close" />}>
       <p>{job.description}</p>
     </Card>
   );

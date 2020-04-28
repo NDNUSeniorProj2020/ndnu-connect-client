@@ -15,7 +15,7 @@ const job = {
   "date": "2020-04-16T12:53:39.783183-07:00",
   "type": "FULL",
   "user": 2
-}
+};
 
 describe('tests for JobListingContainer', () => {
   describe('snapshot tests', () => {
