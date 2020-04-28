@@ -27,7 +27,7 @@ export function ConnectedHome({ jobs, tutors, success, fetchTutors, fetchJobs })
 				<TutorsWidget />
 				<JobsWidget jobs={jobs} />
 			</div>
-		);
+    );
 
 	return <h1>Dashboard</h1>;
 }
