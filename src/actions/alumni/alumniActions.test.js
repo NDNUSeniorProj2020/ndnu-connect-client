@@ -4,6 +4,7 @@ import configureMockStore from 'redux-mock-store';
 
 import { FETCH_ALUMNI_SUCCESS, FETCH_ALUMNI_FAILURE } from '../../constants/alumni/actionTypes';
 import { fetchAlumni } from './alumniActions';
+import { url } from '../../api';
 
 const alumni = [
   {
@@ -54,8 +55,6 @@ const alumni = [
 const errors = { error: ["Cannot fetch alumni. Sorry for the inconvenience. Please try again"] };
 
 describe('test alumni actions', () => {
-  const url = process.env.REACT_APP_API || 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
-
   let store;
 	let httpMock;
 

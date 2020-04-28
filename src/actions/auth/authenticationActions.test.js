@@ -11,6 +11,7 @@ import {
   REGISTRATION_FAILURE,
   HAS_TOKEN_FAILURE,
 } from '../../constants/actionTypes';
+import { url } from '../../api';
 import { login, register, logout, hasToken } from './authenticationActions';
 
 const userRes = {
@@ -26,8 +27,6 @@ const errors = {
 };
 
 describe('testing authentication actions', () => {
-	const url = process.env.REACT_APP_API || 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
-
 	let store;
 	let httpMock;
 

@@ -11,6 +11,7 @@ import {
 	fetchDepartments,
 	fetchDepartmentsSuccess
 } from './departmentActions';
+import { url } from '../../api';
 
 const departments = [
 	{
@@ -30,8 +31,6 @@ const errors = {
 };
 
 describe('testing department actions', () => {
-	const url = process.env.REACT_APP_API || 'http://ec2-54-241-187-187.us-west-1.compute.amazonaws.com:81';
-
 	let store;
 	let httpMock;
 
