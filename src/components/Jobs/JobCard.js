@@ -6,8 +6,9 @@ import { Card } from 'antd';
 import moment from 'moment';
 import Markdown from 'react-markdown';
 
-export function ConnectedJobCard({ user, job }) {
-  const applyLink = (<a href={job.link}>Apply</a>)
+export function ConnectedJobCard({ user, job, selectJob }) {
+  const title = job.title + ' | ' + job.company + ' | ' + job.location;
+  const applyLink = (<a href={job.link}>Apply</a>);
   const extraLink = job.user === user.id ? (
     <div>
       {applyLink} | <Link to={`/jobs/edit/${job.id}`}>Edit</Link>
@@ -16,7 +17,7 @@ export function ConnectedJobCard({ user, job }) {
 
 	return (
 		<div>
-      <Card type="inner" title={job.title + ' | ' + job.company + ' | ' + job.location} extra={extraLink} >
+      <Card onClick={() => selectJob(job)} type="inner" title={title} extra={extraLink} >
 				<Markdown source={job.description} />
 				<p id="job-posted-date">{moment(job.date).format('LL')}</p>
 			</Card>
@@ -24,7 +25,7 @@ export function ConnectedJobCard({ user, job }) {
 	);
 }
 
-ConnectedJobCard.propTypes = { job: PropTypes.object, user: PropTypes.object };
+ConnectedJobCard.propTypes = { job: PropTypes.object, user: PropTypes.object, selectJob: PropTypes.func };
 ConnectedJobCard.defaultProps = {
   user: {
     id: '',
@@ -33,7 +34,8 @@ ConnectedJobCard.defaultProps = {
     email: '',
     phone_number: '',
     token: ''
-  }
+  },
+  selectJob: f => f
 };
 
 const mapStateToProps = ({ authReducer }) => ({ user: authReducer.user });

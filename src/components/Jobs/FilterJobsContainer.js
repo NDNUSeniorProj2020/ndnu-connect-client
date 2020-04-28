@@ -5,10 +5,13 @@ import { Row, Col, Card, Checkbox, Button } from 'antd';
 
 import JobSearchForm from './JobSearchForm';
 import ListJobs from './ListJobs';
+import JobListingContainer from './JobListingContainer';
 
 export default function FilterJobsContainer(props) {
 	const [jobs, setJobs] = useState(props.jobs);
-	const [jobTypes, setJobTypes] = useState([]);
+  const [jobTypes, setJobTypes] = useState([]);
+  const [selectedJob, setSelectedJob] = useState({});
+  const [showListing, setShowListing] = useState(false);
 
 	const onChange = (e) => {
 		// typesStack is an array to check job types against
@@ -34,30 +37,43 @@ export default function FilterJobsContainer(props) {
 		return setJobs(filteredJobs);
 	};
 
-	const resetJobs = () => setJobs(props.jobs);
+  const resetJobs = () => setJobs(props.jobs);
+
+  const selectJob = (job) => {
+    setSelectedJob(job);
+    setShowListing(true);
+  };
+
+  const closeListing = () => {
+    setSelectedJob({});
+    setShowListing(false);
+  };
 
 	return (
-	<div>
-		<Row style={{ marginBottom: '1rem' }} gutter={16}>
-			<Col className="gutter-row" span={12}>
-				<JobSearchForm searchJobs={searchJobs} resetJobs={resetJobs} />
-			</Col>
-		</Row>
-		<Row gutter={16}>
-			<Col className="gutter-row" span={6}>
-				{jobs.length > 0 ? <ListJobs jobs={jobs} /> : <p>No jobs available.</p>}
-			</Col>
-			<Col className="gutter-row" span={6}>
-        <Link to="/jobs/create-posting">
-          <Button style={{ marginBottom: '1rem' }} type="primary">Create Posting</Button>
-        </Link>
-				<Card size="small" title="Job Type" style={{ width: 350 }}>
-					<Checkbox id="full-time-checkbox" onChange={onChange} name="FULL">Full-Time</Checkbox>
-					<Checkbox id="part-time-checkbox" onChange={onChange} name="PART">Part-Time</Checkbox>
-					<Checkbox id="internship-checkbox" onChange={onChange} name="INTR">Internship</Checkbox>
-				</Card>
-			</Col>
-		</Row>
+    <div>
+      <Row style={{ marginBottom: '1rem' }} gutter={16}>
+        <Col className="gutter-row" span={12}>
+          <JobSearchForm searchJobs={searchJobs} resetJobs={resetJobs} />
+        </Col>
+      </Row>
+      <Row gutter={16}>
+        <Col className="gutter-row" span={5}>
+          <Card size="small" title="Job Type" style={{ width: 350, marginBottom: '1rem' }}>
+            <Checkbox id="full-time-checkbox" onChange={onChange} name="FULL">Full-Time</Checkbox>
+            <Checkbox id="part-time-checkbox" onChange={onChange} name="PART">Part-Time</Checkbox>
+            <Checkbox id="internship-checkbox" onChange={onChange} name="INTR">Internship</Checkbox>
+          </Card>
+          <Link to="/jobs/create-posting">
+            <Button style={{ marginBottom: '1rem' }} type="primary">Create Posting</Button>
+          </Link>
+        </Col>
+        <Col className="gutter-row" span={6}>
+          {jobs.length > 0 ? <ListJobs jobs={jobs} selectJob={selectJob} /> : <p>No jobs available.</p>}
+        </Col>
+        <Col className="gutter-row" span={6}>
+          {showListing ? <JobListingContainer job={selectedJob} closeListing={closeListing} /> : null}
+        </Col>
+      </Row>
   	</div>
 	);
 }
