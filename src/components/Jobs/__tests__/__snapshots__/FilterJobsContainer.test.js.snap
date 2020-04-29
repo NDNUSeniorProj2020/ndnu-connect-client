@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for FilterJobsContainer snapshot tests renders without crashing with no props passed 1`] = `ShallowWrapper {}`;

@@ -1,0 +1,14 @@
+.description-container {
+	background-color: #21285C;
+    color: #ffffff;
+    height: 100%;
+    width: 50%;
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+
+}
+
+.header{
+    color: #ffffff;
+}

@@ -1,0 +1,37 @@
+#navbar {
+	/*margin-bottom: 2em;*/
+	/*position: fixed;
+	width: 100%;
+	z-index: 1;*/
+}
+
+.navbar-container {
+	background-color: #21285C;
+	color: #ffffff;
+}
+
+.ndnu-logo {
+	height: 60px; 
+	float: left; 
+	margin-left: 20px;
+}
+
+.tutor-menu-item {
+	margin-left: 100px;
+}
+
+.avatar {
+	color: #f56a00; 
+	background-color: #fde3cf; 
+	
+}
+
+.avatar-dropdown-container {
+	float: right;
+	margin: 10px 20px 0 0;
+	cursor: pointer;
+}
+
+.dropdown-spacing {
+	padding: 8px 35px 8px 35px;
+}

@@ -1,0 +1,79 @@
+
+.search-container {
+	background-color: #5F9EA0; 
+	height: 365px;
+}
+
+.tutor-student-toggle {
+	float: right;
+	padding: 15px;
+}
+
+.search-title {
+	text-align: left;
+	padding-top: 140px;
+	padding-left: 20%;
+}
+
+.search-box {
+	padding-top: 30px;
+    display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 60%;
+}
+
+.avanced-search-button {
+	display: block;
+	margin-top: 14px;
+	margin-left: 20%;
+}
+
+.student-preference-container {
+	background-color: white,;
+	height: 420px;
+}
+
+.top-tutors-container {
+	background-color: white,;
+	height: 520px;
+}
+
+.top-tutors-title {
+	text-align: left;
+	padding-top: 30px;
+	padding-left: 15%;
+}
+
+.top-tutors-card {
+	width: 60%; 
+	margin-left: auto; 
+	margin-right: auto;
+}
+
+.tutors-row-height {
+	text-align: left;
+	height: 42px;
+}
+
+.stars-container {
+	padding-left: 40px;
+}
+
+.subject-grid-container {
+	background-color: #5F9EA0; 
+	height: 500px; 
+	padding-top: 50px;
+}
+
+.subject-grid-card {
+	text-align: left;
+	width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.subject-grid {
+	width: 25%;
+    text-align: center;
+}
