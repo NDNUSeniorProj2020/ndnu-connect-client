@@ -1,21 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`tests for TwitterFeed component snapshot tests should render without crashing. 1`] = `
-<section
-  className="twitter-container"
+<div
+  className="ant-card tutors-card-container ant-card-bordered"
 >
   <div
-    className="twitter-embed"
+    className="ant-card-body"
+    style={Object {}}
   >
-    <a
-      className="twitter-timeline"
-      data-dnt="true"
-      data-height="400"
-      data-width="400"
-      href="https://twitter.com/NotreDameCA?ref_src=twsrc%5Etfw"
+    <section
+      className="twitter-container"
     >
-      Tweets by NotreDameCA
-    </a>
+      <div
+        className="twitter-embed"
+      >
+        <a
+          className="twitter-timeline"
+          data-dnt="true"
+          data-height="400"
+          data-width="400"
+          href="https://twitter.com/NotreDameCA?ref_src=twsrc%5Etfw"
+        >
+          Tweets by NotreDameCA
+        </a>
+      </div>
+    </section>
   </div>
-</section>
+</div>
 `;

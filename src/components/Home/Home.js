@@ -8,7 +8,7 @@ import TutorsWidget from '../Tutors/TutorsWidget';
 import JobsWidget from '../Jobs/JobsWidget';
 import { fetchJobs } from '../../actions/jobs/jobsActions';
 import { fetchTutors } from '../../actions/tutor/tutorActions';
-import { Row, Col, Card } from 'antd';
+import { Row, Col } from 'antd';
 
 export function ConnectedHome({ jobs, tutors, success, fetchTutors, fetchJobs }) {
 	const [isLoading, setIsLoading] = useState(true);

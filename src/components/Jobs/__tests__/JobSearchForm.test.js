@@ -1,13 +1,18 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Input } from 'antd';
 
 import JobSearchForm from '../JobSearchForm';
 
+const { Search } = Input;
+
 describe('tests for JobSearchForm', () => {
   let wrapper;
+  let props;
 
   beforeEach(() => {
-    wrapper = shallow(<JobSearchForm />);
+    props = { searchJobs: jest.fn(), resetJobs: jest.fn() };
+    wrapper = shallow(<JobSearchForm {...props} />);
   });
 
 	describe('snapshot tests', () => {
@@ -19,16 +24,17 @@ describe('tests for JobSearchForm', () => {
   });
 
   describe('integration tests', () => {
-    it('changes title state', () => {
-      wrapper.find('#title-search-input').props().onChange({ target: { value: 'Receptionist' } });
+    it('changes title state when user types into search bar', () => {
+      wrapper.find(Search).props().onChange({ target: { value: 'Receptionist' } });
     });
 
-    it('submits form', () => {
+    it('searches for jobs when user clicks search button', () => {
+      wrapper.find(Search).props().onSearch({ title: 'Receptionist' });
+    });
+
+    it('submits form if user presses enter', () => {
       const e = { preventDefault: () => {} };
       wrapper.find("#job-search-form").props().onSubmit(e);
-      wrapper.find("#submit-search-button").props().onClick(e);
     });
-
-    it('resets form', () => wrapper.find('#reset-search-form-button').props().onClick());
   });
 });
