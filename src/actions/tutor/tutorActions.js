@@ -30,12 +30,3 @@ export function fetchTutors(token) {
 			.catch(errors => dispatch(fetchTutorsFailure(errors)));
 	};
 }
-
-export function getTutors(token) {
-	return new Promise((resolve, reject) => {
-		const headers = createAuthHeader(token);
-		return api().get('/api/tutor/', { headers })
-			.then((res) => { resolve(res.data); })
-			.catch(errors => reject(errors));
-	});
-}

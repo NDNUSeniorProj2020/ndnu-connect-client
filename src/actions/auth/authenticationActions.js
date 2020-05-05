@@ -74,7 +74,6 @@ export function logout() {
 
 // Has token actions
 export function hasTokenSuccess(data) {
-	console.log('hasTokenSuccess ',data);
 	return {
 		type: HAS_TOKEN_SUCCESS,
 		payload: { user: { ...data } }
