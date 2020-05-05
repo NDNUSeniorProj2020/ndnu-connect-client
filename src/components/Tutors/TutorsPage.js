@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Button, Card, Divider, Icon, Input, Modal, Radio, Tag, Typography, List } from "antd";
+import { Avatar, Button, Card, Icon, Input, Modal, Radio, Tag, Typography, List } from "antd";
 import AdvancedSearchModal from './AdvancedSearchModal';
 import ScheduleTutorForm from './ScheduleTutorForm';
 import TutorsList from './TutorsList';
@@ -10,7 +10,6 @@ import { getTutors } from '../../actions/tutor/tutorActions';
 
 const { Title } = Typography;
 const { Search } = Input;
-const { Meta } = Card;
 
 class TutorsPage extends React.Component {
   constructor(props) {
@@ -77,9 +76,7 @@ class TutorsPage extends React.Component {
             <a key={index}>
               <List.Item>
                 <List.Item.Meta
-                  avatar={
-                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                  }
+                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                   title={<div>{tutor.credentials}</div>}
                   description={
                     <div>
@@ -200,7 +197,7 @@ class TutorsPage extends React.Component {
               <div>
                 Contact Tutor : <br /><br />
                 {this.state.selected != null ?
-                  <a href={"https://mail.google.com/mail/?view=cm&fs=1&to=" + this.state.selected.email + ""} target="_blank">{this.state.selected.email}</a>
+                  <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${this.state.selected.email}`} target="_blank" rel="noopener noreferrer">{this.state.selected.email}</a>
                   : ''}
               </div>
             </Modal>
