@@ -56,12 +56,10 @@ class TutorsPage extends React.Component {
 
   loadTutors = () => {
     getTutors(localStorage.getItem('token'))
-      .then((res) => {
-        this.setState({ tutors: res });
-      })
+      .then((res) => this.setState({ tutors: res }))
       .catch((err) => {
-        console.log('err ', err);
-      })
+        console.error('err ', err);
+      });
   }
 
   render() {
@@ -73,7 +71,7 @@ class TutorsPage extends React.Component {
       tutors.forEach((tutor, index) => {
         tutorsValues.push(
           <Card className="top-tutors-card" key={index} onClick={() => this.showDetails(tutor)}>
-            <a key={index}>
+            <div key={index}>
               <List.Item>
                 <List.Item.Meta
                   avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
@@ -92,7 +90,7 @@ class TutorsPage extends React.Component {
                 />
                 <div><Icon type="star" theme="twoTone" twoToneColor="#FFD700" /> {tutor.rating}</div>
               </List.Item>
-            </a>
+            </div>
           </Card>
         );
       });
