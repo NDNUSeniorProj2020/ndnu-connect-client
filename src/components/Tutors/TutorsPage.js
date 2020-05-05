@@ -1,14 +1,15 @@
 import React from "react";
-import { Avatar, Button, Card, Divider, Icon, Input, Modal, Radio, Tag, Typography } from "antd";
+import { Avatar, Button, Card, Icon, Input, Modal, Radio, Tag, Typography, List } from "antd";
 import AdvancedSearchModal from './AdvancedSearchModal';
 import ScheduleTutorForm from './ScheduleTutorForm';
 import TutorsList from './TutorsList';
 import StudentPreference from './StudentPreference';
 import './TutorsPage.css';
 
+import { getTutors } from '../../actions/tutor/tutorActions';
+
 const { Title } = Typography;
 const { Search } = Input;
-const { Meta } = Card;
 
 class TutorsPage extends React.Component {
   constructor(props) {
@@ -17,15 +18,28 @@ class TutorsPage extends React.Component {
       tutorToggle: false,
       advancedSearchVisible: false,
       listVisible: false,
+      tutors: [],
+      showDetails: false,
+      selected: null
     };
+
+    this.loadTutors();
+  };
+
+  showDetails = (tutor) => {
+    this.setState({ showDetails: true, selected: tutor });
+  };
+
+  hideDetails = () => {
+    this.setState({ showDetails: false });
   };
 
   showAdvancedSearch = () => {
-    this.setState({ advancedSearchVisible:true });
+    this.setState({ advancedSearchVisible: true });
   };
 
   hideAdvancedSearch = () => {
-    this.setState({ advancedSearchVisible:false });
+    this.setState({ advancedSearchVisible: false });
   };
 
   handleToggleChange = () => {
@@ -33,45 +47,57 @@ class TutorsPage extends React.Component {
   };
 
   showSubjectList = e => {
-    console.log(e.target.data);
-    this.setState({ listVisible:true });
+    this.setState({ listVisible: true });
   };
 
   hideSubjectList = () => {
-    this.setState({ listVisible:false });
+    this.setState({ listVisible: false });
   };
 
+  loadTutors = () => {
+    getTutors(localStorage.getItem('token'))
+      .then((res) => this.setState({ tutors: res }))
+      .catch((err) => {
+        console.error('err ', err);
+      });
+  }
+
   render() {
-    const data = [
-    {
-      fullName: 'John Smith',
-      subjects: ["Math", "Computer Science"],
-      image: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-      rating: 5
-    }, {
-      fullName: 'Jane Williams',
-      subjects: ["English", "History", "Humanities"],
-      image: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-      rating: 5
-    }, {
-      fullName: 'James Miller',
-      subjects: ["Biology", "Chemistry"],
-      image: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-      rating: 4
-    }, {
-      fullName: 'Will Johnson',
-      subjects: ["Business", "Accounting"],
-      image: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-      rating: 4
-    }, {
-      fullName: 'Emma Jones',
-      subjects: ["Psychology", "Religion"],
-      image: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-      rating: 4
-    }];
+    const { tutors } = this.state;
+
+    let tutorsValues = [];
+
+    if (tutors) {
+      tutors.forEach((tutor, index) => {
+        tutorsValues.push(
+          <Card className="top-tutors-card" key={index} onClick={() => this.showDetails(tutor)}>
+            <div key={index}>
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                  title={<div>{tutor.credentials}</div>}
+                  description={
+                    <div>
+                      <div>{tutor.description}</div>
+                      <div>Pay {tutor.pay}</div>
+                      <div>
+                        {tutor.subject.map((data, index) => {
+                          return (<Tag key={index}>{data.subject}</Tag>)
+                        })}
+                      </div>
+                    </div>
+                  }
+                />
+                <div><Icon type="star" theme="twoTone" twoToneColor="#FFD700" /> {tutor.rating}</div>
+              </List.Item>
+            </div>
+          </Card>
+        );
+      });
+    }
 
     const subjects = [
-      "Accounting", 
+      "Accounting",
       "Biology",
       "Business",
       "Chemistry",
@@ -112,15 +138,17 @@ class TutorsPage extends React.Component {
             className="search-box"
             onSearch={value => console.log(value)}
           />
-          <Button className="avanced-search-button" onClick={this.showAdvancedSearch}>Advanced Search</Button>
+          <div style={{textAlign:'right'}}>
+            <Button className="avanced-search-button" onClick={this.showAdvancedSearch}>Advanced Search</Button>
+          </div>
         </div>
 
-        {this.state.tutorToggle ? 
+        {this.state.tutorToggle ?
           (<div>
             <Title level={3} className="top-tutors-title">
               Tutor Availability
             </Title>
-            <div style={{width:"75%", paddingTop:"30px"}}>
+            <div style={{ width: "75%", paddingTop: "30px" }}>
               <ScheduleTutorForm />
             </div>
           </div>)
@@ -141,51 +169,39 @@ class TutorsPage extends React.Component {
             </div>
 
             <div className="top-tutors-container">
-            <Title level={3} className="top-tutors-title">
-              Top tutors
+              <Title level={3} className="top-tutors-title">
+                Top tutors
             </Title>
-            <Card className="top-tutors-card">
-            {
-              data.map(tutor => {
-                let namePlusStars = (
-                  <div>
-                    {tutor.fullName}
-                    <span className="stars-container">
-                      {
-                        Array.from(Array(tutor.rating)).map((star, i) => (
-                          <Icon type="star" theme="twoTone" key={i} twoToneColor="#FFD700" />
-                        ))
-                      }
-                    </span>
-                  </div>
-                )
-                return(
-                  <a key={tutor.fullName} href="/tutors">
-                    <Meta
-                      avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                      title={namePlusStars}
-                      className="tutors-row-height"
-                      description={tutor.subjects.map(subject => <Tag key={subject}>{subject}</Tag>)}
-                    />
-                    <Divider />
-                  </a>
-                )
-              })
-            }
-            </Card>
-          </div>
+              {tutorsValues}
+            </div>
 
-          <Modal
-            title="Advanced Search"
-            visible={this.state.advancedSearchVisible}
-            onCancel={this.hideAdvancedSearch}
-            footer={null}
-          >
-            <AdvancedSearchModal />
-          </Modal>
-          <TutorsList subject={this.state.subject} visible={this.state.listVisible} hideSubjectList={this.hideSubjectList} />
-        </div>)
-      }
+            <Modal
+              title="Advanced Search"
+              visible={this.state.advancedSearchVisible}
+              onCancel={this.hideAdvancedSearch}
+              footer={null}
+            >
+              <AdvancedSearchModal />
+            </Modal>
+
+            <TutorsList subject={this.state.subject} visible={this.state.listVisible} hideSubjectList={this.hideSubjectList} />
+
+            <Modal
+              title="Tutor Details"
+              visible={this.state.showDetails}
+              onCancel={this.hideDetails}
+              footer={null}
+            >
+              <div>
+                Contact Tutor : <br /><br />
+                {this.state.selected != null ?
+                  <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${this.state.selected.email}`} target="_blank" rel="noopener noreferrer">{this.state.selected.email}</a>
+                  : ''}
+              </div>
+            </Modal>
+
+          </div>)
+        }
       </div>
     );
   }

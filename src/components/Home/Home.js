@@ -8,6 +8,7 @@ import TutorsWidget from '../Tutors/TutorsWidget';
 import JobsWidget from '../Jobs/JobsWidget';
 import { fetchJobs } from '../../actions/jobs/jobsActions';
 import { fetchTutors } from '../../actions/tutor/tutorActions';
+import { Row, Col } from 'antd';
 
 export function ConnectedHome({ jobs, tutors, success, fetchTutors, fetchJobs }) {
 	const [isLoading, setIsLoading] = useState(true);
@@ -23,11 +24,21 @@ export function ConnectedHome({ jobs, tutors, success, fetchTutors, fetchJobs })
 	if (success && !isLoading)
 		return (
 			<div>
-				<TwitterFeed />
-				<TutorsWidget />
-				<JobsWidget jobs={jobs} />
+				<Row gutter={16}>
+					<Col span={16}>
+						<JobsWidget jobs={jobs} />
+					</Col>
+					<Col span={8}>
+						<Row gutter={16}>
+							<TwitterFeed />
+						</Row>
+						<Row gutter={16}>
+							<TutorsWidget />
+						</Row>
+					</Col>
+				</Row>
 			</div>
-    );
+		);
 
 	return <h1>Dashboard</h1>;
 }
@@ -37,14 +48,14 @@ ConnectedHome.propTypes = {
 	jobs: PropTypes.array,
 	tutors: PropTypes.array,
 	fetchTutors: PropTypes.func,
-  fetchJobs: PropTypes.func,
+	fetchJobs: PropTypes.func,
 };
 
 ConnectedHome.defaultProps = {
 	jobs: [],
 	tutors: [],
 	fetchTutors: f => f,
-  fetchJobs: f => f,
+	fetchJobs: f => f,
 };
 
 const mapStateToProps = ({ jobsReducer, tutorReducer }) => ({

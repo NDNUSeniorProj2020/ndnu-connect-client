@@ -7,7 +7,7 @@ import JobCard from './JobCard';
 
 export default function JobsWidget({ jobs }) {
   return (
-    <div>
+    <div style={{margin:'15px 0 0 10px'}}>
       <Card title="Jobs & Interships">
         {jobs ? jobs.map(job => (
           <div key={job.id}>

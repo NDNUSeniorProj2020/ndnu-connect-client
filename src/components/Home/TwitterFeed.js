@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Card } from 'antd';
 
 export default function TwitterFeed() {
 	useEffect(() => {
@@ -8,11 +9,13 @@ export default function TwitterFeed() {
 	}, []);
 
 	return (
-		<section className={'twitter-container'}>
-			<div className={'twitter-embed'}>
-				<a className="twitter-timeline" data-width="400" data-height="400" data-dnt="true"
-					 href="https://twitter.com/NotreDameCA?ref_src=twsrc%5Etfw">Tweets by NotreDameCA</a>
-			</div>
-		</section>
+		<Card className="tutors-card-container">
+			<section className={'twitter-container'}>
+				<div className={'twitter-embed'}>
+					<a className="twitter-timeline" data-width="400" data-height="400" data-dnt="true"
+						href="https://twitter.com/NotreDameCA?ref_src=twsrc%5Etfw">Tweets by NotreDameCA</a>
+				</div>
+			</section>
+		</Card>
 	);
 }
