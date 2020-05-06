@@ -8,26 +8,19 @@ import { createJob } from '../../actions/jobs/jobsActions';
 import { hasToken } from '../../actions/auth/authenticationActions';
 import JobListingForm from './JobListingForm';
 
-export function ConnectedCreateJobListing({ user, saved, createJob, hasToken }) {
+export function ConnectedCreateJobListing({ user, errors, saved, createJob, hasToken }) {
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    hasToken(token);
+    hasToken();
   }, [hasToken]);
 
-  const addJob = async (job) => {
-    try {
-      await createJob(localStorage.getItem('token'), job, user.id);
-    } catch (err) {
-      console.error(err);
-      message.error('Cannot create job listing. Sorry for the inconvenience. Please try again.', 60);
-    }
-  };
+  const addJob = job => createJob(job, user.id);
 
   if (saved)
     return <Redirect to={'/jobs'} />;
 
 	return (
 		<div>
+      { Object.keys(errors).length > 0 && errors.msg.length > 0 ? message.error(errors.msg, 10) : null }
       <header>
         <h1>Create Job Listing</h1>
       </header>
@@ -41,17 +34,20 @@ ConnectedCreateJobListing.propTypes = {
   createJob: PropTypes.func,
   hasToken: PropTypes.func,
   user: PropTypes.object,
+  errors: PropTypes.object
 };
 ConnectedCreateJobListing.defaultProps = {
   saved: false,
   createJob: f => f,
   hasToken: f => f,
-  user: {}
+  user: {},
+  errors: {}
 };
 
 const mapStateToProps = ({ jobsReducer, authReducer }) => ({
   user: authReducer.user,
-  saved: jobsReducer.saved
+  saved: jobsReducer.saved,
+  errors: jobsReducer.errors
 });
 const CreateJobListing = connect(mapStateToProps, { createJob, hasToken })(ConnectedCreateJobListing);
 

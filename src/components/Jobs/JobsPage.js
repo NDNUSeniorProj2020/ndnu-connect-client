@@ -11,10 +11,8 @@ export function ConnectedJobsPage({ user, jobs, success, fetchJobs }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    hasToken(token);
-    fetchJobs(token);
+    hasToken();
+    fetchJobs();
     setIsLoading(false);
   }, [isLoading, fetchJobs]);
 

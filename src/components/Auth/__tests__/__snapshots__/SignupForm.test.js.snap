@@ -282,7 +282,7 @@ exports[`tests for SignupForm snapshot tests should render without crashing 1`] 
         style={Object {}}
       >
         <label
-          className=""
+          className="ant-form-item-required"
           htmlFor="phone_number"
           onClick={[Function]}
           title="Phone Number"
@@ -317,8 +317,26 @@ exports[`tests for SignupForm snapshot tests should render without crashing 1`] 
                     "type": "text",
                   },
                   "ref": null,
+                  "rules": Array [
+                    Object {
+                      "message": "Please enter a valid phone number!",
+                      "required": true,
+                    },
+                  ],
                   "trigger": "onChange",
-                  "validate": Array [],
+                  "validate": Array [
+                    Object {
+                      "rules": Array [
+                        Object {
+                          "message": "Please enter a valid phone number!",
+                          "required": true,
+                        },
+                      ],
+                      "trigger": Array [
+                        "onChange",
+                      ],
+                    },
+                  ],
                   "valuePropName": "value",
                 }
               }

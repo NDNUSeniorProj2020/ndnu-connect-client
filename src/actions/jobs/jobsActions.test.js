@@ -38,7 +38,11 @@ const newJob = {
   'date': '2020-03-13T11:55:20.710240-07:00',
   'type': 'FULL'
 };
-const errors = { error: ['Failed to fetch jobs.'] };
+const errors = {
+  errors: {
+    err: ['Failed to fetch jobs.']
+  }
+};
 
 describe('tests for job actions', () => {
 	let store;
@@ -57,7 +61,7 @@ describe('tests for job actions', () => {
 		it('fetches all jobs', async () => {
 			httpMock.onGet(`${url}/api/job/`).reply(200, jobs);
 
-			fetchJobs('someRandomToken')(store.dispatch);
+			fetchJobs()(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
@@ -68,20 +72,20 @@ describe('tests for job actions', () => {
 		it('throws error if jobs cannot be fetched', async () => {
 			httpMock.onGet(`${url}/api/job/`).reply(500, errors);
 
-			fetchJobs('someRandomToken')(store.dispatch)
+			fetchJobs()(store.dispatch)
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ type: FETCH_ALL_JOBS_FAILURE, payload: { errors: { ...errors } } }
+				{ type: FETCH_ALL_JOBS_FAILURE, payload: { errors: { msg: errors.errors.err[0] } } }
 			]);
-		});
+    });
   });
 
   describe('testing actions for fetching single job', () => {
     it('fetches job successfully', async () => {
       httpMock.onGet(`${url}/api/job/${job.id}/retrieve/`).reply(200, job);
 
-      fetchJob('someRandomToken', job.id)(store.dispatch);
+      fetchJob(job.id)(store.dispatch);
       await flushAllPromises();
 
       expect(store.getActions()).toEqual([
@@ -92,11 +96,11 @@ describe('tests for job actions', () => {
     it('throws errors when job cannot be fetched', async () => {
       httpMock.onGet(`${url}/api/job/${job.id}/retrieve/`).reply(500, errors);
 
-      fetchJob('someRandomToken', job.id)(store.dispatch);
+      fetchJob(job.id)(store.dispatch);
       await flushAllPromises();
 
       expect(store.getActions()).toEqual([
-        { type: FETCH_SINGLE_JOB_FAILURE, payload: { errors: { ...errors } } }
+        { type: FETCH_SINGLE_JOB_FAILURE, payload: { errors: { msg: errors.errors.err[0] } } }
       ]);
     });
   });
@@ -105,7 +109,7 @@ describe('tests for job actions', () => {
     it('creates job posting successfully', async () => {
       httpMock.onPost(`${url}/api/job/`).reply(200, { success: true });
 
-      createJob('somerandomtoken', newJob, 1)(store.dispatch);
+      createJob(newJob, 1)(store.dispatch);
       await flushAllPromises();
 
       expect(store.getActions()).toEqual([
@@ -116,11 +120,11 @@ describe('tests for job actions', () => {
     it('throws errors if a job posting cannot be created', async () => {
       httpMock.onPost(`${url}/api/job/`).reply(500, errors);
 
-      createJob('somerandomtoken', newJob, 1)(store.dispatch);
+      createJob(newJob, 1)(store.dispatch);
       await flushAllPromises();
 
       expect(store.getActions()).toEqual([
-        { type: SAVE_JOB_FAILURE, payload: { errors: { ...errors } } }
+        { type: SAVE_JOB_FAILURE, payload: { errors: { msg: errors.errors.err[0] } } }
       ]);
     });
   });
@@ -129,7 +133,7 @@ describe('tests for job actions', () => {
     it('updates job posting', async () => {
       httpMock.onPut(`${url}/api/job/${job.id}/update/`).reply(200, { success: true });
 
-      updateJob('randomtoken', job)(store.dispatch);
+      updateJob(job)(store.dispatch);
       await flushAllPromises();
 
       expect(store.getActions()).toEqual([
@@ -140,11 +144,11 @@ describe('tests for job actions', () => {
     it('throws error if job cannot be updated', async () => {
       httpMock.onPut(`${url}/api/job/${job.id}/update/`).reply(500, errors);
 
-      updateJob('randomtoken', job)(store.dispatch);
+      updateJob(job)(store.dispatch);
       await flushAllPromises();
 
       expect(store.getActions()).toEqual([
-        { type: UPDATE_JOB_FAILURE, payload: { errors: { ...errors} } }
+        { type: UPDATE_JOB_FAILURE, payload: { errors: { msg: errors.errors.err[0] } } }
       ]);
     });
   });
