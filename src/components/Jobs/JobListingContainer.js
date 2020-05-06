@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Button, Icon } from 'antd';
+import Markdown from 'react-markdown';
 
 export default function JobListingContainer({ job, closeListing }) {
   const title = (
@@ -18,7 +19,7 @@ export default function JobListingContainer({ job, closeListing }) {
 
   return (
     <Card title={title} extra={<Icon onClick={() => closeListing()} type="close" />}>
-      <p>{job.description}</p>
+      <Markdown source={job.description} />
     </Card>
   );
 }

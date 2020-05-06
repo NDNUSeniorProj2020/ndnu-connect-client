@@ -14,11 +14,12 @@ export function ConnectedJobCard({ user, job, selectJob }) {
       {applyLink} | <Link to={`/jobs/edit/${job.id}`}>Edit</Link>
     </div>
   ) : (<React.Fragment>{applyLink}</React.Fragment>);
+  const description = job.description.length > 250 ? job.description.slice(0, 250) + '...' : job.description;
 
 	return (
 		<div>
       <Card onClick={() => selectJob(job)} type="inner" title={title} extra={extraLink} >
-				<Markdown source={job.description} />
+				<Markdown source={description} />
 				<p id="job-posted-date">{moment(job.date).format('LL')}</p>
 			</Card>
 		</div>
