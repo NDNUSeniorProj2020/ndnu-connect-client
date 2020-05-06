@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Select, Button } from 'antd';
+
+const { TextArea } = Input;
+const { Option } = Select;
+const now = new Date().getFullYear();
+const years = Array(now - (now - 101)).fill('').map((v, i) => now - i);
 
 export function WrappedUserSettingsForm({ form, user, updateUser }) {
-  const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, setFieldsValue } = form;
+  const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = form;
 
   return (
     <Form className="user-settings-form">
@@ -31,9 +36,25 @@ export function WrappedUserSettingsForm({ form, user, updateUser }) {
           <Input placeholder="XXX-XXX-XXXX" />
         )}
       </Form.Item>
+      <Form.Item lable="About">
+        {getFieldDecorator('about', {
+          initialValue: user.about
+        })(
+          <TextArea style={{ height: 350 }} placeholder="Tell us something about yourself" />
+        )}
+      </Form.Item>
       <Form.Item label="Major">
         {getFieldDecorator('major', { initialValue: user.major })(
           <Input placeholder="Major" />
+        )}
+      </Form.Item>
+      <Form.Item label="Year Graduated">
+        {getFieldDecorator('year_graduated', {
+          initialValue: user.year_graduated
+        })(
+          <Select placeholder="Year you graduated.">
+            {years.map(year => <Option value={year}>{year}</Option>)}
+          </Select>
         )}
       </Form.Item>
       <Form.Item label="Company">
@@ -68,7 +89,7 @@ WrappedUserSettingsForm.defaultProps = {
     last_name: '',
     phone_number: '',
     graduated: false,
-    year_graduated: new Date().getFullYear(),
+    year_graduated: now,
     major: '',
     company: '',
     job_title: '',
