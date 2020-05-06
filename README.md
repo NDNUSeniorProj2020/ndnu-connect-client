@@ -34,15 +34,13 @@ This application, as the name implies, is an open forum for users to share. This
 This repository contains the frontend for the project.
 
 ### Technologies Used
-**Node.js**
-  - We chose Node.js as it is built for easily building fast and scalable network applications.<br>
-<img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" width=75> <br><br>
-**React**
-  - We chose react as it allows for creation of interactive user interfaces.React is a JavaScript library for building user interfaces.<br> 
-<img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png" width=50><br><br>
-**npm**
-  - We used npm as it allowed for easy management of packages that are required. It is also the default package manager for the JavaScript runtime environment Node.js, mentioned above.<br><br>
-<img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Npm-logo.svg" width=75> 
+
+  - <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" width=25> **Node.js** - We chose Node.js as it is built for easily building fast and scalable network applications.<br>
+
+- <img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png" width=25> **React** - We chose react as it allows for creation of interactive user interfaces.React is a JavaScript library for building user interfaces.<br> 
+
+- <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Npm-logo.svg" width=25> **npm** - We used npm as it allowed for easy management of packages that are required. It is also the default package manager for the JavaScript runtime environment Node.js, mentioned above.<br><br>
+
 
 ## Setup
 
