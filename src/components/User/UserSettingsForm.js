@@ -20,7 +20,7 @@ export function WrappedUserSettingsForm({ form, user, updateUser }) {
       if (!err) {
         if (validatePhoneNumber(values.phone_number)) {
           const user = { user: { ...values } };
-          updateUser(user)
+          updateUser(user);
         } else {
           message.error('Enter a phone number in the format of (XXX) XXX-XXXX, (XXX)XXX-XXXX, or XXX-XXX-XXXX.');
         }
@@ -58,7 +58,7 @@ export function WrappedUserSettingsForm({ form, user, updateUser }) {
         {getFieldDecorator('about', {
           initialValue: user.about
         })(
-          <TextArea style={{ height: 350 }} placeholder="Tell us something about yourself" />
+          <TextArea style={{ height: 250 }} placeholder="Tell us something about yourself" />
         )}
       </Form.Item>
       <Form.Item label="Major">
