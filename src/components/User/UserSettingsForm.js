@@ -87,7 +87,7 @@ export function WrappedUserSettingsForm({ form, user, updateUser }) {
         )}
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="user-settings-form-button">
+        <Button type="primary" onClick={handleSubmit} className="user-settings-form-button">
           Save
         </Button>
       </Form.Item>

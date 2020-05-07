@@ -32,11 +32,13 @@ describe('tests for UserSettings components', () => {
 
     describe('unit tests', () => {
       it('has default props', () => {
-        const { user, errors, success, hasToken } = ConnectedUserSettings.defaultProps;
+        const { user, errors, updated, success, hasToken, updateUser } = ConnectedUserSettings.defaultProps;
         expect(user).toEqual({});
         expect(errors).toEqual({});
         expect(success).toEqual(false);
+        expect(updated).toEqual(false)
         expect(hasToken('f')).toEqual('f');
+        expect(updateUser('f')).toEqual('f')
       });
     });
 
