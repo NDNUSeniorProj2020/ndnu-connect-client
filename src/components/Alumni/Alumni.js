@@ -54,7 +54,7 @@ export function ConnectedAlumniPage({ alumni, success, fetchAlumni }) {
   }, [fetchAlumni, setIsLoading]);
 
   if (success && !isLoading && alumni.length > 0)
-    return <Table columns={columns} dataSource={alumni} />;
+    return <div style={{margin: '25px 35px 35px 35px'}}><Table bordered columns={columns} dataSource={alumni} /></div>;
 
   if ((!success && !isLoading) || alumni.length === 0)
     return <p>No alumni found.</p>
