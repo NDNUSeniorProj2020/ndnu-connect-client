@@ -6,7 +6,7 @@ import {
 	FETCH_ALL_TUTORS_SUCCESS,
 	FETCH_ALL_TUTORS_FAILURE
 } from "../../constants/tutor/actionTypes";
-import { fetchTutorsSuccess, fetchTutorsFailure, fetchTutors } from "./tutorActions";
+import { fetchTutors } from "./tutorActions";
 import { url } from '../../api';
 
 const tutors = [
@@ -24,7 +24,9 @@ const tutors = [
 	}
 ];
 const errors = {
-	err: ['Failed to fetch tutors.']
+	errors: {
+    err: ['Failed to fetch tutors.']
+  }
 };
 
 describe('tests for tutor actions', () => {
@@ -40,24 +42,26 @@ describe('tests for tutor actions', () => {
 	});
 
 	describe('tests for fetching all tutors actions', () => {
-		it('calls fetchTutorsSuccess and returns all tutors', () => {
-			const data = tutors;
-			expect(fetchTutorsSuccess(data)).toEqual({ type: FETCH_ALL_TUTORS_SUCCESS, payload: { tutors: [...data] } });
-		});
-
-		it('calls fetchTutorsFailure and returns errors with type FETCH_TUTORS_FAILURE', () => {
-			expect(fetchTutorsFailure(errors)).toEqual({ type: FETCH_ALL_TUTORS_FAILURE, payload: { errors } });
-		});
-
 		it('fetches all tutors', async () => {
 			httpMock.onGet(`${url}/api/tutor/`).reply(200, tutors);
 
-			fetchTutors('someRandomToken')(store.dispatch);
+			fetchTutors()(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
 				{ type: FETCH_ALL_TUTORS_SUCCESS, payload: { tutors: [...tutors] } }
 			]);
-		});
+    });
+
+    it('throws error if fetch all tutors fails', async () => {
+      httpMock.onGet(`${url}/api/tutor/`).reply(500, errors);
+
+      fetchTutors()(store.dispatch);
+			await flushAllPromises();
+
+			expect(store.getActions()).toEqual([
+				{ type: FETCH_ALL_TUTORS_FAILURE, payload: { errors: { msg: errors.errors.err[0] } } }
+			]);
+    });
 	});
 });

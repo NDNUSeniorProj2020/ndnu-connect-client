@@ -9,7 +9,7 @@ import {
 	HAS_TOKEN_FAILURE
 } from "../../constants/actionTypes";
 
-export const initialState = { user: {}, loggedIn: false };
+export const initialState = { user: {}, loggedIn: false, errors: {} };
 
 export default function authReducer(state = initialState, action) {
 	switch(action.type) {

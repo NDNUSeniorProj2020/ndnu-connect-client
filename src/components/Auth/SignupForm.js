@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Col, Row, Button } from 'antd';
+import { Form, Input, Col, Row, Button, message } from 'antd';
 import 'antd/dist/antd.css';
+
+import validatePhoneNumber from '../../assets/js/validatePhoneNubmer';
 
 const SignupForm = Form.create()(
   class extends Component {
@@ -16,8 +18,12 @@ const SignupForm = Form.create()(
       e.preventDefault();
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          const user = { user: { ...values } };
-          this.props.handleSignup(user);
+          if (validatePhoneNumber(values.phone_number)) {
+            const user = { user: { ...values } };
+            this.props.handleSignup(user);
+          } else {
+            message.error('Enter a phone number in the format of (XXX) XXX-XXXX, (XXX)XXX-XXXX, or XXX-XXX-XXXX.');
+          }
         }
       });
     };
@@ -104,7 +110,14 @@ const SignupForm = Form.create()(
               })(<Input />)}
             </Form.Item>
             <Form.Item label="Phone Number">
-              {getFieldDecorator('phone_number')(<Input style={{ width: '100%' }} />)}
+              {getFieldDecorator('phone_number', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please enter a valid phone number!'
+                  }
+                ]
+              })(<Input style={{ width: '100%' }} />)}
             </Form.Item>
             <Form.Item label="Password" hasFeedback>
               {getFieldDecorator('password', {

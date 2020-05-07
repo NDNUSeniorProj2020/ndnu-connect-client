@@ -21,7 +21,9 @@ export class ConnectedNavbar extends React.Component {
   render() {
     const avatarMenu = (
       <Menu>
-        <Menu.Item key="0" className="dropdown-spacing"><Icon type="setting" theme="filled" />Settings</Menu.Item>
+        <Menu.Item key="0" className="dropdown-spacing" onClick={() => this.props.history.push('/settings')}>
+          <Icon type="setting" theme="filled" />Settings
+        </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="1" className="dropdown-spacing" onClick={this.props.handleLogout}>
           <Icon type="logout" />Logout
@@ -32,7 +34,7 @@ export class ConnectedNavbar extends React.Component {
     return (
       <div id={'navbar'}>
         <Link to="/">
-          <img  src={logo} className="ndnu-logo" alt="NDNU Logo" />
+          <img src={logo} className="ndnu-logo" alt="NDNU Logo" />
         </Link>
 
         <Dropdown overlay={avatarMenu} trigger={['click']} className="avatar-dropdown-container">
@@ -55,11 +57,8 @@ export class ConnectedNavbar extends React.Component {
           <Menu.Item key="jobs" onClick={() => this.props.history.push('/jobs')}>
             Jobs | Internships
           </Menu.Item>
-            <Menu.Item key="alumni" onClick={() => this.props.history.push('/alumni')}>
-                Alumni
-            </Menu.Item>
-          <Menu.Item key="forum">
-            Open Forum
+          <Menu.Item key="alumni" onClick={() => this.props.history.push('/alumni')}>
+            Alumni
           </Menu.Item>
         </Menu>
       </div>

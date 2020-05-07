@@ -31,6 +31,7 @@ export default function JobListingForm({ job, submitJob }) {
           value={title}
           onChange={e => setTitle(e.target.value)}
           placeholder="Enter job title."
+          required
         />
       </Form.Item>
       <Form.Item label="Company Name" name="company">
@@ -40,6 +41,7 @@ export default function JobListingForm({ job, submitJob }) {
           value={company}
           onChange={e => setCompany(e.target.value)}
           placeholder="Enter company name."
+          required
         />
       </Form.Item>
       <Form.Item label="Loaction" name="location">
@@ -49,15 +51,17 @@ export default function JobListingForm({ job, submitJob }) {
           value={location}
           onChange={e => setLocation(e.target.value)}
           placeholder="Enter location."
+          required
         />
       </Form.Item>
-      <Form.Item label="Link" name="link">
+      <Form.Item label="Link (Must contain http:// or https://)" name="link">
         <Input
           id="link-input"
           style={styles}
           value={link}
           onChange={e => setLink(e.target.value)}
           placeholder="Enter link to apply."
+          required
         />
       </Form.Item>
       <Form.Item label="Description" name="description">

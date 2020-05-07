@@ -1,17 +1,27 @@
 import React from "react";
-import { Avatar, Button, Card, Icon, Input, Modal, Radio, Tag, Typography, List } from "antd";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Avatar, Button, Card, Icon, Input, Modal, Radio, Tag, Typography, List, message } from "antd";
+
+import './TutorsPage.css';
 import AdvancedSearchModal from './AdvancedSearchModal';
 import ScheduleTutorForm from './ScheduleTutorForm';
 import TutorsList from './TutorsList';
 import StudentPreference from './StudentPreference';
-import './TutorsPage.css';
-
-import { getTutors } from '../../actions/tutor/tutorActions';
+import { fetchTutors } from '../../actions/tutor/tutorActions';
 
 const { Title } = Typography;
 const { Search } = Input;
 
-class TutorsPage extends React.Component {
+export class ConnectedTutorsPage extends React.Component {
+  static propTypes = {
+    tutors: PropTypes.array,
+    errors: PropTypes.object,
+    success: PropTypes.bool,
+    fetchTutors: PropTypes.func
+  };
+  static defaultProps = { tutors: [], errors: {}, success: false, fetchTutors: f => f };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,9 +32,11 @@ class TutorsPage extends React.Component {
       showDetails: false,
       selected: null
     };
-
-    this.loadTutors();
   };
+
+  componentDidMount() {
+    this.props.fetchTutors();
+  }
 
   showDetails = (tutor) => {
     this.setState({ showDetails: true, selected: tutor });
@@ -54,23 +66,15 @@ class TutorsPage extends React.Component {
     this.setState({ listVisible: false });
   };
 
-  loadTutors = () => {
-    getTutors(localStorage.getItem('token'))
-      .then((res) => this.setState({ tutors: res }))
-      .catch((err) => {
-        console.error('err ', err);
-      });
-  }
-
   render() {
-    const { tutors } = this.state;
+    const { tutors, success, errors } = this.props;
 
     let tutorsValues = [];
 
-    if (tutors) {
+    if (tutors && success) {
       tutors.forEach((tutor, index) => {
         tutorsValues.push(
-          <Card className="top-tutors-card" key={index} onClick={() => this.showDetails(tutor)}>
+          <Card className="top-tutors-card" key={index} onClick={() => this.showDetails(tutor)} style={{marginBottom:10}}>
             <div key={index}>
               <List.Item>
                 <List.Item.Meta
@@ -121,6 +125,7 @@ class TutorsPage extends React.Component {
 
     return (
       <div>
+        { Object.keys(errors).length > 0 && errors.msg.length > 0 ? message.error(errors.msg, 10) : null }
         <div className="search-container">
           <div className="tutor-student-toggle">
             <Radio.Group defaultValue="student" buttonStyle="solid" size="large" onChange={this.handleToggleChange}>
@@ -138,7 +143,7 @@ class TutorsPage extends React.Component {
             className="search-box"
             onSearch={value => console.log(value)}
           />
-          <div style={{textAlign:'right'}}>
+          <div style={{ textAlign: 'right' }}>
             <Button className="avanced-search-button" onClick={this.showAdvancedSearch}>Advanced Search</Button>
           </div>
         </div>
@@ -164,15 +169,17 @@ class TutorsPage extends React.Component {
 
             <div className="subject-grid-container">
               <Card title="Browse by subject" className="subject-grid-card">
-                {subjects.map(subject => <Card.Grid key={subject} data={subject} onClick={this.showSubjectList} className="subject-grid">{subject}</Card.Grid>)}
+                {subjects.map(subject =>
+                  <Card.Grid key={subject} data={subject} onClick={this.showSubjectList} className="subject-grid">{subject}</Card.Grid>
+                )}
               </Card>
             </div>
 
             <div className="top-tutors-container">
               <Title level={3} className="top-tutors-title">
                 Top tutors
-            </Title>
-              {tutorsValues}
+              </Title>
+              {tutorsValues.length > 0 ? tutorsValues : <p>No tutors found.</p>}
             </div>
 
             <Modal
@@ -206,5 +213,12 @@ class TutorsPage extends React.Component {
     );
   }
 }
+
+const mapStateToProps = ({ tutorReducer }) => ({
+  tutors: tutorReducer.tutors,
+  success: tutorReducer.success,
+  errors: tutorReducer.errors
+});
+const TutorsPage = connect(mapStateToProps, { fetchTutors })(ConnectedTutorsPage);
 
 export default TutorsPage;
