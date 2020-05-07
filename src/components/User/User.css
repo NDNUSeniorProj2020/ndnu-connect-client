@@ -1,3 +1,8 @@
 .user-settings-form {
   max-width: 500px;
 }
+
+.user-settings-container {
+	padding-top: 25px;
+	padding-left: 30%;
+}
