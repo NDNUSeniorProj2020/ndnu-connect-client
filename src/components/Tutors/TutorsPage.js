@@ -74,7 +74,7 @@ export class ConnectedTutorsPage extends React.Component {
     if (tutors && success) {
       tutors.forEach((tutor, index) => {
         tutorsValues.push(
-          <Card className="top-tutors-card" key={index} onClick={() => this.showDetails(tutor)}>
+          <Card className="top-tutors-card" key={index} onClick={() => this.showDetails(tutor)} style={{marginBottom:10}}>
             <div key={index}>
               <List.Item>
                 <List.Item.Meta
@@ -143,7 +143,7 @@ export class ConnectedTutorsPage extends React.Component {
             className="search-box"
             onSearch={value => console.log(value)}
           />
-          <div style={{textAlign:'right'}}>
+          <div style={{ textAlign: 'right' }}>
             <Button className="avanced-search-button" onClick={this.showAdvancedSearch}>Advanced Search</Button>
           </div>
         </div>
@@ -169,7 +169,9 @@ export class ConnectedTutorsPage extends React.Component {
 
             <div className="subject-grid-container">
               <Card title="Browse by subject" className="subject-grid-card">
-                {subjects.map(subject => <Card.Grid key={subject} data={subject} onClick={this.showSubjectList} className="subject-grid">{subject}</Card.Grid>)}
+                {subjects.map(subject =>
+                  <Card.Grid key={subject} data={subject} onClick={this.showSubjectList} className="subject-grid">{subject}</Card.Grid>
+                )}
               </Card>
             </div>
 

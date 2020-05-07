@@ -2,7 +2,7 @@ import React from 'react';
 //import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 //import './index.css';
-import { Input, Upload,Select,Form, DatePicker, Button, Icon } from 'antd';
+import { Input, Upload, Select, Form, DatePicker, Button, Icon } from 'antd';
 
 const { RangePicker } = DatePicker;
 
@@ -79,12 +79,12 @@ const ScheduleTutorForm = () => {
     <Form name="time_related_controls" {...formItemLayout} onFinish={onFinish}>
 
       <Form.Item label="Subject">
-          <Select>
-            <Select.Option value="demo">Mathematics</Select.Option>
-            <Select.Option value="demo">Science</Select.Option>
-            <Select.Option value="demo">Comuputer Science</Select.Option>
-          </Select>
-        </Form.Item>
+        <Select>
+          <Select.Option value="demo">Mathematics</Select.Option>
+          <Select.Option value="demo">Science</Select.Option>
+          <Select.Option value="demo">Comuputer Science</Select.Option>
+        </Select>
+      </Form.Item>
 
       <Form.Item name="range-time-picker" label="Availiablity" {...rangeConfig}>
         <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
@@ -102,24 +102,21 @@ const ScheduleTutorForm = () => {
         }}
       >
 
-<Form.Item name={['Website']} label="Website">
-        <Input />
+        <Form.Item name={['Website']} label="Website">
+          <Input />
+        </Form.Item>
+
+        <Upload {...props}>
+          <Button>
+            <Icon type="upload" /> Click to Upload
+    </Button>
+        </Upload>
       </Form.Item>
 
-         <Upload {...props}>
-    <Button>
-      <Icon type="upload" /> Click to Upload
-    </Button>
-  </Upload>
-        </Form.Item>
-
-        <Form.Item label="Submission">
-          <Button>Submit</Button>
-        </Form.Item>
-      </Form>
-
-
-
+      <Form.Item label="Submission">
+        <Button>Submit</Button>
+      </Form.Item>
+    </Form>
   );
 };
 
