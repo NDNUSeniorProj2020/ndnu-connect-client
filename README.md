@@ -35,11 +35,13 @@ This repository contains the frontend for the project.
 
 ### Technologies Used
 
-  - <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" width=25> **Node.js** - We chose Node.js as it is built for easily building fast and scalable network applications.<br>
+  - <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLg6PWSRo3AcsKJvPdoKpKM-1S3XZ4ZrPmNlgFk8eIUu0cbiM6&usqp=CAU" width=25> **Jest.io** - We chose Jest.io due to its a focus on simplicity. It is used as a JavaScript Testing Framework.<br>
 
 - <img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png" width=25> **React** - We chose react as it allows for creation of interactive user interfaces.React is a JavaScript library for building user interfaces.<br> 
 
-- <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Npm-logo.svg" width=25> **npm** - We used npm as it allowed for easy management of packages that are required. It is also the default package manager for the JavaScript runtime environment Node.js, mentioned above.<br><br>
+- <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Npm-logo.svg" width=25> **npm** - We used npm as it allowed for easy management of packages that are required. It is also the default package manager for the JavaScript runtime environment Node.js, mentioned above.<br>
+
+- **Enzyme** We chose enzyme is a JavaScript Testing utility for React that makes it easier to test your React Components' output. You can also manipulate, traverse, and in some ways simulate runtime given the output.
 
 
 ## Setup
