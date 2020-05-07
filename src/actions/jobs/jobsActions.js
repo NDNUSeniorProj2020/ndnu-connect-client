@@ -10,6 +10,7 @@ import {
   UPDATE_JOB_FAILURE
 } from '../../constants/jobs/actionTypes';
 import createAuthHeader from '../../assets/js/createAuthHeader';
+import createError from '../../assets/js/createError';
 
 // Fetch all jobs actions
 export function fetchJobsSuccess(data) {
@@ -19,21 +20,27 @@ export function fetchJobsSuccess(data) {
 	};
 }
 
-export function fetchJobsFailure(errors) {
+export function fetchJobsFailure(errs) {
+  console.error(errs);
+  const defaultErr = ['Sorry, could not fetch jobs. Sorry for the inconvenience.'];
+  const errors = errs.response ? errs.response.data.errors : { err: [...defaultErr] };
+  let msg = createError(errors);
+
 	return {
 		type: FETCH_ALL_JOBS_FAILURE,
-		payload: { errors }
+		payload: { errors: { msg } }
 	};
 }
 
-export function fetchJobs(token) {
+export function fetchJobs() {
 	return (dispatch) => {
+    const token = localStorage.getItem('token');
 		const headers = createAuthHeader(token);
 
 		return api().get('/api/job/', { headers })
 			.then(res => res.data)
 			.then(data => dispatch(fetchJobsSuccess(data)))
-			.catch(errors => dispatch(fetchJobsFailure(errors.response.data)));
+			.catch(errors => dispatch(fetchJobsFailure(errors)));
 	};
 }
 
@@ -45,21 +52,26 @@ export function fetchJobSuccess(data) {
   };
 }
 
-export function fetchJobFailure(errors) {
+export function fetchJobFailure(errs) {
+  console.error(errs);
+  const defaultErr = ['Sorry, could not fetch jobs. Sorry for the inconvenience.'];
+  const errors = errs.response ? errs.response.data.errors : { err: [...defaultErr] };
+  let msg = createError(errors);
+
   return {
     type: FETCH_SINGLE_JOB_FAILURE,
-    payload: { errors }
+    payload: { errors: { msg } }
   };
 }
 
-export function fetchJob(token, jobId) {
+export function fetchJob(jobId) {
   return (dispatch) => {
-    const headers = createAuthHeader(token);
+    const headers = createAuthHeader(localStorage.getItem('token'));
 
     return api().get(`/api/job/${jobId}/retrieve/`, { headers })
       .then(res => res.data)
       .then(data => dispatch(fetchJobSuccess(data)))
-      .catch(errors => dispatch(fetchJobFailure(errors.response.data)));
+      .catch(errors => dispatch(fetchJobFailure(errors)));
   };
 }
 
@@ -68,20 +80,25 @@ export function createJobSuccess() {
   return { type: SAVE_JOB_SUCCESS };
 }
 
-export function createJobFailure(errors) {
+export function createJobFailure(errs) {
+  console.error(errs);
+  const defaultErr = ['Sorry, could not create job listing. Sorry for the inconvenience.'];
+  const errors = errs.response ? errs.response.data.errors : { err: [...defaultErr] };
+  let msg = createError(errors);
+
   return {
     type: SAVE_JOB_FAILURE,
-    payload: { errors }
+    payload: { errors: { msg } }
   };
 }
 
-export function createJob(token, job, userId) {
+export function createJob(job, userId) {
   return (dispatch) => {
-    const headers = createAuthHeader(token);
+    const headers = createAuthHeader(localStorage.getItem('token'));
 
     return api().post('/api/job/', { ...job, user: userId }, { headers })
       .then(() => dispatch(createJobSuccess()))
-      .catch(errors => dispatch(createJobFailure(errors.response.data)));
+      .catch(errors => dispatch(createJobFailure(errors)));
   };
 }
 
@@ -90,20 +107,24 @@ export function updateJobSuccess() {
   return { type: UPDATE_JOB_SUCCESS };
 }
 
-export function updateJobFailure(errors) {
-  console.error(errors);
+export function updateJobFailure(errs ) {
+  console.error(errs);
+  const defaultErr = ['Sorry, could not update job listing. Sorry for the inconvenience.'];
+  const errors = errs.response ? errs.response.data.errors : { err: [...defaultErr] };
+  let msg = createError(errors);
+
   return {
     type: UPDATE_JOB_FAILURE,
-    payload: { errors }
+    payload: { errors: { msg } }
   };
 }
 
-export function updateJob(token, job) {
+export function updateJob(job) {
   return (dispatch) => {
-    const headers = createAuthHeader(token);
+    const headers = createAuthHeader(localStorage.getItem('token'));
 
     return api().put(`/api/job/${job.id}/update/`, { ...job }, { headers })
       .then(() => dispatch(updateJobSuccess()))
-      .catch(errors => dispatch(updateJobFailure(errors.response.data)));
+      .catch(errors => dispatch(updateJobFailure(errors)));
   };
 }

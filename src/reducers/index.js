@@ -8,6 +8,7 @@ import studentReducer from './student/studentReducer';
 import tutorReducer from './tutor/tutorReducer';
 import subjectReducer from './subject/subjectReducer';
 import boardReducer from './board/boardReducer';
+import userReducer from './users/userReducer';
 
 export default combineReducers({
   alumniReducer,
@@ -17,5 +18,6 @@ export default combineReducers({
 	studentReducer,
 	tutorReducer,
 	subjectReducer,
-	boardReducer
+  boardReducer,
+  userReducer
 });

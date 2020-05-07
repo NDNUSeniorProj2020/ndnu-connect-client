@@ -23,7 +23,9 @@ const userRes = {
   token: 'someRandomToken'
 };
 const errors = {
-  error: ['Cannot complete.']
+  errors: {
+    err: ['Cannot complete.']
+  }
 };
 
 describe('testing authentication actions', () => {
@@ -63,7 +65,7 @@ describe('testing authentication actions', () => {
       await flushAllPromises();
 
       expect(store.getActions()).toEqual([
-        { payload: { errors: { ...errors} }, type: LOGIN_FAILURE }
+        { payload: { errors: { msg: errors.errors.err[0] } }, type: LOGIN_FAILURE }
       ]);
     });
 	});
@@ -96,7 +98,7 @@ describe('testing authentication actions', () => {
       await flushAllPromises();
 
       expect(store.getActions()).toEqual([
-				{ payload: { errors: { ...errors } }, type: REGISTRATION_FAILURE }
+				{ payload: { errors: { msg: errors.errors.err[0] } }, type: REGISTRATION_FAILURE }
 			]);
     });
 	});
@@ -116,7 +118,7 @@ describe('testing authentication actions', () => {
 		it('should return an authenticated user if a token is passed from localStorage', async () => {
 			httpMock.onGet(`${url}/accounts/current_user/`).reply(200, { ...userRes });
 
-			hasToken('someRandomToken')(store.dispatch);
+			hasToken()(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
@@ -127,11 +129,11 @@ describe('testing authentication actions', () => {
     it('throws errors if user cannot be fetched', async () => {
       httpMock.onGet(`${url}/accounts/current_user/`).reply(500, errors);
 
-      hasToken('someRandomToken')(store.dispatch);
+      hasToken()(store.dispatch);
 			await flushAllPromises();
 
 			expect(store.getActions()).toEqual([
-				{ payload: { errors: { ...errors } }, type: HAS_TOKEN_FAILURE }
+				{ payload: { errors: { msg: errors.errors.err[0] } }, type: HAS_TOKEN_FAILURE }
 			]);
     });
 	});

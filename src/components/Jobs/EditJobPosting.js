@@ -7,23 +7,15 @@ import { message } from 'antd';
 import { fetchJob, updateJob } from '../../actions/jobs/jobsActions';
 import JobListingForm from './JobListingForm';
 
-export function ConnectedEditJobListing({ job, success, updated, fetchJob, updateJob }) {
+export function ConnectedEditJobListing({ job, errors, success, updated, fetchJob, updateJob }) {
   useEffect(() => {
     const id = window.location.pathname.replace('/jobs/edit/', '');
-    const token = localStorage.getItem('token');
-
-    fetchJob(token, id);
+    fetchJob(id);
   }, [fetchJob]);
 
   const editJob = async (editedJob) => {
     const updatedJob = Object.assign({}, job, editedJob)
-
-    try {
-      await updateJob(localStorage.getItem('token'), updatedJob);
-    } catch (err) {
-      console.error(err);
-      message.error('Cannot update job listing. Sorry for the inconvenience. Please try again.', 60);
-    }
+    updateJob(updatedJob);
   };
 
   if (updated)
@@ -32,6 +24,7 @@ export function ConnectedEditJobListing({ job, success, updated, fetchJob, updat
   if (success && Object.keys(job).length > 0)
     return (
       <div>
+        { Object.keys(errors).length > 0 && errors.msg.length > 0 ? message.error(errors.msg, 10) : null }
         <header>
           <h1>Edit Job Listing</h1>
         </header>
@@ -44,6 +37,7 @@ export function ConnectedEditJobListing({ job, success, updated, fetchJob, updat
 
 ConnectedEditJobListing.propTypes = {
   job: PropTypes.object,
+  errors: PropTypes.object,
   success: PropTypes.bool,
   updated: PropTypes.bool,
   updateJob: PropTypes.func,
@@ -51,6 +45,7 @@ ConnectedEditJobListing.propTypes = {
 };
 ConnectedEditJobListing.defaultProps = {
   job: {},
+  errors: {},
   success: false,
   updated: false,
   updateJob: f => f,
@@ -60,7 +55,8 @@ ConnectedEditJobListing.defaultProps = {
 const mapStateToProps = ({ jobsReducer }) => ({
   job: jobsReducer.job,
   success: jobsReducer.success,
-  updated: jobsReducer.updated
+  updated: jobsReducer.updated,
+  errors: jobsReducer.errors
 });
 const EditJobListing = connect(mapStateToProps, { fetchJob, updateJob })(ConnectedEditJobListing);
 

@@ -4,6 +4,7 @@ import {
 } from '../../constants/tutor/actionTypes';
 import api from '../../api';
 import createAuthHeader from '../../assets/js/createAuthHeader';
+import createError from '../../assets/js/createError';
 
 // Fetch all tutors actions
 export function fetchTutorsSuccess(data) {
@@ -13,15 +14,21 @@ export function fetchTutorsSuccess(data) {
 	};
 }
 
-export function fetchTutorsFailure(errors) {
+export function fetchTutorsFailure(errs) {
+  console.error(errs);
+  const defaultErr = ['Sorry, could not update job listing. Sorry for the inconvenience.'];
+  const errors = errs.response ? errs.response.data.errors : { err: [...defaultErr] };
+  let msg = createError(errors);
+
 	return {
 		type: FETCH_ALL_TUTORS_FAILURE,
-		payload: { errors }
+		payload: { errors: { msg } }
 	};
 }
 
-export function fetchTutors(token) {
+export function fetchTutors() {
 	return (dispatch) => {
+    const token = localStorage.getItem('token');
 		const headers = createAuthHeader(token);
 
 		return api().get('/api/tutor/', { headers })
@@ -29,13 +36,4 @@ export function fetchTutors(token) {
 			.then(data => dispatch(fetchTutorsSuccess(data)))
 			.catch(errors => dispatch(fetchTutorsFailure(errors)));
 	};
-}
-
-export function getTutors(token) {
-	return new Promise((resolve, reject) => {
-		const headers = createAuthHeader(token);
-		return api().get('/api/tutor/', { headers })
-			.then((res) => { resolve(res.data); })
-			.catch(errors => reject(errors));
-	});
 }

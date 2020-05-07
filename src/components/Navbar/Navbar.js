@@ -21,7 +21,9 @@ export class ConnectedNavbar extends React.Component {
   render() {
     const avatarMenu = (
       <Menu>
-        <Menu.Item key="0" className="dropdown-spacing"><Icon type="setting" theme="filled" />Settings</Menu.Item>
+        <Menu.Item key="0" className="dropdown-spacing" onClick={() => this.props.history.push('/settings')}>
+          <Icon type="setting" theme="filled" />Settings
+        </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="1" className="dropdown-spacing" onClick={this.props.handleLogout}>
           <Icon type="logout" />Logout
@@ -56,10 +58,7 @@ export class ConnectedNavbar extends React.Component {
             Jobs | Internships
           </Menu.Item>
           <Menu.Item key="alumni" onClick={() => this.props.history.push('/alumni')}>
-            Alumin
-            </Menu.Item>
-          <Menu.Item key="forum">
-            Open Forum
+            Alumni
           </Menu.Item>
         </Menu>
       </div>
