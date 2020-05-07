@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { ConnectedUserSettings } from '../UserSettings';
+import UserSettingsForm from '../UserSettingsForm';
 
 const user = {
   "id": 1,
@@ -17,6 +18,18 @@ const user = {
   "job_title": "Software Engineer",
   "about": null
 };
+const userReq = {
+  "email": "JeffWorker@gmail.com",
+  "first_name": "John",
+  "last_name": "Worker",
+  "phone_number": "555-555-5555",
+  "graduated": true,
+  "year_graduated": 2017,
+  "major": "Computer Science",
+  "company": "Google Inc.",
+  "job_title": "Software Engineer",
+  "about": null
+}
 const errors = {
   msg: 'Failed.'
 };
@@ -50,7 +63,7 @@ describe('tests for UserSettings components', () => {
 
       beforeEach(() => {
         useEffect = jest.spyOn(React, 'useEffect').mockImplementation(f => f());
-        props = { hasToken: jest.fn().mockResolvedValue(user) }
+        props = { hasToken: jest.fn().mockResolvedValue(user), updateUser: jest.fn().mockRejectedValue(user) };
         wrapper = mount(<ConnectedUserSettings {...props} />)
       });
 
@@ -63,6 +76,16 @@ describe('tests for UserSettings components', () => {
       it('throws an error if something fails', () => {
         // If errors are present, an error popup message will be rendered
         mount(<ConnectedUserSettings {...props} errors={errors} />);
+      });
+
+      it('throws success message when user is successfully updated', () => {
+        mount(<ConnectedUserSettings {...props} updated={true} />);
+      });
+
+      it('calls updateUser function when user submits form', () => {
+        const wrapper = mount(<ConnectedUserSettings {...props} />);
+        wrapper.find(UserSettingsForm).props().updateUser(userReq);
+        expect(props.updateUser).toHaveBeenCalled();
       });
     });
   });
