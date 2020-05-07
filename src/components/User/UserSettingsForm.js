@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Select, Button } from 'antd';
+import { Form, Input, Select, Button, message } from 'antd';
+
+import validatePhoneNumber from '../../assets/js/validatePhoneNubmer';
 
 const { TextArea } = Input;
 const { Option } = Select;
+
+// Set variables related to year_graduated
 const now = new Date().getFullYear();
 const years = Array(now - (now - 101)).fill('').map((v, i) => now - i);
 
 export function WrappedUserSettingsForm({ form, user, updateUser }) {
-  const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = form;
+  const { getFieldDecorator, validateFieldsAndScroll } = form;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        if (validatePhoneNumber(values.phone_number)) {
+          const user = { user: { ...values } };
+          updateUser(user)
+        } else {
+          message.error('Enter a phone number in the format of (XXX) XXX-XXXX, (XXX)XXX-XXXX, or XXX-XXX-XXXX.');
+        }
+      }
+    });
+  };
 
   return (
-    <Form className="user-settings-form">
+    <Form onSubmit={handleSubmit} className="user-settings-form">
       <Form.Item label="First Name">
         {getFieldDecorator('first_name', {
           initialValue: user.first_name,
@@ -53,7 +71,8 @@ export function WrappedUserSettingsForm({ form, user, updateUser }) {
           initialValue: user.year_graduated
         })(
           <Select placeholder="Year you graduated.">
-            {years.map(year => <Option value={year}>{year}</Option>)}
+            <Option value={''}>Still Attending</Option>
+            {years.map(year => <Option key={year} value={year}>{year}</Option>)}
           </Select>
         )}
       </Form.Item>
@@ -89,7 +108,7 @@ WrappedUserSettingsForm.defaultProps = {
     last_name: '',
     phone_number: '',
     graduated: false,
-    year_graduated: now,
+    year_graduated: '',
     major: '',
     company: '',
     job_title: '',

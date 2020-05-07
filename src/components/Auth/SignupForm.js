@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Form, Input, Col, Row, Button, message } from 'antd';
 import 'antd/dist/antd.css';
 
+import validatePhoneNumber from '../../assets/js/validatePhoneNubmer';
+
 const SignupForm = Form.create()(
   class extends Component {
     constructor(props){
@@ -16,7 +18,7 @@ const SignupForm = Form.create()(
       e.preventDefault();
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          if (this.validatePhoneNumber(values.phone_number)) {
+          if (validatePhoneNumber(values.phone_number)) {
             const user = { user: { ...values } };
             this.props.handleSignup(user);
           } else {
@@ -29,11 +31,6 @@ const SignupForm = Form.create()(
     handleConfirmBlur = e => {
       const { value } = e.target;
       this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    };
-
-    validatePhoneNumber = (value) => {
-      const phoneNumRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-      return value.match(phoneNumRegex);
     };
 
     compareToFirstPassword = (rule, value, callback) => {
