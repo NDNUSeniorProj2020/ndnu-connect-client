@@ -19,8 +19,10 @@ export function ConnectedUserSettings({ user, errors, updated, success, hasToken
     <div>
       { updated ? message.success('Successfully updated your account!', 10) : null }
       { Object.keys(errors).length > 0 && errors.msg.length > 0 ? message.error(errors.msg, 10) : null }
-      <h1>Settings</h1>
-      <UserSettingsForm user={user} updateUser={update} />
+      <div className="user-settings-container">
+        <h1>Settings</h1>
+        <UserSettingsForm user={user} updateUser={update} />
+      </div>
     </div>
   );
 }
